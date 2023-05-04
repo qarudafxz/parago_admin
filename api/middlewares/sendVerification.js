@@ -2,6 +2,8 @@ import nodemailer from "nodemailer";
 
 export const sendVerification = async (name, email, userID, token) => {
 	try {
+		//transporter is a boilerplate or setup for sending emails
+		//parameters include service, host, port, secure, auth
 		const transporter = nodemailer.createTransport({
 			service: "gmail",
 			host: "smtp.gmail.com",
@@ -9,10 +11,13 @@ export const sendVerification = async (name, email, userID, token) => {
 			secure: true,
 			auth: {
 				user: process.env.PARAGO_EMAIL,
+				//password must be a generated APP password for verification
+				//since less secure app is deprecated
 				pass: process.env.PARAGO_PASSWORD,
 			},
 		});
 
+		//boilerplate for message
 		const message = {
 			from: process.env.PARAGO_EMAIL,
 			to: email,
@@ -22,6 +27,7 @@ export const sendVerification = async (name, email, userID, token) => {
 			date: new Date(),
 		};
 
+		//function to send the email using sendEmail method with parameters: message, callback
 		await transporter.sendMail(message, (error, info) => {
 			if (error) {
 				console.log(error);
