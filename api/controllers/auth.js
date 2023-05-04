@@ -47,6 +47,7 @@ export const register = async (req, res) => {
 			console.log("Error registering admin to database");
 		}
 
+		res.cookie("token", TOKEN.token, { httpOnly: true });
 		return res
 			.status(201)
 			.json({ message: "Admin successfully created!", newAdmin, token });
@@ -71,6 +72,7 @@ export const verify = async (req, res) => {
 
 		await Admin.updateOne({ _id: req.params.id }, { isVerified: true });
 		await token.remove();
+		return res.status(200).json({ message: "Account verified!" });
 	} catch (err) {
 		console.log(err);
 		return res.status(400).json({ message: "Error while verifying admin" });
