@@ -22,8 +22,8 @@ export const sendVerification = async (name, email, userID, token) => {
 			from: process.env.PARAGO_EMAIL,
 			to: email,
 			subject: "Parago Admin Account Verification",
-			text: `Hello ${name}, please click the link below to verify your account: ${process.env.CLIENT_URL}/verify?id=${userID}/${token}}`,
-			html: `<p>Hello ${name}, please click the link below to verify your account: ${process.env.CLIENT_URL}/verify?id=${userID}/${token}</p>`,
+			text: `Hello ${name}, please click the link below to verify your account: ${process.env.CLIENT_URL}/users/${userID}/verify/$${token}}`,
+			html: `<p>Hello ${name}, please click the link below to verify your account: ${process.env.CLIENT_URL}/users/${userID}/verify/$${token}</p>`,
 			date: new Date(),
 		};
 

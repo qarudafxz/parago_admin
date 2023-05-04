@@ -1,8 +1,10 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from "uuid";
 
 import { sendVerification } from "../middlewares/sendVerification.js";
 import { Admin } from "../models/Admin.js";
+import { Token } from "../models/Token.js";
 
 export const register = async (req, res) => {
 	const { firstName, lastName, email, password } = req.body;
@@ -32,8 +34,15 @@ export const register = async (req, res) => {
 			expiresIn: "1d",
 		});
 
+		const TOKEN = new Token({
+			userId: newAdmin._id,
+			token: uuidv4(),
+		});
+
+		await TOKEN.save();
+
 		if (isUserSave) {
-			await sendVerification(firstName, email, newAdmin._id, token);
+			await sendVerification(firstName, email, newAdmin._id, TOKEN.token);
 		} else {
 			console.log("Error registering admin to database");
 		}
@@ -49,9 +58,21 @@ export const register = async (req, res) => {
 
 export const verify = async (req, res) => {
 	try {
-		const admin = await Admin.findOne({ _id: req.params.id });
+		const admin = await Admin.findOne({ _id: req.query.id });
 		if (!admin) return res.status(401).json({ message: "Invalid link" });
 
+		const token = await Token.findOne({
+			userId: admin._id,
+			token: req.query.token,
+		});
+
+		if (!token)
+			return res.status(401).json({ message: "Invalid link or expired" });
+
 		await Admin.updateOne({ _id: req.params.id }, { isVerified: true });
-	} catch (err) {}
+		await token.remove();
+	} catch (err) {
+		console.log(err);
+		return res.status(400).json({ message: "Error while verifying admin" });
+	}
 };
