@@ -4,6 +4,7 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 
 import { connect } from "./database/connect.js";
+import { authRouter } from "./routes/auth.js";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use(
 app.use(morgan("tiny"));
 app.disable("x-powered-by");
 
+app.use("/api/auth", authRouter);
 try {
 	connect();
 } catch (err) {
