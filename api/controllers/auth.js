@@ -80,3 +80,25 @@ export const verify = async (req, res) => {
 		return res.status(400).json({ message: "Error while verifying admin" });
 	}
 };
+
+export const resendVerification = async (req) => {
+	try {
+		const admin = await Admin.findOne({ email: req.body.email });
+		if (!admin)
+			return res.status(401).json({ message: "Admin does not exist" });
+
+		if (admin.isVerified)
+			return res.status(401).json({ message: "Admin already verified" });
+
+		await sendVerification(
+			admin.firstName,
+			admin.email,
+			admin._id,
+			admin.token
+		);
+
+		return res.status(200).json({ message: "Verification link sent" });
+	} catch (err) {
+		return res.status(401).json({ message: "Internal server error" });
+	}
+};
