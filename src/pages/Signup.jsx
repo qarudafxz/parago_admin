@@ -55,7 +55,11 @@ function Home() {
 					password,
 				}),
 			}).then((res) => {
-				console.log(res.data);
+				if (res.status === 401) {
+					setIsValid(false);
+					setMessage("User already exists");
+					return;
+				}
 			});
 		} catch (err) {
 			console.err(err);
@@ -102,7 +106,7 @@ function Home() {
 	}, [message]);
 
 	return (
-		<div className='font-primary flex flex-row'>
+		<div className='font-primary flex flex-row lg:grid grid-cols-2'>
 			<div className='flex flex-col'>
 				<div className='bg-primary'>
 					<SignupImage />
