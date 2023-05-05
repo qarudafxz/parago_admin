@@ -1,5 +1,5 @@
 export const buildUrl = (path) => {
-	const PORT = process.env.PORT || 4000;
+	const PORT = 3001;
 	return import.meta.env.DEV
 		? `http://localhost:${PORT}/api${path}`
 		: `/api${path}`;
