@@ -72,6 +72,7 @@ export const verify = async (req, res) => {
 
 		await Admin.updateOne({ _id: req.params.id }, { isVerified: true });
 		await token.remove();
+
 		return res.status(200).json({ message: "Account verified!" });
 	} catch (err) {
 		console.log(err);
