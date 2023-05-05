@@ -6,14 +6,14 @@ export default {
 			screens: {
 				xxxs: "285px",
 				xxs: "320px",
+				lg: "1440px",
 			},
 			colors: {
-				primary: "0043DC",
-				secondary: "FF7900",
+				primary: "#0043DC",
+				secondary: "#FF7900",
 			},
-			backgroundColor: {
-				primary: "0043DC",
-				secondary: "FF7900",
+			textColor: {
+				gray: "#656565",
 			},
 			fontFamily: {
 				primary: ["Poppins", "sans-serif"],

@@ -43,6 +43,7 @@ export const register = async (req, res) => {
 
 		if (isUserSave) {
 			await sendVerification(firstName, email, newAdmin._id, TOKEN.token);
+			await res.redirect("/verify");
 		} else {
 			console.log("Error registering admin to database");
 		}
