@@ -75,7 +75,7 @@ function Home() {
 				} else {
 					setProgress(100);
 					setTimeout(() => {
-						navigate(`/verify/${email}}`);
+						navigate("/verify");
 					}, 2000);
 				}
 			});
