@@ -43,7 +43,6 @@ export const register = async (req, res) => {
 
 		if (isUserSave) {
 			await sendVerification(firstName, email, newAdmin._id, TOKEN.token);
-			await res.redirect("/verify");
 		} else {
 			console.log("Error registering admin to database");
 		}
@@ -53,7 +52,7 @@ export const register = async (req, res) => {
 			.status(201)
 			.json({ message: "Admin successfully created!", newAdmin, token });
 	} catch (error) {
-		console.err(error);
+		console.error(error);
 		return res.status(400).json({ message: "Error while registering admin" });
 	}
 };

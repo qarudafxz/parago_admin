@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { ReactComponent as SignupImage } from "../assets/bg_for_signup.svg";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { buildUrl } from "../utils/buildUrl.js";
 import pg_admin_img from "../assets/parago_admin.png";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import TopLoadingBar from "react-top-loading-bar";
 
 function Home() {
+	const navigate = useNavigate();
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
@@ -14,31 +17,41 @@ function Home() {
 	const [message, setMessage] = useState("");
 	const [isVisible, setIsVisible] = useState(false);
 	const [isValid, setIsValid] = useState(true);
-
-	const handleGoogleLogin = async () => {
-		alert("Hello world");
-	};
+	const [progress, setProgress] = useState(0);
 
 	const registerUser = async (e) => {
 		e.preventDefault();
 
+		setProgress(30);
 		if (!email || !password) {
 			setIsValid(false);
 			setMessage("Please fill in all the fields");
+			setTimeout(() => {
+				setProgress(100);
+			}, 1000);
 			return;
 		}
 
 		if (password !== confirmPassword) {
 			setIsValid(false);
 			setMessage("Passwords do not match");
+			setTimeout(() => {
+				setProgress(100);
+			}, 1000);
 			return;
 		}
 
 		if (password.length < 8) {
 			setIsValid(false);
 			setMessage("Password must be at least 8 characters long");
+			setTimeout(() => {
+				setProgress(100);
+			}, 1000);
 			return;
 		} else {
+			setTimeout(() => {
+				setProgress(100);
+			}, 1000);
 			setIsValid(true);
 		}
 
@@ -59,43 +72,17 @@ function Home() {
 					setIsValid(false);
 					setMessage("User already exists");
 					return;
+				} else {
+					setProgress(100);
+					setTimeout(() => {
+						navigate(`/verify/${email}}`);
+					}, 2000);
 				}
 			});
 		} catch (err) {
 			console.err(err);
 		}
 	};
-
-	useEffect(() => {
-		google.accounts.id.initialize({
-			client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-			callback: handleGoogleLogin,
-		});
-
-		google.accounts.id.renderButton(document.getElementById("googleLogin"), {
-			theme: "outline",
-			size: "large",
-			text: "continue_with",
-			shape: "rectangular",
-			width: `${
-				window.innerWidth >= 275 && window.innerWidth <= 375
-					? 245
-					: window.innerWidth > 375 && window.innerWidth <= 425
-					? 250
-					: window.innerWidth > 425 && window.innerWidth <= 1024
-					? 295
-					: window.innerWidth > 1024 && window.innerWidth <= 1440
-					? 350
-					: window.innerWidth > 1440 && window.innerWidth <= 2560
-					? 400
-					: 450
-			}`,
-			height: "50",
-			longtitle: "true",
-			onsuccess: handleGoogleLogin,
-			onfailure: handleGoogleLogin,
-		});
-	}, []);
 
 	useEffect(() => {
 		if (message) {
@@ -107,9 +94,15 @@ function Home() {
 
 	return (
 		<div className='font-primary flex flex-row lg:grid grid-cols-2'>
+			<TopLoadingBar
+				color='#0043DC'
+				progress={progress}
+				height={10}
+				onLoaderFinished={() => setProgress(0)}
+			/>
 			<div className='flex flex-col'>
 				<div className='bg-primary'>
-					<SignupImage />
+					<SignupImage className='lg:w-full h-full' />
 				</div>
 				<div className='bg-secondary pl-10 py-10 flex flex-col gap-2'>
 					<img
@@ -127,7 +120,7 @@ function Home() {
 			</div>
 			<div className='bg-[#e7e7e7] w-full'>
 				<form
-					className='bg-white rounded-xl flex flex-col gap-3 w-9/12 p-8 m-auto mt-8 shadow-lg'
+					className='bg-white rounded-xl flex flex-col gap-3 w-9/12 p-8 m-auto mt-8 shadow-lg lg:mt-32 w-6/12'
 					onSubmit={registerUser}>
 					<img
 						src={pg_admin_img}

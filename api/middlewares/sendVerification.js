@@ -22,8 +22,34 @@ export const sendVerification = async (name, email, userID, token) => {
 			from: process.env.PARAGO_EMAIL,
 			to: email,
 			subject: "Parago Admin Account Verification",
-			text: `Hello ${name}, please click the link below to verify your account: ${process.env.CLIENT_URL}/users/${userID}/verify/$${token}}`,
-			html: `<p>Hello ${name}, please click the link below to verify your account: <br><br>${process.env.CLIENT_URL}/users/${userID}/verify/$${token}</p>`,
+			html: `
+					<table cellpadding="0" cellspacing="0" border="0" align="center" width="100%" height="100%" bgcolor="#F3F3F3">
+							<tr>
+									<td align="center">
+											<table cellpadding="0" cellspacing="0" border="0" align="center" width="600" style="background-color: #ffffff; border-collapse: collapse;">
+													<tr>
+															<td align="center" style="padding: 40px 0;">
+																	<img src="https://i.ibb.co/GdHL0Wt/PNGG.png" alt="Parago Logo" width="200" height="50">
+															</td>
+													</tr>
+													<tr>
+															<td align="center" style="padding: 20px 40px; font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 24px;">
+																	<h1 style="font-family: 'Poppins', sans-serif; font-weight: bold; font-size: 30px; margin: 0;">Dear ${name},</h1>
+																	<p style="font-size: 13px; margin-top: 20px;">Thank you for creating an account with Parago Admin. To complete your registration, please click the link below to verify your account:</p>
+																	<p style="background-color: #0043DC; padding: 10px 20px; margin-top: 30px; display: inline-block;">
+																			<a href="${process.env.CLIENT_URL}/users/${userID}/verify/${token}" style="color: #ffffff; font-size: 16px; text-decoration: none;">Verify my account</a>
+																	</p>
+																	<p style="font-size: 13px; margin-top: 30px;">If you did not create an account with Parago Admin, please disregard this email.</p>
+																	<p style="font-size: 13px; margin-top: 30px;">Thank you,</p>
+																	<p style="font-size: 13px;">The Parago Team</p>
+																	<p style="font-size: 12px; margin-top: 30px;"><i>This is an automated email. Please do not reply to this email.</i></p>
+															</td>
+													</tr>
+											</table>
+									</td>
+							</tr>
+					</table>
+			`,
 			date: new Date(),
 		};
 
