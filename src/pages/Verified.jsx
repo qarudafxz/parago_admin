@@ -107,7 +107,7 @@ function Verified() {
 							Didn’t receive the email? Please check your spam folder or try to
 							resend the email
 						</p>
-						<div className='flex flex-row gap-4 items-center justify-end mt-40 mr-20'>
+						<div className='flex flex-row gap-4 items-center mt-10'>
 							<button
 								className={`bg-primary py-2 px-4 rounded-md text-white hover:bg-[#0032a8] duration-200 ${
 									isClicked &&
@@ -116,13 +116,10 @@ function Verified() {
 								}`}
 								disabled={isClicked}
 								onClick={resendVerification}>
-								Resend Email
+								{isClicked && timer !== 0
+									? `Resend email in ${timer}s`
+									: "Resend email"}
 							</button>
-							{isClicked && timer != 0 && (
-								<p className='text-[#636363]'>
-									Resend in {timer > 0 ? `${timer} seconds` : `${timer} second`}
-								</p>
-							)}
 						</div>
 					</div>
 				</div>
