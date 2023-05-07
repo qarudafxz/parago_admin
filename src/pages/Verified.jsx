@@ -1,15 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import { buildUrl } from "../utils/buildUrl";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import TopLoadingBar from "react-top-loading-bar";
 
 import gray from "../assets/parago_gray.png";
 
-function Verified({ props }) {
+function Verified() {
+	const {
+		state: { email },
+	} = useLocation();
 	const [progress, setProgress] = useState(0);
+	const [timer, setTimer] = useState(30);
+	const [isClicked, setIsClicked] = useState(false);
+	const intervalRef = useRef(null);
+
+	const resendVerification = async () => {
+		setIsClicked(!isClicked);
+		intervalRef.current = setInterval(() => {
+			setTimer((timer) => timer - 1);
+		}, 1000);
+
+		try {
+			await fetch(buildUrl("/auth/resend-verification"), {
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("token")}`,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					email,
+				}),
+			}).then((res) => {
+				console.log(res);
+			});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	useEffect(() => {
 		setProgress(30);
 		setTimeout(setProgress(100), 2000);
 	}, []);
+
+	useEffect(() => {
+		if (timer <= 0) {
+			clearInterval(intervalRef.current);
+			setTimer(30);
+			setIsClicked(!isClicked);
+		}
+	}, [timer]);
 
 	return (
 		<div className='font-primary'>
@@ -60,16 +101,28 @@ function Verified({ props }) {
 						</h1>
 						<p>Your email</p>
 						<p className='border border-[#777777] w-7/12 rounded-md py-2 pl-4 text-[#BBBBBB]'>
-							franfra10j@gmail.com
+							{email}
 						</p>
 						<p className='text-[#777777]'>
 							Didn’t receive the email? Please check your spam folder or try to
 							resend the email
 						</p>
-						<div className='flex'>
-							<button className='bg-primary py-2 px-4 rounded-md text-white hover:bg-[#0032a8] duration-200'>
+						<div className='flex flex-row gap-4 items-center justify-end mt-40 mr-20'>
+							<button
+								className={`bg-primary py-2 px-4 rounded-md text-white hover:bg-[#0032a8] duration-200 ${
+									isClicked &&
+									timer != 0 &&
+									"bg-[#6b90e5] disabled:cursor-not-allowed"
+								}`}
+								disabled={isClicked}
+								onClick={resendVerification}>
 								Resend Email
 							</button>
+							{isClicked && timer != 0 && (
+								<p className='text-[#636363]'>
+									Resend in {timer > 0 ? `${timer} seconds` : `${timer} second`}
+								</p>
+							)}
 						</div>
 					</div>
 				</div>

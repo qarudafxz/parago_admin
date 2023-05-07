@@ -80,9 +80,10 @@ export const verify = async (req, res) => {
 	}
 };
 
-export const resendVerification = async (req) => {
+export const resendVerification = async (req, res) => {
 	try {
 		const admin = await Admin.findOne({ email: req.body.email });
+
 		if (!admin)
 			return res.status(401).json({ message: "Admin does not exist" });
 

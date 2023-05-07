@@ -74,9 +74,10 @@ function Home() {
 					return;
 				} else {
 					setProgress(100);
+					localStorage.setItem("token", res.headers.get("x-auth-token"));
 					setTimeout(() => {
-						navigate("/verify");
-					}, 2000);
+						navigate("/verify", { state: { email } });
+					}, 1000);
 				}
 			});
 		} catch (err) {
