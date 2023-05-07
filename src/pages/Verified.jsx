@@ -112,7 +112,7 @@ function Verified() {
 								className={`bg-primary py-2 px-4 rounded-md text-white hover:bg-[#0032a8] duration-200 ${
 									isClicked &&
 									timer != 0 &&
-									"bg-[#6b90e5] disabled:cursor-not-allowed"
+									"bg-[#6b90e5] disabled:cursor-not-allowed hover:bg-[#6b90e5]"
 								}`}
 								disabled={isClicked}
 								onClick={resendVerification}>

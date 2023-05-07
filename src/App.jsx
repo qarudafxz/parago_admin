@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Verify from "./pages/Verified";
+import isVerified from "./pages/isVerified";
 
 function App() {
 	return (
@@ -20,6 +21,10 @@ function App() {
 				<Route
 					path='/verify'
 					element={<Verify />}
+				/>
+				<Route
+					path='/users/:id/token/:token'
+					element={<isVerified />}
 				/>
 			</Routes>
 		</Router>
