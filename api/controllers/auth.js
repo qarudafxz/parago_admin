@@ -102,3 +102,47 @@ export const resendVerification = async (req, res) => {
 		return res.status(401).json({ message: "Internal server error" });
 	}
 };
+
+export const googleLogin = async (req, res) => {
+	try {
+		const admin = await Admin.findOne({ email: req.body.email });
+
+		if (!admin) {
+			const newAdmin = await Admin({});
+		}
+	} catch (err) {}
+};
+
+export const login = async (req, res) => {
+	const { email, password } = req.body;
+	try {
+		const admin = await Admin.findOne({ email });
+		if (!admin)
+			return res.status(401).json({ message: "Admin doesn't exist!" });
+
+		const isMatched = await bcrypt.compare(password, admin.password);
+
+		if (!isMatched)
+			return res.status(404).json({ message: "Email or password incorrect!" });
+
+		const payload = {
+			adminID: admin._id,
+		};
+
+		if (!admin.isVerified)
+			return res.status(404).json({
+				message: "Email not verified. Please verify your email first!",
+			});
+
+		const token = jwt.sign(payload, process.env.JWT_SECRET, {
+			expiresIn: 360000,
+		});
+
+		res.cookies("token", token, {
+			httpOnly: true,
+			expiresIn: 360000,
+		});
+
+		res.status(200).json({ admin, message: "Admin logged in successfully!" });
+	} catch (err) {}
+};

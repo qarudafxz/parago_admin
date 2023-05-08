@@ -6,6 +6,7 @@ export default {
 			screens: {
 				xxxs: "285px",
 				xxs: "320px",
+				md: "1020px",
 				lg: "1440px",
 			},
 			colors: {
@@ -13,6 +14,7 @@ export default {
 				secondary: "#FF7900",
 			},
 			textColor: {
+				secondary: "#FF7900",
 				gray: "#656565",
 			},
 			fontFamily: {
