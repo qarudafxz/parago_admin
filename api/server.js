@@ -25,6 +25,7 @@ app.use(morgan("tiny"));
 app.disable("x-powered-by");
 
 app.use("/api/auth", authRouter);
+
 try {
 	connect();
 } catch (err) {
