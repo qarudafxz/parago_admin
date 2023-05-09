@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+import Navbar from "../components/Navbar";
 
 function Dashboard() {
+	useEffect(() => {}, []);
 	return (
 		<div>
-			<h1>Hello world</h1>
+			<Navbar />
 		</div>
 	);
 }
