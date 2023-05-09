@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GrMapLocation } from "react-icons/gr";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { buildUrl } from "../utils/buildUrl";
@@ -12,6 +12,7 @@ import parago_admin from "../assets/parago_admin.png";
 import TopLoadingBar from "react-top-loading-bar";
 
 function Home() {
+	const navigate = useNavigate();
 	const [progress, setProgress] = useState(0);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -21,6 +22,7 @@ function Home() {
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
+		setProgress(30);
 		try {
 			await fetch(buildUrl("/auth/login"), {
 				method: "POST",
@@ -34,15 +36,20 @@ function Home() {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					if (data.status != 200) {
-						console.log(data);
+					if (data.status == 200) {
 						setMessage(data.message);
+						setProgress(100);
 						setIsValid(false);
+						console.log(data);
 						return;
 					}
-					{
-						console.log(data);
-					}
+					setProgress(100);
+					setIsValid(true);
+					localStorage.setItem("token", data.token);
+					localStorage.setItem("admin", JSON.stringify(data.user));
+					localStorage.setItem("isAuthenticated", true);
+					localStorage.setItem("name", data.user.firstName);
+					setTimeout(navigate("/dashboard"), 2000);
 				});
 		} catch (err) {
 			console.log(err);
@@ -75,7 +82,7 @@ function Home() {
 	}, []);
 
 	return (
-		<div className='flex flex-row font-primary'>
+		<div className='flex flex-row font-primary overflow-hidden'>
 			<div className='relative group w-6/12'>
 				<div className='absolute z-10 flex flex-col gap-8 top-52 left-10'>
 					<img
@@ -92,7 +99,7 @@ function Home() {
 					<div className='flex flex-row gap-6 items-center relative top-20 bg-white w-5/12 py-4 pl-6 rounded-full'>
 						<GrMapLocation
 							size={35}
-							className='text-secondary'
+							className='gr-icon'
 						/>
 						<p className='flex flex-col'>
 							<span className='font-bold text-2xl'>Enchanted River</span>
@@ -150,12 +157,12 @@ function Home() {
 					{isVisible ? (
 						<AiFillEyeInvisible
 							onClick={() => setIsVisible(false)}
-							className='absolute right-3 top-2 text-xl cursor-pointer text-[#b9b9b9] sm:top-3'
+							className='absolute right-3 top-2 text-xl cursor-pointer text-[#b9b9b9] sm:top-3 hover:bg-[#656565] rounded-full duration-200'
 						/>
 					) : (
 						<AiFillEye
 							onClick={() => setIsVisible(true)}
-							className='absolute right-3 top-2 text-xl cursor-pointer text-[#b9b9b9] sm:top-3'
+							className='absolute right-3 top-2 text-xl cursor-pointer text-[#b9b9b9] sm:top-3 hover:bg-[#656565] rounded-full duration-200'
 						/>
 					)}
 					<input

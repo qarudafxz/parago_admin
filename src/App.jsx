@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Verify from "./pages/Verified";
 import isVerified from "./pages/isVerified";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
 	return (
@@ -25,6 +26,10 @@ function App() {
 				<Route
 					path='/users/:id/token/:token'
 					element={<isVerified />}
+				/>
+				<Route
+					path='/dashboard'
+					element={<Dashboard />}
 				/>
 			</Routes>
 		</Router>

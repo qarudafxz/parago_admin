@@ -48,6 +48,7 @@ export const register = async (req, res) => {
 		}
 
 		res.cookie("token", TOKEN.token, { httpOnly: true });
+
 		return res
 			.status(201)
 			.json({ message: "Admin successfully created!", newAdmin, token });
@@ -103,13 +104,42 @@ export const resendVerification = async (req, res) => {
 	}
 };
 
+const createToken = async (payload) => {
+	return await jwt.sign(payload, process.env.JWT_SECRET, {
+		expiresIn: 360000,
+	});
+};
+
 export const googleLogin = async (req, res) => {
+	const { firstName, lastName, email, password } = req.body;
 	try {
-		const admin = await Admin.findOne({ email: req.body.email });
+		const admin = await Admin.findOne({ email });
 
 		if (!admin) {
-			const newAdmin = await Admin({});
+			const newAdmin = new Admin({
+				firstName,
+				lastName,
+				email,
+				password,
+				isValidated: true,
+			});
+
+			await newAdmin.save();
+
+			const payload = {
+				adminID: admin._id,
+			};
+
+			const token = createToken(payload);
+			return res
+				.status(200)
+				.json(token, admin, { message: "Admin successfully logged in" });
 		}
+
+		const TOKEN = createToken(payload);
+		return res
+			.status(200)
+			.json(token, admin, { message: "Admin successfully logged in" });
 	} catch (err) {}
 };
 
@@ -138,11 +168,13 @@ export const login = async (req, res) => {
 			expiresIn: 360000,
 		});
 
-		res.cookies("token", token, {
+		res.cookie("token", token, {
 			httpOnly: true,
 			expiresIn: 360000,
 		});
 
-		res.status(200).json({ admin, message: "Admin logged in successfully!" });
+		res
+			.status(200)
+			.json({ admin, message: "Admin logged in successfully!", Token });
 	} catch (err) {}
 };

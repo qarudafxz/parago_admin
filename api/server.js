@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 
 import { connect } from "./database/connect.js";
@@ -19,6 +20,7 @@ app.use(
 		credentials: true,
 	})
 );
+app.use(cookieParser());
 app.use(morgan("tiny"));
 app.disable("x-powered-by");
 
