@@ -7,6 +7,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.gr-icon {
-  color: #FF7900;
+body {
+  overflow:hidden;
 }

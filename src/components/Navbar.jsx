@@ -41,8 +41,8 @@ function Navbar() {
 		},
 	]);
 
-	const changeMenuBg = (id, event) => {
-		event.preventDefault();
+	const changeMenuBg = (id, e) => {
+		e.preventDefault();
 		const updatedMenu = menu.map((item) =>
 			item.id === id ? { ...item, active: true } : { ...item, active: false }
 		);
