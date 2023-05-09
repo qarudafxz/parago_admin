@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ReactComponent as SignupImage } from "../assets/bg_for_signup.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { buildUrl } from "../utils/buildUrl.js";
 import pg_admin_img from "../assets/parago_admin.png";
@@ -228,6 +228,14 @@ function Home() {
 						className='bg-primary py-2 rounded-md mt-10 text-white font-bold hover:bg-[#0032a8] duration-100'>
 						Sign Up
 					</button>
+					<p className='font-thin text-center mt-4'>
+						Already have an account?{" "}
+						<Link
+							to='/'
+							className='font-bold italic hover:text-primary duration-150'>
+							Log In
+						</Link>
+					</p>
 				</form>
 			</div>
 		</div>
