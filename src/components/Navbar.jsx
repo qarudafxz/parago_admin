@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";
 import { RiCalendarEventFill, RiLogoutBoxRLine } from "react-icons/ri";
@@ -9,6 +9,7 @@ import { MdAnalytics } from "react-icons/md";
 import Logo from "../assets/parago_admin.png";
 
 function Navbar() {
+	const navigate = useNavigate();
 	const [menu, setMenu] = useState([
 		{
 			id: 1,
@@ -48,6 +49,14 @@ function Navbar() {
 		setMenu(updatedMenu);
 	};
 
+	const handleLogout = () => {
+		localStorage.removeItem("token");
+		localStorage.removeItem("name");
+		localStorage.removeItem("isAuthenticated");
+		localStorage.removeItem("admin");
+		setTimeout(navigate("/"), 2000);
+	};
+
 	return (
 		<div className='flex flex-col w-2/12 gap-10 pt-14 font-primary border-r-2 border-[#dcdcdc] shadow-md overflow-hidden'>
 			<img
@@ -61,18 +70,18 @@ function Navbar() {
 				Main Menu
 			</label>
 
-			<div className='flex flex-col gap-8 border-b-2 pb-28 border-[#c9c9c9]'>
+			<div className='flex flex-col gap-8 pb-28'>
 				{menu.map((menu) => {
 					return (
 						<Link
 							key={menu.id}
 							to={menu.link}
-							className={`flex flex-col  ${
+							className={`flex flex-col px-4 py-2 ${
 								menu.active &&
-								"bg-[#DCE7FF] text-primary duration-300 py-2 pl-4 border-l-8 border-primary"
+								"bg-[#DCE7FF] text-primary duration-300 pl-4 border-l-8 border-primary"
 							}`}
 							onClick={(event) => changeMenuBg(menu.id, event)}>
-							<div className='flex items-center gap-10 text-lg px-10'>
+							<div className='flex items-center gap-10 text-lg py-2 pl-4'>
 								{menu.icon}
 								{menu.title}
 							</div>
@@ -80,20 +89,20 @@ function Navbar() {
 					);
 				})}
 			</div>
-
-			<ul className='my-44 flex flex-col gap-4 px-10'>
+			<hr className='h-4' />
+			<ul className='my-28 flex flex-col gap-8 px-10'>
 				<Link
 					to='/dashboard'
 					className='flex items-center gap-10 text-lg'>
 					<AiOutlineSetting size={30} />
 					Settings
 				</Link>
-				<Link
-					to='/dashboard'
+				<button
+					onClick={handleLogout}
 					className='flex items-center gap-10 text-lg'>
 					<RiLogoutBoxRLine size={30} />
 					Logout
-				</Link>
+				</button>
 			</ul>
 		</div>
 	);

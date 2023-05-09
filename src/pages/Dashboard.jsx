@@ -12,7 +12,7 @@ function Dashboard() {
 	return (
 		<div className='font-primary flex flex-row'>
 			<Navbar />
-			<div className='bg-primary w-full h-64 p-20 flex flex-col gap-2 shadow-2xl'>
+			<div className='bg-primary w-full h-72 p-24 flex flex-col gap-2 shadow-2xl'>
 				<h1 className='text-[#92B0F5]'>
 					Dashboard/<span className='text-white font-semibold'>Overview</span>
 				</h1>
