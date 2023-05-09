@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Verify from "./pages/Verified";
 import isVerified from "./pages/isVerified";
 import Dashboard from "./pages/Dashboard";
+import Events from "./pages/Events";
 
 function App() {
 	return (
@@ -30,6 +31,10 @@ function App() {
 				<Route
 					path='/dashboard'
 					element={<Dashboard />}
+				/>
+				<Route
+					path='/events'
+					element={<Events />}
 				/>
 			</Routes>
 		</Router>
