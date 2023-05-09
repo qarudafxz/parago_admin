@@ -57,13 +57,13 @@ function Home() {
 	};
 
 	const handleGoogleLogin = () => {
-		console.log("Hello world");
+		alert("Gikapoy nako");
 	};
 
 	useEffect(() => {
 		if (window.google) {
 			google.accounts.id.initialize({
-				client_id: import.meta.VITE_GOOGLE_CLIENT_ID,
+				client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
 				callback: handleGoogleLogin,
 			});
 		}
@@ -189,7 +189,7 @@ function Home() {
 					Don't have an account yet?{" "}
 					<Link
 						to='/signup'
-						className='font-bold italic'>
+						className='font-bold italic hover:text-primary duration-150'>
 						Sign up
 					</Link>
 				</p>
