@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { sendVerification } from "../middlewares/sendVerification.js";
 import { Admin } from "../models/Admin.js";
 import { Token } from "../models/Token.js";
+import { token } from "morgan";
 
 export const register = async (req, res) => {
 	const { firstName, lastName, email, password } = req.body;
@@ -60,19 +61,19 @@ export const register = async (req, res) => {
 
 export const verify = async (req, res) => {
 	try {
-		const admin = await Admin.findOne({ _id: req.query.id });
+		const admin = await Admin.findOne({ _id: req.params.id });
 		if (!admin) return res.status(401).json({ message: "Invalid link" });
 
 		const token = await Token.findOne({
 			userId: admin._id,
-			token: req.query.token,
+			token: req.params.token,
 		});
 
 		if (!token)
 			return res.status(401).json({ message: "Invalid link or expired" });
 
 		await Admin.updateOne({ _id: req.params.id }, { isVerified: true });
-		await token.remove();
+		await token.deleteOne();
 
 		return res.status(200).json({ message: "Account verified!" });
 	} catch (err) {
@@ -81,22 +82,17 @@ export const verify = async (req, res) => {
 	}
 };
 
+// resend verification via SMTP
 export const resendVerification = async (req, res) => {
 	try {
 		const admin = await Admin.findOne({ email: req.body.email });
 
-		if (!admin)
-			return res.status(401).json({ message: "Admin does not exist" });
+		if (!admin) return res.status(401).json({ message: "Admin does not exist" });
 
 		if (admin.isVerified)
 			return res.status(401).json({ message: "Admin already verified" });
 
-		await sendVerification(
-			admin.firstName,
-			admin.email,
-			admin._id,
-			admin.token
-		);
+		await sendVerification(admin.firstName, admin.email, admin._id, admin.token);
 
 		return res.status(200).json({ message: "Verification link sent" });
 	} catch (err) {
@@ -110,6 +106,7 @@ const createToken = async (payload) => {
 	});
 };
 
+// user login using google -----------------------
 export const googleLogin = async (req, res) => {
 	const { firstName, lastName, email, password } = req.body;
 	try {
@@ -136,7 +133,9 @@ export const googleLogin = async (req, res) => {
 				.json(token, admin, { message: "Admin successfully logged in" });
 		}
 
+		//if user already existed
 		const TOKEN = createToken(payload);
+
 		return res
 			.status(200)
 			.json(token, admin, { message: "Admin successfully logged in" });
@@ -147,8 +146,7 @@ export const login = async (req, res) => {
 	const { email, password } = req.body;
 	try {
 		const admin = await Admin.findOne({ email });
-		if (!admin)
-			return res.status(401).json({ message: "Admin doesn't exist!" });
+		if (!admin) return res.status(401).json({ message: "Admin doesn't exist!" });
 
 		const isMatched = await bcrypt.compare(password, admin.password);
 
@@ -175,6 +173,6 @@ export const login = async (req, res) => {
 
 		res
 			.status(200)
-			.json({ admin, message: "Admin logged in successfully!", Token });
+			.json({ admin, message: "Admin logged in successfully!", token });
 	} catch (err) {}
 };

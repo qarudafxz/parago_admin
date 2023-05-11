@@ -38,7 +38,11 @@ export const sendVerification = async (name, email, userID, token) => {
 																	<h1 style="font-family: 'Poppins', sans-serif; font-weight: bold; font-size: 30px; margin: 0;">Dear ${name},</h1>
 																	<p style="font-size: 13px; margin-top: 20px;">Thank you for creating an account with Parago Admin. To complete your registration, please click the link below to verify your account:</p>
 																	<p style="background-color: #0043DC; padding: 10px 20px; margin-top: 30px; display: inline-block;">
-																			<a href="${buildUrl}/users/${userID}/verify/${token}" style="color: #ffffff; font-size: 16px; text-decoration: none; cursor: pointer;">Verify my account</a>
+																			<a href="${
+																				process.env.NODE_ENV === "production"
+																					? "http://parago.vercel.app"
+																					: "http://localhost:5173"
+																			}/users/${userID}/verify/${token}" style="color: #ffffff; font-size: 16px; text-decoration: none; cursor: pointer;">Verify my account</a>
 																	</p>
 																	<p style="font-size: 13px; margin-top: 30px;">If you did not create an account with Parago Admin, please disregard this email.</p>
 																	<p style="font-size: 13px; margin-top: 30px;">Thank you,</p>

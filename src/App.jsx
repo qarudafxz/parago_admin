@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Verify from "./pages/Verified";
-import isVerified from "./pages/isVerified";
 import Dashboard from "./pages/Dashboard";
 import Events from "./pages/Events";
+import IsVerified from "./pages/isVerified";
 
 function App() {
 	return (
@@ -25,16 +25,16 @@ function App() {
 					element={<Verify />}
 				/>
 				<Route
-					path='/users/:id/token/:token'
-					element={<isVerified />}
-				/>
-				<Route
 					path='/dashboard'
 					element={<Dashboard />}
 				/>
 				<Route
 					path='/events'
 					element={<Events />}
+				/>
+				<Route
+					path='/users/:id/verify/:token'
+					element={<IsVerified />}
 				/>
 			</Routes>
 		</Router>

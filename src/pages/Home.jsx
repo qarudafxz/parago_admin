@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
+import jwt_decode from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
 import { GrMapLocation } from "react-icons/gr";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { buildUrl } from "../utils/buildUrl";
 import { getWidth } from "../helpers/getWidth.js";
+import { handleGoogleLogin } from "../helpers/handleGoogleLogin";
 
 import pic from "../assets/enchanted.jpg";
 import logo from "../assets/logo.png";
@@ -24,7 +26,7 @@ function Home() {
 		e.preventDefault();
 		setProgress(30);
 		try {
-			await fetch(buildUrl("/auth/login"), {
+			const res = await fetch(buildUrl("/auth/login"), {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -33,31 +35,28 @@ function Home() {
 					email,
 					password,
 				}),
-			})
-				.then((res) => res.json())
-				.then((data) => {
-					if (data.status == 200) {
-						setMessage(data.message);
-						setProgress(100);
-						setIsValid(false);
-						console.log(data);
-						return;
-					}
-					setProgress(100);
-					setIsValid(true);
-					localStorage.setItem("token", data.token);
-					localStorage.setItem("admin", JSON.stringify(data.user));
-					localStorage.setItem("isAuthenticated", true);
-					localStorage.setItem("name", data.user.firstName);
-					setTimeout(navigate("/dashboard"), 2000);
-				});
-		} catch (err) {
-			console.log(err);
-		}
-	};
+			});
+			const data = await res.json();
 
-	const handleGoogleLogin = () => {
-		alert("Gikapoy nako");
+			if (!(res.status === 200)) {
+				setMessage(data.message);
+				setIsValid(false);
+				setProgress(100);
+				return;
+			}
+
+			console.log(data);
+			localStorage.setItem("token", data.token);
+			localStorage.setItem("name", data.admin.firstName);
+			localStorage.setItem("isAuthenticated", true);
+			setProgress(100);
+
+			setTimeout(() => {
+				navigate("/dashboard");
+			}, 2000);
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	useEffect(() => {
@@ -66,23 +65,27 @@ function Home() {
 				client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
 				callback: handleGoogleLogin,
 			});
-		}
 
-		google.accounts.id.renderButton(document.getElementById("googleLoginBtn"), {
-			theme: "outline",
-			size: "large",
-			text: "continue_width",
-			shape: "rectangular",
-			width: getWidth(window.innerWidth),
-			height: "50",
-			longtitle: "true",
-			onsucess: handleGoogleLogin,
-			onfailure: handleGoogleLogin,
-		});
+			google.accounts.id.renderButton(document.getElementById("googleLoginBtn"), {
+				theme: "outline",
+				size: "large",
+				text: "continue_width",
+				shape: "rectangular",
+				width: getWidth(window.innerWidth),
+				height: "50",
+				longtitle: "true",
+			});
+		}
 	}, []);
 
 	return (
 		<div className='flex flex-row font-primary overflow-hidden'>
+			<TopLoadingBar
+				color='#0043DC'
+				progress={progress}
+				height={10}
+				onLoaderFinished={() => setProgress(0)}
+			/>
 			<div className='relative group w-6/12'>
 				<div className='absolute z-10 flex flex-col gap-8 top-52 left-10'>
 					<img
@@ -125,8 +128,8 @@ function Home() {
 				/>
 				<h1 className='font-extrabold text-7xl'>Welcome</h1>
 				<p className='font-thin'>
-					Keep your community engaged and informed by adding new events,
-					updating itineraries, and creating new places for people to explore.
+					Keep your community engaged and informed by adding new events, updating
+					itineraries, and creating new places for people to explore.
 				</p>
 				<div id='googleLoginBtn'></div>
 				<div className='flex flex-row items-center place-content-center'>

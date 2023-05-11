@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import TopLoadingBar from "react-top-loading-bar";
 
 import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";
 import { RiCalendarEventFill, RiLogoutBoxRLine } from "react-icons/ri";
@@ -10,6 +11,8 @@ import Logo from "../assets/parago_admin.png";
 
 function Navbar() {
 	const navigate = useNavigate();
+	const [progress, setProgress] = useState(0);
+
 	const [menu, setMenu] = useState([
 		{
 			id: 1,
@@ -50,15 +53,25 @@ function Navbar() {
 	};
 
 	const handleLogout = () => {
+		setProgress(50);
 		localStorage.removeItem("token");
 		localStorage.removeItem("name");
 		localStorage.removeItem("isAuthenticated");
 		localStorage.removeItem("admin");
-		setTimeout(navigate("/"), 2000);
+		setTimeout(() => {
+			setProgress(100);
+			navigate("/");
+		}, 1000);
 	};
 
 	return (
 		<div className='flex flex-col w-2/12 gap-10 pt-14 font-primary border-r-2 border-[#dcdcdc] shadow-md overflow-hidden'>
+			<TopLoadingBar
+				progress={progress}
+				color='#FF7900'
+				height={10}
+				onLoaderFinished={() => setProgress(0)}
+			/>
 			<img
 				src={Logo}
 				className='w-48 mx-10'
@@ -75,7 +88,6 @@ function Navbar() {
 					return (
 						<Link
 							key={menu.id}
-							to={menu.link}
 							className={`flex flex-col px-4 py-2 ${
 								menu.active &&
 								"bg-[#DCE7FF] text-primary duration-300 pl-4 border-l-8 border-primary"
