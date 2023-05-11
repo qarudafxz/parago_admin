@@ -1,5 +1,4 @@
 import nodemailer from "nodemailer";
-import { buildUrl } from "../../src/utils/buildUrl.js";
 
 export const sendVerification = async (name, email, userID, token) => {
 	try {
@@ -16,6 +15,18 @@ export const sendVerification = async (name, email, userID, token) => {
 				//since less secure app is deprecated
 				pass: process.env.PARAGO_PASSWORD,
 			},
+		});
+
+		await new Promise((resolve, reject) => {
+			transporter.verify((error, success) => {
+				if (error) {
+					console.error(error);
+					reject(error);
+				} else {
+					console.log("Server is ready to take our message", success);
+					resolve(success);
+				}
+			});
 		});
 
 		//boilerplate for message
@@ -59,20 +70,16 @@ export const sendVerification = async (name, email, userID, token) => {
 		};
 
 		//function to send the email using sendEmail method with parameters: message, callback
-		await transporter.sendMail(message, (error, info) => {
-			if (error) {
-				console.log(error);
-			} else {
-				console.log("Email has been sent:- ", info.response);
-			}
-		});
-
-		await transporter.verify((error, success) => {
-			if (error) {
-				console.error(error);
-			} else {
-				console.log("Server is ready to take our message", success);
-			}
+		await new Promise((resolve, reject) => {
+			transporter.sendMail(message, (error, info) => {
+				if (error) {
+					console.log(error);
+					reject(error);
+				} else {
+					console.log("Email has been sent:- ", info.response);
+					resolve(info);
+				}
+			});
 		});
 	} catch (err) {
 		console.error(err);
