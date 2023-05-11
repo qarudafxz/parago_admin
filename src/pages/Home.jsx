@@ -47,7 +47,10 @@ function Home() {
 
 			console.log(data);
 			localStorage.setItem("token", data.token);
-			localStorage.setItem("name", data.admin.firstName);
+			localStorage.setItem(
+				"name",
+				data.admin.firstName + " " + data.admin.lastName
+			);
 			localStorage.setItem("isAuthenticated", true);
 			setProgress(100);
 
@@ -91,7 +94,7 @@ function Home() {
 					<img
 						src={logo}
 						alt='paraGO Logo'
-						className='w-40'
+						className='w-44'
 					/>
 					<h1 className='text-white text-7xl font-extrabold w-10/12'>
 						Travel to hidden gems
@@ -99,7 +102,7 @@ function Home() {
 					<p className='text-white text-2xl w-9/12'>
 						Go travel with ease and Explore new heights with paraGo
 					</p>
-					<div className='flex flex-row gap-6 items-center relative top-20 bg-white w-5/12 py-4 pl-6 rounded-full'>
+					{/* <div className='flex flex-row gap-6 items-center relative top-20 bg-white w-5/12 py-4 pl-6 rounded-full'>
 						<GrMapLocation
 							size={35}
 							className='gr-icon'
@@ -108,12 +111,12 @@ function Home() {
 							<span className='font-bold text-2xl'>Enchanted River</span>
 							Surigao Del Sur
 						</p>
-					</div>
+					</div> */}
 				</div>
 				<img
 					src={pic}
 					className='h-full w-full object-cover'
-					style={{ height: "170%" }}
+					style={{ height: "100%" }}
 				/>
 				<div
 					className='absolute inset-0 bg-primary opacity-50'
@@ -149,7 +152,6 @@ function Home() {
 					autoComplete='off'
 					onChange={(e) => setEmail(e.target.value)}
 				/>
-
 				{message && <p className='text-red-600 text-xs font-bold'>{message}</p>}
 				<label
 					htmlFor='firstName'

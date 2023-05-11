@@ -121,7 +121,7 @@ function Home() {
 			</div>
 			<div className='bg-[#e7e7e7] w-full'>
 				<form
-					className='bg-white rounded-xl flex flex-col gap-3 w-9/12 p-8 m-auto mt-8 shadow-lg lg:mt-32 w-6/12'
+					className='bg-white rounded-xl flex flex-col gap-3 w-9/12 p-8 m-auto mt-8 shadow-lg md:mt-2 w-6/12 lg:mt-32'
 					onSubmit={registerUser}>
 					<img
 						src={pg_admin_img}
@@ -141,7 +141,7 @@ function Home() {
 					</label>
 					<input
 						type='text'
-						className='border border-gray pl-2 py-2 rounded-md focus:outline-none'
+						className='border border-gray pl-2 py-2 rounded-md text-primary focus:outline-none'
 						required
 						autoComplete='off'
 						onChange={(e) => setFirstName(e.target.value)}
@@ -153,7 +153,7 @@ function Home() {
 					</label>
 					<input
 						type='text'
-						className='border border-gray pl-2 py-2 rounded-md focus:outline-none'
+						className='border border-gray pl-2 py-2 rounded-md text-primary focus:outline-none'
 						required
 						autoComplete='off'
 						onChange={(e) => setLastName(e.target.value)}
@@ -165,14 +165,12 @@ function Home() {
 					</label>
 					<input
 						type='text'
-						className='border border-gray pl-2 py-2 rounded-md focus:outline-none'
+						className='border border-gray pl-2 py-2 rounded-md text-primary focus:outline-none'
 						required
 						autoComplete='off'
 						onChange={(e) => setEmail(e.target.value)}
 					/>
-					{message && (
-						<p className='text-red-600 text-xs font-bold'>{message}</p>
-					)}
+					{message && <p className='text-red-600 text-xs font-bold'>{message}</p>}
 					<label
 						htmlFor='firstName'
 						className='text-xs'>
@@ -208,7 +206,7 @@ function Home() {
 					<div className='relative'>
 						<input
 							type='password'
-							className='border border-gray pl-2 py-2 rounded-md w-full focus:outline-none'
+							className='border border-gray pl-2 py-2 rounded-md w-full text-primary focus:outline-none'
 							required
 							autoComplete='off'
 							onChange={(e) => setConfirmPassword(e.target.value)}
