@@ -70,6 +70,7 @@ export const sendVerification = async (name, email, userID, token) => {
 		};
 
 		//function to send the email using sendEmail method with parameters: message, callback
+		//callback returns error or info
 		await new Promise((resolve, reject) => {
 			transporter.sendMail(message, (error, info) => {
 				if (error) {
