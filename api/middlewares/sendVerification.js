@@ -40,7 +40,7 @@ export const sendVerification = async (name, email, userID, token) => {
 																	<p style="background-color: #0043DC; padding: 10px 20px; margin-top: 30px; display: inline-block;">
 																			<a href="${
 																				process.env.NODE_ENV === "production"
-																					? "http://parago.vercel.app"
+																					? "http://parago-admin.vercel.app"
 																					: "http://localhost:5173"
 																			}/users/${userID}/verify/${token}" style="color: #ffffff; font-size: 16px; text-decoration: none; cursor: pointer;">Verify my account</a>
 																	</p>
