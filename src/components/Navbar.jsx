@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import TopLoadingBar from "react-top-loading-bar";
 
 import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";
@@ -10,46 +10,43 @@ import { MdAnalytics } from "react-icons/md";
 import Logo from "../assets/parago_admin.png";
 
 function Navbar() {
+	const location = useLocation();
 	const navigate = useNavigate();
 	const [progress, setProgress] = useState(0);
 
-	const [menu, setMenu] = useState([
+	const menu = [
 		{
 			id: 1,
 			title: "Dashboard",
 			icon: <AiOutlineHome />,
 			link: "/dashboard",
-			active: true,
 		},
 		{
 			id: 2,
 			title: "Events",
 			icon: <RiCalendarEventFill />,
 			link: "/events",
-			active: false,
 		},
 		{
 			id: 3,
 			title: "Places",
 			icon: <GiIsland />,
 			link: "/places",
-			active: false,
 		},
 		{
 			id: 4,
 			title: "Analytics",
 			icon: <MdAnalytics />,
 			link: "/analytics",
-			active: false,
 		},
-	]);
+	];
 
-	const changeMenuBg = (id, e) => {
-		e.preventDefault();
+	const changeMenuBg = (id, link) => {
 		const updatedMenu = menu.map((item) =>
 			item.id === id ? { ...item, active: true } : { ...item, active: false }
 		);
 		setMenu(updatedMenu);
+		navigate(link);
 	};
 
 	const handleLogout = () => {
@@ -63,6 +60,8 @@ function Navbar() {
 			navigate("/");
 		}, 1000);
 	};
+
+	const isActive = (link) => location.pathname === link;
 
 	return (
 		<div className='flex flex-col w-2/12 gap-10 pt-14 font-primary border-r-2 border-[#dcdcdc] shadow-md overflow-hidden'>
@@ -82,39 +81,43 @@ function Navbar() {
 				className='font-thin text-gray px-10'>
 				Main Menu
 			</label>
-
-			<div className='flex flex-col gap-8 pb-28'>
-				{menu.map((menu) => {
-					return (
-						<Link
-							key={menu.id}
+			<ul className='flex flex-col gap-8 pb-28'>
+				{menu.map((item) => (
+					<li key={item.id}>
+						<NavLink
+							to={item.link}
+							exact={item.link === "/dashboard"}
 							className={`flex flex-col px-4 py-2 ${
-								menu.active &&
+								isActive(item.link) &&
 								"bg-[#DCE7FF] text-primary duration-300 pl-4 border-l-8 border-primary"
 							}`}
-							onClick={(event) => changeMenuBg(menu.id, event)}>
+							onClick={() => changeMenuBg(item.id, item.link)}>
 							<div className='flex items-center gap-10 text-lg py-2 pl-4'>
-								{menu.icon}
-								{menu.title}
+								{item.icon}
+								{item.title}
 							</div>
-						</Link>
-					);
-				})}
-			</div>
+						</NavLink>
+					</li>
+				))}
+			</ul>
 			<hr className='h-4' />
 			<ul className='my-28 flex flex-col gap-8 px-10'>
-				<Link
-					to='/dashboard'
-					className='flex items-center gap-10 text-lg'>
-					<AiOutlineSetting size={30} />
-					Settings
-				</Link>
-				<button
-					onClick={handleLogout}
-					className='flex items-center gap-10 text-lg'>
-					<RiLogoutBoxRLine size={30} />
-					Logout
-				</button>
+				<li>
+					<NavLink
+						to='/dashboard'
+						className='flex items-center gap-10 text-lg'>
+						<AiOutlineSetting size={30} />
+						Settings
+					</NavLink>
+				</li>
+				<li>
+					<button
+						onClick={handleLogout}
+						className='flex items-center gap-10 text-lg'>
+						<RiLogoutBoxRLine size={30} />
+						Logout
+					</button>
+				</li>
 			</ul>
 		</div>
 	);

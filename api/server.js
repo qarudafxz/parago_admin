@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 
 import { connect } from "./database/connect.js";
 import { authRouter } from "./routes/auth.js";
+import { eventRouter } from "./routes/event.js";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(morgan("tiny"));
 app.disable("x-powered-by");
 
 app.use("/api/auth", authRouter);
+app.use("/api/event", eventRouter);
 
 try {
 	connect();

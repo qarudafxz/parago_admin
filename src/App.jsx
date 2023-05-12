@@ -7,6 +7,7 @@ import Verify from "./pages/Verified";
 import Dashboard from "./pages/Dashboard";
 import Events from "./pages/Events";
 import IsVerified from "./pages/isVerified";
+import Places from "./pages/Places";
 
 function App() {
 	return (
@@ -35,6 +36,10 @@ function App() {
 				<Route
 					path='/users/:id/verify/:token'
 					element={<IsVerified />}
+				/>
+				<Route
+					path='/places'
+					element={<Places />}
 				/>
 			</Routes>
 		</Router>

@@ -4,34 +4,31 @@ const collectionName = "events";
 
 const EventSchema = new mongoose.Schema(
 	{
-		creator: { type: mongoose.Schema.Types.ObjectId, refs: "admins" },
+		creatorID: { type: mongoose.Schema.Types.ObjectId, refs: "admins" },
 		eventName: { type: String, required: true, unique: true },
 		eventDesc: { type: String, required: true },
 		price: { type: Number, required: true },
-		quantity: { type: Number, required: true },
+		capacity: { type: Number, required: true },
 		locations: [
 			{
-				locName: { type: String, required: true },
-				desc: { type: String, required: true },
-				lat: { type: Number, required: true },
-				lng: { type: Number, required: true },
+				locName: { type: String },
+				desc: { type: String },
+				lat: { type: Number },
+				lng: { type: Number },
 			},
 		],
 		itinerary: [
 			{
-				date: { type: new Date() },
-				day: { type: Number, required: true },
+				date: { type: Date },
+				day: { type: Number },
 				activity: { type: String, maxlength: 100 },
 				time: {
-					type: new Date()
-						.getTime()
-						.toLocaleString({ hours: numeric, minutes: numeric, seconds: numeric }),
+					type: Date,
 				},
 			},
 		],
-		capacity: { type: Number, default: 0, required: true },
 	},
 	{ timestamps: true }
 );
 
-export const { EventModel } = mongoose.model(collectionName, EventSchema);
+export const Event = mongoose.model(collectionName, EventSchema);
