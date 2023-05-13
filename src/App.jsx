@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Events from "./pages/Events";
 import IsVerified from "./pages/isVerified";
 import Places from "./pages/Places";
+import Navbar from "./components/Navbar";
 
 function App() {
 	return (
@@ -26,20 +27,30 @@ function App() {
 					element={<Verify />}
 				/>
 				<Route
-					path='/dashboard'
-					element={<Dashboard />}
-				/>
-				<Route
-					path='/events'
-					element={<Events />}
-				/>
-				<Route
-					path='/users/:id/verify/:token'
-					element={<IsVerified />}
-				/>
-				<Route
-					path='/places'
-					element={<Places />}
+					path='/*'
+					element={
+						<div className='font-primary flex flex-row'>
+							<Navbar />
+							<Routes>
+								<Route
+									path='dashboard'
+									element={<Dashboard />}
+								/>
+								<Route
+									path='events'
+									element={<Events />}
+								/>
+								<Route
+									path='users/:id/verify/:token'
+									element={<IsVerified />}
+								/>
+								<Route
+									path='places'
+									element={<Places />}
+								/>
+							</Routes>
+						</div>
+					}
 				/>
 			</Routes>
 		</Router>

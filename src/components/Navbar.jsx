@@ -10,7 +10,6 @@ import { MdAnalytics } from "react-icons/md";
 import Logo from "../assets/parago_admin.png";
 
 function Navbar() {
-	const location = useLocation();
 	const navigate = useNavigate();
 	const [progress, setProgress] = useState(0);
 
@@ -41,14 +40,6 @@ function Navbar() {
 		},
 	];
 
-	const changeMenuBg = (id, link) => {
-		const updatedMenu = menu.map((item) =>
-			item.id === id ? { ...item, active: true } : { ...item, active: false }
-		);
-		setMenu(updatedMenu);
-		navigate(link);
-	};
-
 	const handleLogout = () => {
 		setProgress(50);
 		localStorage.removeItem("token");
@@ -60,8 +51,6 @@ function Navbar() {
 			navigate("/");
 		}, 1000);
 	};
-
-	const isActive = (link) => location.pathname === link;
 
 	return (
 		<div className='flex flex-col w-2/12 gap-10 pt-14 font-primary border-r-2 border-[#dcdcdc] shadow-md overflow-hidden'>
@@ -86,12 +75,12 @@ function Navbar() {
 					<li key={item.id}>
 						<NavLink
 							to={item.link}
-							exact={item.link === "/dashboard"}
-							className={`flex flex-col px-4 py-2 ${
-								isActive(item.link) &&
-								"bg-[#DCE7FF] text-primary duration-300 pl-4 border-l-8 border-primary"
-							}`}
-							onClick={() => changeMenuBg(item.id, item.link)}>
+							className={({ isActive }) =>
+								"flex flex-col px-4 py-2 " +
+								(isActive
+									? "bg-[#DCE7FF] text-primary duration-300 pl-4 border-l-8 border-primary"
+									: "")
+							}>
 							<div className='flex items-center gap-10 text-lg py-2 pl-4'>
 								{item.icon}
 								{item.title}

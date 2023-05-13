@@ -21,6 +21,7 @@ function Home() {
 	const [message, setMessage] = useState("");
 	const [isVisible, setIsVisible] = useState(false);
 	const [isValid, setIsValid] = useState(true);
+	const formRef = useRef(null);
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
@@ -74,7 +75,7 @@ function Home() {
 				size: "large",
 				text: "continue_width",
 				shape: "rectangular",
-				width: getWidth(window.innerWidth),
+				width: "1000px",
 				height: "50",
 				longtitle: "true",
 			});
@@ -135,6 +136,7 @@ function Home() {
 					style={{ height: "170%" }}></div>
 			</div>
 			<form
+				ref={formRef}
 				className='p-20 flex flex-col gap-7 m-auto md:w-7/12 lg:w-5/12'
 				onSubmit={handleLogin}>
 				<img
