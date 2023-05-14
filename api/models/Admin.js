@@ -11,6 +11,7 @@ const AdminSchema = new mongoose.Schema(
 		role: { type: String, default: "admin" },
 		isVerified: { type: Boolean },
 		profile: { type: String, default: "" },
+		eventsCreated: { type: Number, default: 0 },
 	},
 	{ timestamps: true }
 );

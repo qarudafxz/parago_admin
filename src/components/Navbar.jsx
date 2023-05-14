@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import TopLoadingBar from "react-top-loading-bar";
 
 import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";

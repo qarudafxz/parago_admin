@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import jwt_decode from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
-import { GrMapLocation } from "react-icons/gr";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { buildUrl } from "../utils/buildUrl";
-import { getWidth } from "../helpers/getWidth.js";
 import { handleGoogleLogin } from "../helpers/handleGoogleLogin";
 
 import pic from "../assets/enchanted.jpg";
@@ -53,6 +51,7 @@ function Home() {
 				data.admin.firstName + " " + data.admin.lastName
 			);
 			localStorage.setItem("isAuthenticated", true);
+			localStorage.setItem("userID", data.admin._id);
 			setProgress(100);
 
 			setTimeout(() => {

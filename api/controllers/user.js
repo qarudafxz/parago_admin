@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from "uuid";
 import { sendVerification } from "../middlewares/sendVerification.js";
 import { Admin } from "../models/Admin.js";
 import { Token } from "../models/Token.js";
-import { token } from "morgan";
 
 export const register = async (req, res) => {
 	const { firstName, lastName, email, password } = req.body;
@@ -166,13 +165,14 @@ export const login = async (req, res) => {
 			expiresIn: 360000,
 		});
 
-		res.cookie("token", token, {
-			httpOnly: true,
-			expiresIn: 360000,
-		});
+		res.cookie("token", token, { httpOnly: true, expiresIn: 360000 });
 
+		res.setHeader("Authorization", `Bearer ${token}`);
 		res
 			.status(200)
 			.json({ admin, message: "Admin logged in successfully!", token });
-	} catch (err) {}
+	} catch (err) {
+		console.log(err);
+		return res.status(400).json({ message: "Error while logging in admin" });
+	}
 };

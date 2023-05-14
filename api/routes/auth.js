@@ -5,8 +5,7 @@ import {
 	resendVerification,
 	login,
 	googleLogin,
-} from "../controllers/auth.js";
-import { isAuthenticated } from "../middlewares/isAuthenticated.js";
+} from "../controllers/user.js";
 
 const router = express.Router();
 

@@ -5,8 +5,9 @@ const collectionName = "events";
 const EventSchema = new mongoose.Schema(
 	{
 		creatorID: { type: mongoose.Schema.Types.ObjectId, refs: "admins" },
+		eventCover: { data: Buffer, contentType: String },
 		eventName: { type: String, required: true, unique: true },
-		eventDesc: { type: String, required: true },
+		eventDesc: { type: String },
 		price: { type: Number, required: true },
 		capacity: { type: Number, required: true },
 		locations: [
