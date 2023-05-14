@@ -27,6 +27,10 @@ function App() {
 					element={<Verify />}
 				/>
 				<Route
+					path='users/:id/verify/:token'
+					element={<IsVerified />}
+				/>
+				<Route
 					path='/*'
 					element={
 						<div className='font-primary flex flex-row'>
@@ -39,10 +43,6 @@ function App() {
 								<Route
 									path='events'
 									element={<Events />}
-								/>
-								<Route
-									path='users/:id/verify/:token'
-									element={<IsVerified />}
 								/>
 								<Route
 									path='places'

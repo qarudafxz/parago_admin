@@ -80,16 +80,12 @@ function Home() {
 			});
 		}
 
-		if (localStorage.getItem("token")) {
-			const token = localStorage.getItem("token");
-			const decoded = jwt_decode(token);
-			const currentTime = Date.now() / 1000;
-
-			if (decoded.exp < currentTime) {
-				localStorage.clear();
-			} else {
-				navigate("/dashboard");
-			}
+		if (
+			typeof localStorage.getItem("token") != null &&
+			localStorage.getItem("token") != null &&
+			localStorage.getItem("isAuthenticated")
+		) {
+			navigate("/dashboard");
 		}
 	}, []);
 
