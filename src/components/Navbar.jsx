@@ -16,7 +16,7 @@ function Navbar() {
 	const menu = [
 		{
 			id: 1,
-			title: "Dashboard",
+			title: "Overview",
 			icon: <AiOutlineHome />,
 			link: "/dashboard",
 		},
