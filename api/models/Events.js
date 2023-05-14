@@ -10,6 +10,9 @@ const EventSchema = new mongoose.Schema(
 		eventDesc: { type: String },
 		price: { type: Number, required: true },
 		capacity: { type: Number, required: true },
+		dateCreated: { type: Date, default: Date.now },
+		dateStart: { type: Date },
+		dateEnd: { type: Date },
 		locations: [
 			{
 				locName: { type: String },

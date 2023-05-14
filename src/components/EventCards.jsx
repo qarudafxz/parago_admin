@@ -15,7 +15,9 @@ function EventCards({ fetchData }) {
 								<p>{event.price}</p>
 								<p>{event.capacity}</p>
 							</div>
-							<p></p>
+							<p>
+								Date Created: {new Date(event?.dateCreated).toLocaleDateString("en-us")}
+							</p>
 						</div>
 					);
 				})}
