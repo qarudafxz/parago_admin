@@ -158,11 +158,6 @@ function CreateEvent({ isCreateEvent }) {
 							Add Location
 						</button>
 					</div>
-					<button
-						type='submit'
-						className='bg-primary py-4 py-2 rounded-md text-white font-bold'>
-						Create Event
-					</button>
 				</form>
 			)}
 		</>
