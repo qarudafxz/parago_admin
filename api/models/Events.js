@@ -17,8 +17,9 @@ const EventSchema = new mongoose.Schema(
 			{
 				locName: { type: String },
 				desc: { type: String },
-				date: { type: Date },
-				time: { type: Date },
+				date: { type: String },
+				eventStart: { type: String },
+				eventEnd: { type: String },
 			},
 		],
 		itinerary: [

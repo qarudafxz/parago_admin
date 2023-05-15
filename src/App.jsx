@@ -9,6 +9,7 @@ import Events from "./pages/Events";
 import IsVerified from "./pages/isVerified";
 import Places from "./pages/Places";
 import Navbar from "./components/Navbar";
+import ViewEvent from "./pages/ViewEvent";
 
 function App() {
 	return (
@@ -47,6 +48,10 @@ function App() {
 								<Route
 									path='places'
 									element={<Places />}
+								/>
+								<Route
+									path='events/:id'
+									element={<ViewEvent />}
 								/>
 							</Routes>
 						</div>

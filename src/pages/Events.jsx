@@ -47,15 +47,17 @@ function Events() {
 					</p>
 				</div>
 				<div className='mx-10 flex flex-col gap-8'>
-					<button
-						onClick={() => setIsCreateEvent(!isCreateEvent)}
-						className='flex flex-row gap-4 items-center text-xl font-semibold place-self-end mt-10 mr-10 bg-primary px-4 py-2 rounded-md text-white hover:bg-secondary duration-150'>
-						<AiFillPlusCircle size={30} />
-						Create Event
-					</button>
+					<div className='flex justify-between items-center mt-16'>
+						<h1 className='font-extrabold text-5xl'>Events Created</h1>
+						<button
+							onClick={() => setIsCreateEvent(!isCreateEvent)}
+							className='flex flex-row gap-4 items-center text-xl font-semibold place-self-end mr-10 bg-primary px-4 py-2 rounded-md text-white hover:bg-secondary duration-150'>
+							<AiFillPlusCircle size={30} />
+							Create Event
+						</button>
+					</div>
 					<CreateEvent isCreateEvent={isCreateEvent} />
-					<h1 className='font-extrabold text-5xl'>Events Created</h1>
-					<div className='grid grid-cols-3 gap-6  max-h-96 overflow-y-auto'>
+					<div className='grid grid-cols-3 gap-6 overflow-y-auto'>
 						<EventCards fetchData={fetchData} />
 					</div>
 				</div>
