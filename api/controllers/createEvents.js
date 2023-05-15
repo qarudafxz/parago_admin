@@ -2,7 +2,8 @@ import { Event } from "../models/Events.js";
 import { Admin } from "../models/Admin.js";
 
 export const createEvent = async (req, res) => {
-	const { creatorID, eventName, eventDesc, price, capacity } = req.body;
+	const { creatorID, eventName, eventDesc, price, capacity, locations } =
+		req.body;
 	const admin = await Admin.findOne({ _id: creatorID });
 
 	try {
@@ -12,6 +13,7 @@ export const createEvent = async (req, res) => {
 			eventDesc,
 			price,
 			capacity,
+			locations,
 		});
 
 		admin.eventsCreated += 1;
