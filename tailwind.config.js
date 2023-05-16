@@ -20,6 +20,9 @@ export default {
 			fontFamily: {
 				primary: ["Poppins", "sans-serif"],
 			},
+			maxHeight: {
+				events: "560px",
+			},
 		},
 	},
 	plugins: [],

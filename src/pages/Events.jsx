@@ -11,9 +11,10 @@ function Events() {
 	const [isCreateEvent, setIsCreateEvent] = useState(false);
 	const adminID = getAdminId();
 	const [fetchData, setData] = useState([]);
+	const [isLoaded, setIsLoaded] = useState(true);
 
 	const fetchEvents = async () => {
-		console.log(adminID);
+		setIsLoaded(false);
 		try {
 			await fetch(buildUrl(`/event/events/${adminID}`), {
 				method: "GET",
@@ -24,6 +25,9 @@ function Events() {
 			})
 				.then((res) => res.json())
 				.then((data) => setData(data.events));
+			setTimeout(() => {
+				setIsLoaded(true);
+			}, 1500);
 		} catch (err) {
 			console.error(err);
 		}
@@ -57,8 +61,11 @@ function Events() {
 						</button>
 					</div>
 					<CreateEvent isCreateEvent={isCreateEvent} />
-					<div className='grid grid-cols-3 gap-6 overflow-y-auto'>
-						<EventCards fetchData={fetchData} />
+					<div className='grid grid-cols-3 gap-6 overflow-y-auto max-h-events'>
+						<EventCards
+							fetchData={fetchData}
+							isLoaded={isLoaded}
+						/>
 					</div>
 				</div>
 			</div>

@@ -4,6 +4,8 @@ import { getAdminId } from "../helpers/getAdminId";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { AiOutlineExclamationCircle } from "react-icons/ai";
+
 function CreateEvent({ isCreateEvent }) {
 	const [eventName, setEventName] = useState("");
 	const [eventDesc, setEventDesc] = useState("");
@@ -79,7 +81,7 @@ function CreateEvent({ isCreateEvent }) {
 		<>
 			<ToastContainer />
 			{isCreateEvent && (
-				<form className='flex flex-col gap-4 p-10 w-5/12 bg-white absolute z-10 ml-60 mt-10 bg-blend-overlay shadow-2xl'>
+				<form className='flex flex-col gap-4 p-10 w-5/12 bg-white absolute z-10 ml-60 top-20 bg-blend-overlay shadow-2xl'>
 					<div className='flex flex-row justify-between gap-6'>
 						<label
 							htmlFor='image'
@@ -119,13 +121,17 @@ function CreateEvent({ isCreateEvent }) {
 						/>
 					</div>
 					<div>
-						<div className='flex flex-col gap-4'>
+						<div className='flex flex-col gap-2'>
 							<h1 className='text-xl font-semibold'>Destinations</h1>
+							<p className='flex items-center gap-4 mb-2 text-gray'>
+								<AiOutlineExclamationCircle /> Note that the dates of your destinations
+								must be in sequence
+							</p>
 							{destinations.map((_location, index) => {
 								return (
 									<div
 										key={index}
-										className='flex flex-row items-center'>
+										className='flex flex-row items-center bg-gray-400'>
 										<input
 											type='text'
 											placeholder='Location'
@@ -170,7 +176,7 @@ function CreateEvent({ isCreateEvent }) {
 						<button
 							onClick={handleAddLocation}
 							type='button'
-							className='bg-secondary text-white py-2 px-4 rounded-md'>
+							className='bg-secondary text-white py-2 px-4 rounded-md mt-10'>
 							Add Destination
 						</button>
 					</div>
