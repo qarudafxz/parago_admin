@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { FaRegMoneyBillAlt, FaUsers } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 import { FaSearchLocation } from "react-icons/fa";
 
 import { Skeleton } from "@mui/material";

@@ -60,8 +60,11 @@ function Events() {
 							Create Event
 						</button>
 					</div>
-					<CreateEvent isCreateEvent={isCreateEvent} />
-					<div className='grid grid-cols-3 gap-6 overflow-y-auto max-h-events customScroll'>
+					<CreateEvent
+						isCreateEvent={isCreateEvent}
+						setIsCreateEvent={setIsCreateEvent}
+					/>
+					<div className='grid grid-cols-3 gap-6 overflow-y-auto max-h-events customScroll pb-20'>
 						<EventCards
 							fetchData={fetchData}
 							isLoaded={isLoaded}
