@@ -55,13 +55,13 @@ function Events() {
 						<h1 className='font-extrabold text-5xl'>Events Created</h1>
 						<button
 							onClick={() => setIsCreateEvent(!isCreateEvent)}
-							className='flex flex-row gap-4 items-center text-xl font-semibold place-self-end mr-10 bg-primary px-4 py-2 rounded-md text-white hover:bg-secondary duration-150'>
+							className='flex flex-row gap-4 items-center text-xl font-semibold place-self-end mr-10 bg-primary px-4 py-2 rounded-md text-white hover:bg-[#0032a8] duration-150'>
 							<AiFillPlusCircle size={30} />
 							Create Event
 						</button>
 					</div>
 					<CreateEvent isCreateEvent={isCreateEvent} />
-					<div className='grid grid-cols-3 gap-6 overflow-y-auto max-h-events'>
+					<div className='grid grid-cols-3 gap-6 overflow-y-auto max-h-events customScroll'>
 						<EventCards
 							fetchData={fetchData}
 							isLoaded={isLoaded}

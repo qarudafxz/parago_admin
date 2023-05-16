@@ -50,7 +50,7 @@ function App() {
 									element={<Places />}
 								/>
 								<Route
-									path='events/:id'
+									path='event/:id'
 									element={<ViewEvent />}
 								/>
 							</Routes>

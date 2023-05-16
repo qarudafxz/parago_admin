@@ -14,7 +14,7 @@ function EventCards({ fetchData, isLoaded }) {
 					return (
 						<div
 							key={event._id}
-							className='flex flex-col gap-3 p-10 shadow-2xl border border-[#d3d3d3] rounded-md'
+							className='flex flex-col gap-3 p-10 shadow-md border border-[#d3d3d3] rounded-md'
 							style={{ height: "350px" }} // Set a fixed height here
 						>
 							{isLoaded ? (
@@ -92,11 +92,13 @@ function EventCards({ fetchData, isLoaded }) {
 										})}
 									</p>
 									<div className='flex justify-between bg-[#eaeaea] py-4 px-4 rounded-lg items-center'>
-										<p className='text-[#ababab]'>Check it out</p>
+										<p className='text-[#ababab] text-xs'>
+											Check the full information of this event
+										</p>
 										<Link
 											to={`/event/${event._id}`}
 											state={{ id: event._id }}
-											className='bg-primary py-2 px-4 rounded-md font-bold text-white'>
+											className='bg-primary py-2 px-4 rounded-md font-bold text-white hover:bg-[#0032a8] duration-150'>
 											View Event
 										</Link>
 									</div>
