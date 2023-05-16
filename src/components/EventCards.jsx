@@ -31,16 +31,11 @@ function EventCards({ fetchData, isLoaded }) {
 							{isLoaded ? (
 								<p className='text-sm text-justify truncate'>{event.eventDesc}</p>
 							) : (
-								<>
-									{[...Array(3)].map((_, index) => (
-										<Skeleton
-											key={index}
-											variant='text'
-											width={`${index > 1 ? 80 : 100}%`}
-											height={30}
-										/>
-									))}
-								</>
+								<Skeleton
+									variant='text'
+									width={"100%"}
+									height={30}
+								/>
 							)}
 							<div className='flex items-center gap-8 my-4'>
 								{isLoaded ? (
