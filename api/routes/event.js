@@ -3,7 +3,7 @@ import multer from "multer";
 import path from "path";
 
 import isAuthenticated from "../middlewares/isAuthenticated.js";
-import { createEvent, getEvents } from "../controllers/createEvents.js";
+import { createEvent, getEvents, getEventById } from "../controllers/event.js";
 
 const router = express.Router();
 
@@ -25,7 +25,7 @@ const router = express.Router();
 // const upload = multer({ storage });
 
 router.post("/create-event", isAuthenticated, createEvent);
-
 router.get("/events/:id", isAuthenticated, getEvents);
+router.get("/what-event/:id", isAuthenticated, getEventById);
 
 export { router as eventRouter };

@@ -56,3 +56,22 @@ export const getEvents = async (req, res) => {
 		return res.status(500).json({ message: "Internal server error" });
 	}
 };
+
+//get event by id
+export const getEventById = async (req, res) => {
+	try {
+		const event = await Event.findById(req.params.id);
+
+		if (!event) {
+			return res.status(404).json({ message: "Event not found!" });
+		}
+
+		return res.status(200).json({
+			message: "Event fetched successfully",
+			event,
+		});
+	} catch (err) {
+		console.error(err);
+		return res.status(500).json({ message: "Internal server error" });
+	}
+};
