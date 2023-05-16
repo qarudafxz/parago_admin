@@ -45,7 +45,7 @@ function EventCards({ fetchData, isLoaded }) {
 							<div className='flex items-center gap-8 my-4'>
 								{isLoaded ? (
 									<p className='flex flex-row gap-4 items-center border border-primary px-4 py-2 rounded-md text-primary'>
-										<FaRegMoneyBillAlt />
+										<p>₱</p>
 										{event.price.toFixed(2)}
 									</p>
 								) : (
