@@ -46,6 +46,8 @@ function Navbar() {
 		localStorage.removeItem("name");
 		localStorage.removeItem("isAuthenticated");
 		localStorage.removeItem("admin");
+		localStorage.removeItem("userID");
+		localStorage.removeItem("muni");
 		setTimeout(() => {
 			setProgress(100);
 			navigate("/");

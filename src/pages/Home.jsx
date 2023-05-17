@@ -52,6 +52,7 @@ function Home() {
 			);
 			localStorage.setItem("isAuthenticated", true);
 			localStorage.setItem("userID", data.admin._id);
+			localStorage.setItem("muni", data.admin.municipality);
 			setProgress(100);
 
 			setTimeout(() => {

@@ -7,7 +7,7 @@ import { Admin } from "../models/Admin.js";
 import { Token } from "../models/Token.js";
 
 export const register = async (req, res) => {
-	const { firstName, lastName, email, password } = req.body;
+	const { firstName, lastName, email, password, municipality } = req.body;
 
 	try {
 		const admin = await Admin.findOne({ email });
@@ -22,6 +22,7 @@ export const register = async (req, res) => {
 			lastName,
 			email,
 			password: hashedPassword,
+			municipality,
 		});
 
 		const isUserSave = await newAdmin.save();

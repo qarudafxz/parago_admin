@@ -3,9 +3,13 @@ import { ReactComponent as SignupImage } from "../assets/bg_for_signup.svg";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { buildUrl } from "../utils/buildUrl.js";
+import municipalities from "../helpers/municipalities.js";
+
 import pg_admin_img from "../assets/parago_admin.png";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import TopLoadingBar from "react-top-loading-bar";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 
 function Home() {
 	const navigate = useNavigate();
@@ -18,6 +22,7 @@ function Home() {
 	const [isVisible, setIsVisible] = useState(false);
 	const [isValid, setIsValid] = useState(true);
 	const [progress, setProgress] = useState(0);
+	const [municipality, setMunicipality] = useState("");
 
 	const registerUser = async (e) => {
 		e.preventDefault();
@@ -55,6 +60,8 @@ function Home() {
 			setIsValid(true);
 		}
 
+		console.log(municipality);
+
 		try {
 			await fetch(buildUrl("/auth/signup"), {
 				method: "POST",
@@ -66,6 +73,7 @@ function Home() {
 					lastName,
 					email,
 					password,
+					municipality: `Municipality of ${municipality}`,
 				}),
 			}).then((res) => {
 				if (res.status === 401) {
@@ -121,7 +129,7 @@ function Home() {
 			</div>
 			<div className='bg-[#e7e7e7] w-full'>
 				<form
-					className='bg-white rounded-xl flex flex-col gap-3 w-9/12 p-8 m-auto mt-8 shadow-lg md:mt-2 w-6/12 lg:mt-32'
+					className='bg-white rounded-xl flex flex-col gap-3 w-9/12 p-8 m-auto mt-8 shadow-lg md:mt-2 w-6/12 lg:mt-24'
 					onSubmit={registerUser}>
 					<img
 						src={pg_admin_img}
@@ -133,7 +141,6 @@ function Home() {
 						Start creating events, places, and itineraries for the travelers to
 						explore!
 					</h1>
-
 					<label
 						htmlFor='firstName'
 						className='text-xs'>
@@ -170,6 +177,13 @@ function Home() {
 						autoComplete='off'
 						onChange={(e) => setEmail(e.target.value)}
 					/>
+					<Dropdown
+						className='border border-gray pl-2 py-2 rounded-md text-primary focus:outline-none'
+						options={municipalities}
+						onChange={(municipalities) => setMunicipality(municipalities?.value)}
+						placeholder='Select Municipality'
+					/>
+
 					{message && <p className='text-red-600 text-xs font-bold'>{message}</p>}
 					<label
 						htmlFor='firstName'
