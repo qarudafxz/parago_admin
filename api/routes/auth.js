@@ -5,7 +5,10 @@ import {
 	resendVerification,
 	login,
 	googleLogin,
+	getUser,
 } from "../controllers/user.js";
+
+import isAuthenticated from "../middlewares/isAuthenticated.js";
 
 const router = express.Router();
 
@@ -15,5 +18,6 @@ router.post("/login", login);
 router.post("/googleLogin", googleLogin);
 
 router.get("/:id/verify/:token", verify);
+router.get("/admin/:id", isAuthenticated, getUser);
 
 export { router as authRouter };

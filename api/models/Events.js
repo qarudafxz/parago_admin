@@ -8,11 +8,12 @@ const EventSchema = new mongoose.Schema(
 		eventCover: { data: Buffer, contentType: String },
 		eventName: { type: String, required: true, unique: true },
 		eventDesc: { type: String },
+		eventAddr: { type: String },
 		price: { type: Number, required: true },
 		capacity: { type: Number, required: true },
 		dateCreated: { type: Date, default: Date.now },
-		dateStart: { type: Date },
-		dateEnd: { type: Date },
+		dateStart: { type: String },
+		dateEnd: { type: String },
 		locations: [
 			{
 				locName: { type: String },

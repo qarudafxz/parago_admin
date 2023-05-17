@@ -58,6 +58,7 @@ const municipalities = [
 	{ key: 57, value: "Tagbina", label: "Tagbina" },
 	{ key: 58, value: "Tago", label: "Tago" },
 	{ key: 59, value: "Tandag", label: "Tandag" },
+	{ key: 60, value: "Butuan", Label: "Butuan" },
 ];
 
 export default municipalities;

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { FaUsers } from "react-icons/fa";
 import { FaSearchLocation } from "react-icons/fa";
+import { HiOutlineLocationMarker } from "react-icons/hi";
 
 import { Skeleton } from "@mui/material";
 
@@ -15,7 +16,7 @@ function EventCards({ fetchData, isLoaded }) {
 						<div
 							key={event._id}
 							className='flex flex-col gap-3 p-10 shadow-md border border-[#d3d3d3] rounded-md'
-							style={{ height: "350px" }} // Set a fixed height here
+							style={{ height: "400px" }} // Set a fixed height here
 						>
 							{isLoaded ? (
 								<h1 className='text-3xl font-semibold text-primary'>
@@ -29,7 +30,7 @@ function EventCards({ fetchData, isLoaded }) {
 								/>
 							)}
 							{isLoaded ? (
-								<p className='text-sm text-justify truncate'>{event.eventDesc}</p>
+								<p className='text-lg text-justify truncate'>{event.eventDesc}</p>
 							) : (
 								<Skeleton
 									variant='text'
@@ -37,6 +38,19 @@ function EventCards({ fetchData, isLoaded }) {
 									height={30}
 								/>
 							)}
+							{isLoaded ? (
+								<p className='text-sm text-justify font-thin flex items-center gap-4'>
+									<HiOutlineLocationMarker />
+									{event.eventAddr}
+								</p>
+							) : (
+								<Skeleton
+									variant='text'
+									width={"100%"}
+									height={30}
+								/>
+							)}
+							<hr></hr>
 							<div className='flex items-center gap-8 my-4'>
 								{isLoaded ? (
 									<p className='flex flex-row gap-4 items-center border border-primary px-4 py-2 rounded-md text-primary'>

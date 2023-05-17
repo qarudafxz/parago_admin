@@ -12,6 +12,7 @@ import {
 function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 	const [eventName, setEventName] = useState("");
 	const [eventDesc, setEventDesc] = useState("");
+	const [eventAddr, setEventAddr] = useState("");
 	const [price, setPrice] = useState(0);
 	const [capacity, setCapacity] = useState(0);
 	const [destinations, setDestinations] = useState([]);
@@ -44,8 +45,11 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 					creatorID: adminID,
 					eventName,
 					eventDesc,
+					eventAddr,
 					price,
 					capacity,
+					dateStart: destinations[0].date,
+					dateEnd: destinations[destinations.length - 1].date,
 					locations: [...destinations],
 				}),
 			})
@@ -118,6 +122,12 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 							onChange={(e) => setEventDesc(e.target.value)}
 							className='py-2 pl-4 outline outline-slate-400 h-48 focus: outline-none rounded-sm'
 						/>
+						<input
+							type='text'
+							placeholder='Event Address'
+							onChange={(e) => setEventAddr(e.target.value)}
+							className='py-2 pl-4 outline outline-slate-400 focus: outline-none rounded-sm'
+						/>
 						<div className='grid grid-cols-2 gap-4'>
 							<input
 								type='number'
@@ -143,7 +153,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 									return (
 										<div
 											key={index}
-											className='flex flex-row items-center bg-gray-400 max-h-24'>
+											className='flex flex-row items-center bg-gray-400 max-h-10'>
 											<input
 												type='text'
 												placeholder='Location'
@@ -197,7 +207,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 						<button
 							type='button'
 							onClick={createEvent}
-							className='border border-primary py-2 px-4 rounded-md flex justify-end'>
+							className='bg-primary text-white py-2 px-4 rounded-md flex justify-center'>
 							Create Event
 						</button>
 					</form>

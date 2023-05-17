@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { buildUrl } from "../utils/buildUrl.js";
 import { getAdmin } from "../helpers/getAdmin.js";
 import { getMunicipality } from "../helpers/getMunicipality.js";
+import { HiOutlineBuildingLibrary } from "react-icons/hi2";
+
+import NumberEvents from "../components/NumberEvents.jsx";
 
 function Dashboard() {
 	const [data, setData] = useState({});
@@ -19,7 +22,8 @@ function Dashboard() {
 					<h1 className='text-4xl text-white font-bold'>
 						Welcome back, <span className='text-secondary'>{adminName}</span>
 					</h1>
-					<p className='font-semibold text-white bg-secondary py-2 px-4 rounded-md w-5/12'>
+					<p className='font-semibold text-white bg-secondary py-2 px-4 rounded-md w-5/12 flex gap-4 items-center'>
+						<HiOutlineBuildingLibrary size={20} />
 						{municipality}
 					</p>
 					<p className='text-white font-thin w-7/12'>
@@ -28,6 +32,7 @@ function Dashboard() {
 					</p>
 				</div>
 			</div>
+			<NumberEvents />
 		</>
 	);
 }
