@@ -3,7 +3,12 @@ import multer from "multer";
 import path from "path";
 
 import isAuthenticated from "../middlewares/isAuthenticated.js";
-import { createEvent, getEvents, getEventById } from "../controllers/event.js";
+import {
+	createEvent,
+	getEvents,
+	getEventById,
+	deleteEvent,
+} from "../controllers/event.js";
 
 const router = express.Router();
 
@@ -32,5 +37,7 @@ router.post(
 );
 router.get("/events/:id", isAuthenticated, getEvents);
 router.get("/what-event/:id", isAuthenticated, getEventById);
+
+router.delete("/delete-event/:id", isAuthenticated, deleteEvent);
 
 export { router as eventRouter };

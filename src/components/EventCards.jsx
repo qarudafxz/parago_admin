@@ -1,16 +1,52 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { buildUrl } from "../utils/buildUrl.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import { FaUsers } from "react-icons/fa";
-import { FaSearchLocation } from "react-icons/fa";
+import { FaUsers, FaSearchLocation } from "react-icons/fa";
 import { HiOutlineLocationMarker } from "react-icons/hi";
+import { BsTrashFill } from "react-icons/bs";
 
 import { Skeleton } from "@mui/material";
 
-function EventCards({ fetchData, isLoaded }) {
+function EventCards({ fetchData, isLoaded, setData }) {
+	const deleteEvent = async (id, e) => {
+		e.preventDefault();
+		try {
+			const url = import.meta.env.DEV
+				? `http://localhost:3001/api/event/delete-event/${id}`
+				: `/api/event/delete-event/${id}`;
+
+			await fetch(url, {
+				method: "DELETE",
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("token")}`,
+					"Content-Type": "application/json",
+				},
+			}).then((res) => {
+				if (res.ok) {
+					setData((prevEvents) => prevEvents.filter((event) => event._id !== id));
+					toast.success("Event successfully deleted", {
+						position: "top-right",
+						autoClose: 2000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: false,
+						draggable: false,
+						progress: undefined,
+						theme: "light",
+					});
+				}
+			});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	return (
 		<>
-			{fetchData &&
+			{fetchData.length > 0 ? (
 				fetchData.map((event) => {
 					return (
 						<div
@@ -19,8 +55,14 @@ function EventCards({ fetchData, isLoaded }) {
 							style={{ height: "400px" }} // Set a fixed height here
 						>
 							{isLoaded ? (
-								<h1 className='text-3xl font-semibold text-primary'>
+								<h1 className='text-3xl font-semibold text-primary flex items-center justify-between'>
 									{event.eventName}
+									<BsTrashFill
+										size={30}
+										className='cursor-pointer hover:text-secondary duration-150'
+										type='button'
+										onClick={(e) => deleteEvent(event._id, e)}
+									/>
 								</h1>
 							) : (
 								<Skeleton
@@ -124,7 +166,10 @@ function EventCards({ fetchData, isLoaded }) {
 							)}
 						</div>
 					);
-				})}
+				})
+			) : (
+				<h1>No existing events.</h1>
+			)}
 		</>
 	);
 }

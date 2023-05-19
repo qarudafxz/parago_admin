@@ -87,3 +87,19 @@ export const getEventById = async (req, res) => {
 		return res.status(500).json({ message: "Internal server error" });
 	}
 };
+
+//delete and event by id
+export const deleteEvent = async (req, res) => {
+	try {
+		const event = await Event.findOneAndDelete(req.params.id);
+
+		if (!event) {
+			return res.status(404).json({ message: "Event not found!" });
+		}
+
+		return res.status(200).json({ message: "Event deleted successfully" });
+	} catch (err) {
+		console.error(err);
+		return res.status(500).json({ message: "Internal server error" });
+	}
+};
