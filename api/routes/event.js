@@ -27,7 +27,7 @@ const router = express.Router();
 router.post(
 	"/create-event",
 	isAuthenticated,
-	upload.single("image"),
+	// upload.single("image"),
 	createEvent
 );
 router.get("/events/:id", isAuthenticated, getEvents);
