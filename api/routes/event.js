@@ -24,7 +24,12 @@ const router = express.Router();
 
 // const upload = multer({ storage });
 
-router.post("/create-event", isAuthenticated, createEvent);
+router.post(
+	"/create-event",
+	isAuthenticated,
+	upload.single("image"),
+	createEvent
+);
 router.get("/events/:id", isAuthenticated, getEvents);
 router.get("/what-event/:id", isAuthenticated, getEventById);
 
