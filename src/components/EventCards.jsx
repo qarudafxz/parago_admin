@@ -94,6 +94,9 @@ function EventCards({ fetchData, isLoaded }) {
 									<p className='text-xs'>
 										Date Created:{" "}
 										{new Date(event?.dateCreated).toLocaleDateString("en-us", {
+											year: "numeric",
+											month: "long",
+											day: "numeric",
 											hour: "numeric",
 											minute: "numeric",
 											second: "numeric",

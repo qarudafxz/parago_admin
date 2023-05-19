@@ -15,7 +15,7 @@ function Dashboard() {
 	return (
 		<>
 			<div className='w-full flex flex-col'>
-				<div className='bg-primary w-full h-72 p-16 flex flex-col gap-2 shadow-2xl'>
+				<div className='bg-primary w-full h-80 p-16 flex flex-col gap-2 shadow-2xl'>
 					<h1 className='text-[#92B0F5]'>
 						Dashboard/<span className='text-white font-semibold'>Overview</span>
 					</h1>
@@ -31,8 +31,8 @@ function Dashboard() {
 						itineraries, and creating new places for people to explore.
 					</p>
 				</div>
+				<NumberEvents />
 			</div>
-			<NumberEvents />
 		</>
 	);
 }
