@@ -75,6 +75,7 @@ export const getEventById = async (req, res) => {
 		const event = await Event.findById(req.params.id);
 
 		if (!event) {
+			console.log("Event not found!");
 			return res.status(404).json({ message: "Event not found!" });
 		}
 
