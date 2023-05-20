@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { buildUrl } from "../utils/buildUrl.js";
-import { ToastContainer, toast } from "react-toastify";
+import { getAdminId } from "../helpers/getAdminId.js";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { FaUsers, FaSearchLocation } from "react-icons/fa";
@@ -11,12 +11,16 @@ import { BsTrashFill } from "react-icons/bs";
 import { Skeleton } from "@mui/material";
 
 function EventCards({ fetchData, isLoaded, setData }) {
+	const [isClicked, setIsClicked] = useState(false);
+	const [eventID, setEventID] = useState("");
+	const adminID = getAdminId();
+
 	const deleteEvent = async (id, e) => {
 		e.preventDefault();
 		try {
 			const url = import.meta.env.DEV
-				? `http://localhost:3001/api/event/delete-event/${id}`
-				: `/api/event/delete-event/${id}`;
+				? `http://localhost:3001/api/event/delete-event/${id}/`
+				: `/api/event/delete-event/${id}/`;
 
 			await fetch(url, {
 				method: "DELETE",
@@ -24,6 +28,9 @@ function EventCards({ fetchData, isLoaded, setData }) {
 					Authorization: `Bearer ${localStorage.getItem("token")}`,
 					"Content-Type": "application/json",
 				},
+				body: JSON.stringify({
+					adminID,
+				}),
 			}).then((res) => {
 				if (res.ok) {
 					setData((prevEvents) => prevEvents.filter((event) => event._id !== id));
@@ -38,10 +45,39 @@ function EventCards({ fetchData, isLoaded, setData }) {
 						theme: "light",
 					});
 				}
+				setIsClicked(false);
 			});
 		} catch (err) {
 			console.error(err);
 		}
+	};
+
+	const deleteConfirmationComponent = (eventID) => {
+		return (
+			<div>
+				<div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center backdrop-blur-md'>
+					<div className='bg-white rounded-md p-10'>
+						<h1 className='text-xl font-semibold text-primary flex items-center justify-between'>
+							Are you sure you want to delete this event?
+						</h1>
+						<div className='flex flex-row gap-14 mt-8 place-content-center'>
+							<button
+								type='button'
+								onClick={(e) => deleteEvent(eventID, e)}
+								className='bg-[#17EA0D] py-2 px-8 rounded-md font-semibold'>
+								Yes
+							</button>
+							<button
+								type='button'
+								onClick={() => setIsClicked(false)}
+								className='bg-[#d22222] py-2 px-8 rounded-md font-semibold'>
+								No
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
 	};
 
 	return (
@@ -61,7 +97,10 @@ function EventCards({ fetchData, isLoaded, setData }) {
 										size={30}
 										className='cursor-pointer hover:text-secondary duration-150'
 										type='button'
-										onClick={(e) => deleteEvent(event._id, e)}
+										onClick={() => {
+											setIsClicked(true);
+											setEventID(event._id);
+										}}
 									/>
 								</h1>
 							) : (
@@ -170,6 +209,7 @@ function EventCards({ fetchData, isLoaded, setData }) {
 			) : (
 				<h1>No existing events.</h1>
 			)}
+			{isClicked && deleteConfirmationComponent(eventID)}
 		</>
 	);
 }

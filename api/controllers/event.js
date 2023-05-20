@@ -90,13 +90,25 @@ export const getEventById = async (req, res) => {
 
 //delete and event by id
 export const deleteEvent = async (req, res) => {
+	const { adminID } = req.body;
+
 	try {
 		const event = await Event.findOneAndDelete(req.params.id);
+		const admin = await Admin.findById(adminID);
+
+		if (!admin) {
+			console.log("Admin not	found!");
+			return res.status(401).json({ message: "Admin not found!" });
+		}
 
 		if (!event) {
+			console.log("Event not found!");
 			return res.status(404).json({ message: "Event not found!" });
 		}
 
+		admin.eventsCreated -= 1;
+
+		await admin.save();
 		return res.status(200).json({ message: "Event deleted successfully" });
 	} catch (err) {
 		console.error(err);
