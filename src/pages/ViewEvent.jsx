@@ -35,13 +35,19 @@ function ViewEvent() {
 					<p>{event.eventAddr}</p>
 				</div>
 				<div>
-					<h1 className='text-5xl font-bold'>Locations and Itineraries</h1>
+					<h1 className='text-5xl font-bold'>Locations</h1>
 					{event.locations?.map((location) => {
 						return (
 							<div key={location._id}>
 								<h1>{location.locName}</h1>
 								<p>{location.desc}</p>
-								<p>{location.date}</p>
+								<p>
+									{new Date(location.date).toLocaleString("en-us", {
+										month: "long",
+										day: "numeric",
+										year: "numeric",
+									})}
+								</p>
 							</div>
 						);
 					})}
