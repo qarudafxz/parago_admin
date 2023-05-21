@@ -151,7 +151,7 @@ export const login = async (req, res) => {
 		const isMatched = await bcrypt.compare(password, admin.password);
 
 		if (!isMatched)
-			return res.status(404).json({ message: "Email or password incorrect!" });
+			return res.status(404).json({ message: "Incorrect Password" });
 
 		const payload = {
 			adminID: admin._id,
