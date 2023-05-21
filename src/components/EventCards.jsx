@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { FaUsers, FaSearchLocation } from "react-icons/fa";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BsTrashFill } from "react-icons/bs";
+import { TbTrash } from "react-icons/tb";
 
 import { Skeleton } from "@mui/material";
 
@@ -56,21 +57,26 @@ function EventCards({ fetchData, isLoaded, setData }) {
 		return (
 			<div>
 				<div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center backdrop-blur-md'>
-					<div className='bg-white rounded-md p-10'>
-						<h1 className='text-xl font-semibold text-primary flex items-center justify-between'>
+					<div className='bg-white rounded-md px-28 py-14 place-items-center'>
+						<TbTrash
+							size={100}
+							className='m-auto mb-4 text-primary'
+						/>
+						<h1 className='font-bold text-5xl text-center mb-4'>Are you sure?</h1>
+						<h1 className='text-md font-thin text-gray flex items-center justify-between'>
 							Are you sure you want to delete this event?
 						</h1>
-						<div className='flex flex-row gap-14 mt-8 place-content-center'>
+						<div className='flex flex-row gap-4 mt-8 place-content-center'>
 							<button
 								type='button'
 								onClick={(e) => deleteEvent(eventID, e)}
-								className='bg-[#17EA0D] py-2 px-8 rounded-md font-semibold'>
+								className='bg-primary py-2 px-8 rounded-md font-semibold text-white hover:bg-[#0032a8] duration-150'>
 								Yes
 							</button>
 							<button
 								type='button'
 								onClick={() => setIsClicked(false)}
-								className='bg-[#d22222] py-2 px-8 rounded-md font-semibold'>
+								className='bg-secondary py-2 px-8 rounded-md font-semibold text-white hover:bg-[#ff5e00] duration-150'>
 								No
 							</button>
 						</div>
