@@ -3,6 +3,7 @@ import { buildUrl } from "../utils/buildUrl";
 import { getAdminId } from "../helpers/getAdminId";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { motion } from "framer-motion";
 
 import {
 	AiOutlineExclamationCircle,
@@ -92,7 +93,15 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 					className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ${
 						blur ? "backdrop-blur-lg" : ""
 					}`}>
-					<form className='flex flex-col gap-4 p-10 w-5/12 bg-white absolute z-10 left-62 top-20 bg-blend-overlay shadow-2xl'>
+					<motion.form
+						initial={{ opacity: 0, scale: 0.5 }}
+						animate={{ opacity: 1, scale: 1 }}
+						transition={{
+							duration: 0.8,
+							delay: 0.5,
+							ease: [0, 0.71, 0.2, 1.01],
+						}}
+						className='flex flex-col gap-4 p-10 w-5/12 bg-white absolute z-10 left-62 top-20 bg-blend-overlay shadow-2xl'>
 						<button
 							onClick={() => setIsCreateEvent(!isCreateEvent)}
 							className='text-primary flex justify-end'>
@@ -210,7 +219,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 							className='bg-primary text-white py-2 px-4 rounded-md flex justify-center'>
 							Create Event
 						</button>
-					</form>
+					</motion.form>
 				</div>
 			)}
 		</>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getAdminId } from "../helpers/getAdminId.js";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { motion } from "framer-motion";
 
 import { FaUsers, FaSearchLocation } from "react-icons/fa";
 import { HiOutlineLocationMarker } from "react-icons/hi";
@@ -57,7 +58,15 @@ function EventCards({ fetchData, isLoaded, setData }) {
 		return (
 			<div>
 				<div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center backdrop-blur-md'>
-					<div className='bg-white rounded-md px-28 py-14 place-items-center'>
+					<motion.div
+						initial={{ opacity: 0, scale: 0.5 }}
+						animate={{ opacity: 1, scale: 1 }}
+						transition={{
+							duration: 0.8,
+							delay: 0.5,
+							ease: [0, 0.71, 0.2, 1.01],
+						}}
+						className='bg-white rounded-md px-28 py-14 place-items-center'>
 						<TbTrash
 							size={100}
 							className='m-auto mb-4 text-primary'
@@ -76,11 +85,11 @@ function EventCards({ fetchData, isLoaded, setData }) {
 							<button
 								type='button'
 								onClick={() => setIsClicked(false)}
-								className='bg-secondary py-2 px-8 rounded-md font-semibold text-white hover:bg-[#ff5e00] duration-150'>
+								className='border border-secondary py-2 px-8 rounded-md font-semibold text-secondary'>
 								No
 							</button>
 						</div>
-					</div>
+					</motion.div>
 				</div>
 			</div>
 		);
@@ -88,8 +97,8 @@ function EventCards({ fetchData, isLoaded, setData }) {
 
 	return (
 		<>
-			{fetchData.length > 0 ? (
-				fetchData.map((event) => {
+			{fetchData?.length > 0 ? (
+				fetchData?.map((event) => {
 					return (
 						<div
 							key={event._id}
