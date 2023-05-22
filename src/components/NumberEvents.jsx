@@ -22,8 +22,10 @@ function NumberEvents() {
 			},
 		})
 			.then((res) => res.json())
-			.then((data) => setFetchData(data));
-		console.log(fetchedData.admin.eventsCreated);
+			.then((data) => {
+				setFetchData(data);
+				console.log(data.admin?.eventsCreated);
+			});
 	};
 
 	useEffect(() => {

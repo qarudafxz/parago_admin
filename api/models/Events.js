@@ -14,6 +14,7 @@ const EventSchema = new mongoose.Schema(
 		dateCreated: { type: Date, default: Date.now },
 		dateStart: { type: String },
 		dateEnd: { type: String },
+		filePath: { type: String },
 		locations: [
 			{
 				locName: { type: String },

@@ -56,7 +56,7 @@ function Navbar() {
 	};
 
 	return (
-		<div className='flex flex-col w-2/12 gap-10 pt-14 font-primary border-r-2 border-[#dcdcdc] shadow-md overflow-hidden'>
+		<div className='flex flex-col w-2/12 gap-10 pt-14 font-primary border-r-2 border-[#dcdcdc] shadow-md overflow-hidden sticky'>
 			<TopLoadingBar
 				progress={progress}
 				color='#FF7900'

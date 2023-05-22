@@ -52,7 +52,6 @@ export const getEvents = async (req, res) => {
 		}
 
 		const creatorID = admin._id;
-
 		const events = await Event.find({ creatorID });
 
 		if (!events) {

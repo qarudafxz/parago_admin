@@ -3,6 +3,7 @@ import { buildUrl } from "../utils/buildUrl.js";
 import { getAdmin } from "../helpers/getAdmin.js";
 import { getMunicipality } from "../helpers/getMunicipality.js";
 import { HiOutlineBuildingLibrary } from "react-icons/hi2";
+import Chart from "chart.js/auto";
 
 import NumberEvents from "../components/NumberEvents.jsx";
 
@@ -11,7 +12,22 @@ function Dashboard() {
 	const adminName = getAdmin();
 	const municipality = getMunicipality();
 
-	useEffect(() => {}, []);
+	const fetchData = async () => {
+		await fetch(buildUrl(`/auth/admin/${localStorage.getItem("userID")}`), {
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+				"Content-Type": "application/json",
+			},
+		})
+			.then((res) => res.json())
+			.then((data) => setData(data));
+	};
+
+	useEffect(() => {
+		fetchData();
+	}, []);
+
 	return (
 		<>
 			<div className='w-full flex flex-col'>
@@ -32,6 +48,7 @@ function Dashboard() {
 					</p>
 				</div>
 				<NumberEvents />
+				<div></div>
 			</div>
 		</>
 	);

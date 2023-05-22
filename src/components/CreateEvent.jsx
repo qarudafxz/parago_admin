@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { buildUrl } from "../utils/buildUrl";
 import { getAdminId } from "../helpers/getAdminId";
 import { ToastContainer, toast } from "react-toastify";
@@ -9,6 +9,7 @@ import {
 	AiOutlineExclamationCircle,
 	AiOutlineCloseCircle,
 } from "react-icons/ai";
+import { set } from "mongoose";
 
 function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 	const [eventName, setEventName] = useState("");
@@ -85,6 +86,32 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 		setDestinations(newDestinations);
 	};
 
+	const createEventOnPress = (event) => {
+		if (event.key === "e") setIsCreateEvent(true);
+	};
+
+	const handleFormCancellationPress = (event) => {
+		if (event.key === "Escape") setIsCreateEvent(false);
+	};
+
+	useEffect(() => {
+		const handleCancelCreateEvent = (event) => {
+			handleFormCancellationPress(event);
+		};
+
+		const handleCreateEvent = (event) => {
+			createEventOnPress(event);
+		};
+
+		window.addEventListener("keydown", handleCancelCreateEvent);
+		window.addEventListener("keydown", handleCreateEvent);
+
+		return () => {
+			window.removeEventListener("keydown", handleCancelCreateEvent);
+			window.removeEventListener("keydown", handleCreateEvent);
+		};
+	}, []);
+
 	return (
 		<>
 			<ToastContainer />
@@ -102,11 +129,14 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 							ease: [0, 0.71, 0.2, 1.01],
 						}}
 						className='flex flex-col gap-4 p-10 w-5/12 bg-white absolute z-10 left-62 top-20 bg-blend-overlay shadow-2xl'>
-						<button
-							onClick={() => setIsCreateEvent(!isCreateEvent)}
-							className='text-primary flex justify-end'>
-							<AiOutlineCloseCircle size={40} />
-						</button>
+						<div className='flex justify-end items-center gap-4'>
+							<h1 className='font-thin text-[#808080]'>Press Esc to close</h1>
+							<button
+								onClick={() => setIsCreateEvent(!isCreateEvent)}
+								className='text-primary'>
+								<AiOutlineCloseCircle size={40} />
+							</button>
+						</div>
 						<div className='flex flex-row justify-between gap-6'>
 							<label
 								htmlFor='image'
