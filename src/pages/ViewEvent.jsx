@@ -43,7 +43,7 @@ function ViewEvent() {
 				className='w-full flex flex-col pb-10 customScroll'
 				style={{ height: "100vh", overflow: "auto" }}>
 				<div className='w-full bg-secondary h-80'>
-					<h1 className='text-center m-auto text-white font-bold text-7xl mt-8'>
+					<h1 className='text-center m-auto text-white font-bold text-7xl mt-20'>
 						Event Cover Here
 					</h1>
 				</div>
