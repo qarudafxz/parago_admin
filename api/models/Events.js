@@ -12,6 +12,8 @@ const EventSchema = new mongoose.Schema(
 		price: { type: Number, required: true },
 		capacity: { type: Number, required: true },
 		dateCreated: { type: Date, default: Date.now },
+		nights: { type: Number, default: 0 },
+		days: { type: Number, default: 0 },
 		dateStart: { type: String },
 		dateEnd: { type: String },
 		filePath: { type: String },

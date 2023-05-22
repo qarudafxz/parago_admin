@@ -1,6 +1,6 @@
 import React from "react";
 
-function Places() {
+function Analytics() {
 	return (
 		<>
 			<h1 className='font-extrabold text-center m-auto text-7xl'>
@@ -10,4 +10,4 @@ function Places() {
 	);
 }
 
-export default Places;
+export default Analytics;

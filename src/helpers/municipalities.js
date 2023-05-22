@@ -58,7 +58,17 @@ const municipalities = [
 	{ key: 57, value: "Tagbina", label: "Tagbina" },
 	{ key: 58, value: "Tago", label: "Tago" },
 	{ key: 59, value: "Tandag", label: "Tandag" },
-	{ key: 60, value: "Butuan", Label: "Butuan" },
+	{ key: 61, value: "Surigao", label: "Surigao" },
+	{ key: 62, value: "Tandag", label: "Tandag" },
+	{ key: 63, value: "Bislig", label: "Bislig" },
+	{ key: 64, value: "Bayugan", label: "Bayugan" },
+	{ key: 65, value: "Cabadbaran", label: "Cabadbaran" },
+	{ key: 66, value: "Surigao del Norte", label: "Surigao del Norte" },
+	{ key: 67, value: "Surigao del Sur", label: "Surigao del Sur" },
+	{ key: 68, value: "Agusan del Norte", label: "Agusan del Norte" },
+	{ key: 69, value: "Agusan del Sur", label: "Agusan del Sur" },
+	{ key: 70, value: "Dinagat Islands", label: "Dinagat Islands" },
+	{ key: 71, value: "Sibagat", label: "Sibagat" },
 ];
 
 export default municipalities;

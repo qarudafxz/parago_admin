@@ -10,6 +10,7 @@ import IsVerified from "./pages/isVerified";
 import Places from "./pages/Places";
 import Navbar from "./components/Navbar";
 import ViewEvent from "./pages/ViewEvent";
+import Analytics from "./pages/Analytics";
 
 function App() {
 	return (
@@ -52,6 +53,10 @@ function App() {
 								<Route
 									path='event/:id'
 									element={<ViewEvent />}
+								/>
+								<Route
+									path='analytics'
+									element={<Analytics />}
 								/>
 							</Routes>
 						</div>

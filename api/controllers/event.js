@@ -11,6 +11,8 @@ export const createEvent = async (req, res) => {
 		capacity,
 		dateStart,
 		dateEnd,
+		nights,
+		days,
 		locations,
 	} = req.body;
 	const admin = await Admin.findOne({ _id: creatorID });
@@ -25,6 +27,8 @@ export const createEvent = async (req, res) => {
 			capacity,
 			dateStart,
 			dateEnd,
+			nights,
+			days,
 			locations,
 		});
 

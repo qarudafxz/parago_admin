@@ -11,7 +11,7 @@ function ChartComponent() {
 				{ date: "May 23, 2023", count: 25 },
 				{ date: "May 24, 2023", count: 22 },
 				{ date: "May 25, 2023", count: 30 },
-				{ date: "May 26, 2023", count: 28 },
+				{ date: "May 26, 2023", count: 14 },
 			];
 
 			new Chart(document.getElementById("acquisitions"), {

@@ -7,8 +7,9 @@ import { motion } from "framer-motion";
 
 import { FaUsers, FaSearchLocation } from "react-icons/fa";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { BsTrashFill } from "react-icons/bs";
+import { BsTrashFill, BsMoonStarsFill } from "react-icons/bs";
 import { TbTrash } from "react-icons/tb";
+import { HiSun } from "react-icons/hi";
 
 import { Skeleton } from "@mui/material";
 
@@ -103,7 +104,7 @@ function EventCards({ fetchData, isLoaded, setData }) {
 						<div
 							key={event._id}
 							className='flex flex-col gap-3 p-10 shadow-md border border-[#d3d3d3] rounded-md'
-							style={{ height: "400px" }} // Set a fixed height here
+							style={{ height: "450px" }} // Set a fixed height here
 						>
 							{isLoaded ? (
 								<h1 className='text-3xl font-semibold text-primary flex items-center justify-between'>
@@ -134,18 +135,48 @@ function EventCards({ fetchData, isLoaded, setData }) {
 									height={30}
 								/>
 							)}
-							{isLoaded ? (
-								<p className='text-sm text-justify font-thin flex items-center gap-4'>
-									<HiOutlineLocationMarker />
-									{event.eventAddr}
-								</p>
-							) : (
-								<Skeleton
-									variant='text'
-									width={"100%"}
-									height={30}
-								/>
-							)}
+							<div className='flex flex-row justify-between'>
+								{isLoaded ? (
+									<p className='text-sm text-justify font-thin flex items-center gap-4 w-6/12'>
+										<HiOutlineLocationMarker />
+										{event.eventAddr}
+									</p>
+								) : (
+									<Skeleton
+										variant='text'
+										width={"100%"}
+										height={30}
+									/>
+								)}
+								<div className='flex flex-row gap-4'>
+									{isLoaded ? (
+										<p className='flex items-center gap-1 text-secondary'>
+											<HiSun size={20} />
+											{event.days > 1 ? `${event.days} days` : `${event.days} day`}
+										</p>
+									) : (
+										<Skeleton
+											variant='text'
+											width={100}
+											height={30}
+										/>
+									)}
+									{isLoaded ? (
+										<p className='flex items-center gap-1 text-primary'>
+											<BsMoonStarsFill size={20} />
+											{event.nights > 1
+												? `${event.nights} nights`
+												: `${event.nights} night`}
+										</p>
+									) : (
+										<Skeleton
+											variant='text'
+											width={100}
+											height={30}
+										/>
+									)}
+								</div>
+							</div>
 							<hr></hr>
 							<div className='flex items-center gap-8 my-4'>
 								{isLoaded ? (

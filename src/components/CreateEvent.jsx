@@ -9,7 +9,6 @@ import {
 	AiOutlineExclamationCircle,
 	AiOutlineCloseCircle,
 } from "react-icons/ai";
-import { set } from "mongoose";
 
 function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 	const [eventName, setEventName] = useState("");
@@ -18,6 +17,8 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 	const [price, setPrice] = useState(0);
 	const [capacity, setCapacity] = useState(0);
 	const [destinations, setDestinations] = useState([]);
+	const [nights, setNights] = useState(0);
+	const [days, setDays] = useState(0);
 	const adminID = getAdminId();
 
 	const createEvent = async (e) => {
@@ -52,6 +53,8 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 					capacity,
 					dateStart: destinations[0].date,
 					dateEnd: destinations[destinations.length - 1].date,
+					nights,
+					days,
 					locations: [...destinations],
 				}),
 			})
@@ -128,7 +131,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 							delay: 0.5,
 							ease: [0, 0.71, 0.2, 1.01],
 						}}
-						className='flex flex-col gap-4 p-10 w-5/12 bg-white absolute z-10 left-62 top-20 bg-blend-overlay shadow-2xl'>
+						className='flex flex-col gap-4 p-10 w-5/12 bg-white absolute z-10 left-62 top-6 bg-blend-overlay shadow-2xl'>
 						<div className='flex justify-end items-center gap-4'>
 							<h1 className='font-thin text-[#808080]'>Press Esc to close</h1>
 							<button
@@ -167,7 +170,20 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 							onChange={(e) => setEventAddr(e.target.value)}
 							className='py-2 pl-4 outline outline-slate-400 focus: outline-none rounded-sm'
 						/>
+
 						<div className='grid grid-cols-2 gap-4'>
+							<input
+								type='number'
+								placeholder='Number of Nights'
+								onChange={(e) => setNights(e.target.value)}
+								className='py-2 pl-4 outline outline-slate-400 focus: outline-none rounded-sm'
+							/>
+							<input
+								type='number'
+								placeholder='Number of Days'
+								onChange={(e) => setDays(e.target.value)}
+								className='py-2 pl-4 outline outline-slate-400 focus: outline-none rounded-sm'
+							/>
 							<input
 								type='number'
 								placeholder='Price'
@@ -176,65 +192,80 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 							/>
 							<input
 								type='number'
-								placeholder='Capacity'
+								placeholder='Pax Available'
 								onChange={(e) => setCapacity(e.target.value)}
 								className='py-2 pl-4 outline outline-slate-400 focus: outline-none rounded-sm'
 							/>
 						</div>
 						<div>
 							<div className='flex flex-col gap-2'>
-								<h1 className='text-xl font-semibold'>Destinations</h1>
+								<h1 className='text-xl font-semibold'>Itineraries</h1>
 								<p className='flex items-center gap-4 mb-2 text-gray'>
-									<AiOutlineExclamationCircle /> Note that the dates of your destinations
+									<AiOutlineExclamationCircle /> Note that the dates of your itineraries
 									must be in sequence
 								</p>
-								{destinations.map((_location, index) => {
-									return (
-										<div
-											key={index}
-											className='flex flex-row items-center bg-gray-400 max-h-10'>
-											<input
-												type='text'
-												placeholder='Location'
-												name='locName'
-												onChange={(e) =>
-													handleSetLocation(index, "locName", e.target.value)
-												}
-											/>
-											<textarea
-												type='text'
-												placeholder='Description'
-												name='desc'
-												onChange={(e) => handleSetLocation(index, "desc", e.target.value)}
-											/>
-											<input
-												type='date'
-												placeholder='Date'
-												name='date'
-												onChange={(e) => handleSetLocation(index, "date", e.target.value)}
-											/>
-											<input
-												type='time'
-												placeholder='Event Start'
-												name='time'
-												onChange={(e) =>
-													handleSetLocation(index, "eventStart", e.target.value)
-												}
-											/>
-											<input
-												type='time'
-												placeholder='Event End'
-												name='time'
-												onChange={(e) =>
-													handleSetLocation(index, "eventEnd", e.target.value)
-												}
-											/>
-											<button onClick={(e) => handleRemoveLocation(e, index)}>
-												Remove
-											</button>
-										</div>
-									);
-								})}
+								<div style={{ height: "140px", overflow: "auto" }}>
+									{destinations.map((_location, index) => {
+										return (
+											<div
+												key={index}
+												className='flex flex-row items-center bg-[#c5c5c5] border border-black'>
+												<input
+													type='text'
+													placeholder='Location'
+													name='locName'
+													onChange={(e) =>
+														handleSetLocation(index, "locName", e.target.value)
+													}
+													className='w-32'
+												/>
+												<textarea
+													type='text'
+													placeholder='Itinerary'
+													name='desc'
+													onChange={(e) => handleSetLocation(index, "desc", e.target.value)}
+													className='border border-black'
+												/>
+												<div>
+													<p>Date: </p>
+													<input
+														type='date'
+														placeholder='Date'
+														name='date'
+														onChange={(e) => handleSetLocation(index, "date", e.target.value)}
+													/>
+												</div>
+												<div>
+													<p>Time start: </p>
+													<input
+														type='time'
+														placeholder='Event Start'
+														name='time'
+														onChange={(e) =>
+															handleSetLocation(index, "eventStart", e.target.value)
+														}
+													/>
+												</div>
+												<div>
+													<p>Time end:</p>
+													<input
+														type='time'
+														placeholder='Event End'
+														name='time'
+														onChange={(e) =>
+															handleSetLocation(index, "eventEnd", e.target.value)
+														}
+													/>
+												</div>
+												<button
+													onClick={(e) => handleRemoveLocation(e, index)}
+													className='bg-primary text-white py-4 px-6'>
+													Remove
+												</button>
+											</div>
+										);
+									})}
+								</div>
 							</div>
 							<button
 								onClick={handleAddLocation}
