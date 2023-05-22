@@ -115,3 +115,38 @@ export const deleteEvent = async (req, res) => {
 		return res.status(500).json({ message: "Internal server error" });
 	}
 };
+
+//------------------------------------------------
+//this is needed to be fixed
+export const bookingsData = async (req, res) => {
+	try {
+		const date = new Date();
+		const admin = await Admin.findByIdAndUpdate(req.params.id);
+
+		const totalBook = 10;
+
+		if (!admin) {
+			console.log("Admin not found!");
+			return res.status(404).json({ message: "Admin not found!" });
+		}
+
+		const newBook = {
+			currentDate: date.now(),
+			bookingValue: totalBook,
+		};
+
+		//dynamically add new booking data if the date is not the same
+		admin?.bookings.map((book) => {
+			if (book.currentDate != date.now()) {
+				admin.bookings.push(newBook);
+			} else {
+				//this will add the total bookings of the day
+				book.bookingValue += totalBook;
+			}
+		});
+
+		await admin.save();
+	} catch (err) {
+		console.log(bookingsData);
+	}
+};

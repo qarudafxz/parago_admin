@@ -3,8 +3,8 @@ import { buildUrl } from "../utils/buildUrl.js";
 import { getAdmin } from "../helpers/getAdmin.js";
 import { getMunicipality } from "../helpers/getMunicipality.js";
 import { HiOutlineBuildingLibrary } from "react-icons/hi2";
-import Chart from "chart.js/auto";
 
+import ChartComponent from "../components/Chart.jsx";
 import NumberEvents from "../components/NumberEvents.jsx";
 
 function Dashboard() {
@@ -47,8 +47,10 @@ function Dashboard() {
 						itineraries, and creating new places for people to explore.
 					</p>
 				</div>
-				<NumberEvents />
-				<div></div>
+				<div className='flex flex-row gap-40'>
+					<NumberEvents />
+					<ChartComponent />
+				</div>
 			</div>
 		</>
 	);

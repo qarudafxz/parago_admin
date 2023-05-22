@@ -13,6 +13,13 @@ const AdminSchema = new mongoose.Schema(
 		profile: { type: String, default: "" },
 		municipality: { type: String, required: true },
 		eventsCreated: { type: Number, default: 0 },
+		totalBookings: { type: Number, default: 0 },
+		bookings: [
+			{
+				currentDate: { type: Date },
+				bookingValue: { type: Number, default: 0 },
+			},
+		],
 	},
 	{ timestamps: true }
 );
