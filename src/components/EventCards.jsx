@@ -104,7 +104,7 @@ function EventCards({ fetchData, isLoaded, setData }) {
 						<div
 							key={event._id}
 							className='flex flex-col gap-3 p-10 shadow-md border border-[#d3d3d3] rounded-md'
-							style={{ height: "450px" }} // Set a fixed height here
+							style={{ height: "430px" }} // Set a fixed height here
 						>
 							{isLoaded ? (
 								<h1 className='text-3xl font-semibold text-primary flex items-center justify-between'>
@@ -127,7 +127,7 @@ function EventCards({ fetchData, isLoaded, setData }) {
 								/>
 							)}
 							{isLoaded ? (
-								<p className='text-lg text-justify truncate'>{event.eventDesc}</p>
+								<p className='text-lg text-justify truncate pb-4'>{event.eventDesc}</p>
 							) : (
 								<Skeleton
 									variant='text'
