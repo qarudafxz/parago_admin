@@ -12,14 +12,17 @@ import { TbTrash } from "react-icons/tb";
 import { HiSun } from "react-icons/hi";
 
 import { Skeleton } from "@mui/material";
+import TopLoadingBar from "react-top-loading-bar";
 
 function EventCards({ fetchData, isLoaded, setData }) {
 	const [isClicked, setIsClicked] = useState(false);
 	const [eventID, setEventID] = useState("");
 	const adminID = getAdminId();
+	const [progress, setProgress] = useState(0);
 
 	const deleteEvent = async (id, e) => {
 		e.preventDefault();
+		setProgress(50);
 		try {
 			const url = import.meta.env.DEV
 				? `http://localhost:3001/api/event/delete-event/${id}/`
@@ -47,6 +50,7 @@ function EventCards({ fetchData, isLoaded, setData }) {
 						progress: undefined,
 						theme: "light",
 					});
+					setProgress(100);
 				}
 				setIsClicked(false);
 			});
@@ -58,6 +62,12 @@ function EventCards({ fetchData, isLoaded, setData }) {
 	const deleteConfirmationComponent = (eventID) => {
 		return (
 			<div>
+				<TopLoadingBar
+					color='#0043DC'
+					progress={progress}
+					height={10}
+					onLoaderFinished={() => setProgress(0)}
+				/>
 				<div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center backdrop-blur-md'>
 					<motion.div
 						initial={{ opacity: 0, scale: 0.5 }}
