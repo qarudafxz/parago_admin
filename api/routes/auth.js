@@ -6,6 +6,8 @@ import {
 	login,
 	googleLogin,
 	getUser,
+	verifyEmail,
+	changePassword,
 } from "../controllers/user.js";
 
 import isAuthenticated from "../middlewares/isAuthenticated.js";
@@ -16,8 +18,11 @@ router.post("/signup", register);
 router.post("/resend-verification", resendVerification);
 router.post("/login", login);
 router.post("/googleLogin", googleLogin);
+router.post("/verifyEmail", verifyEmail);
 
 router.get("/:id/verify/:token", verify);
 router.get("/admin/:id", isAuthenticated, getUser);
+
+router.put("/change-password/:email/:token", changePassword);
 
 export { router as authRouter };

@@ -2,7 +2,10 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 
-import { sendVerification } from "../middlewares/sendVerification.js";
+import {
+	sendVerification,
+	verifyEmailForPasswordReset,
+} from "../middlewares/sendVerification.js";
 import { Admin } from "../models/Admin.js";
 import { Token } from "../models/Token.js";
 
@@ -187,5 +190,53 @@ export const getUser = async (req, res) => {
 		return res.status(200).json({ admin });
 	} catch (err) {
 		console.error(err);
+	}
+};
+
+//verify email for password reset
+export const verifyEmail = async (req, res) => {
+	try {
+		const admin = await Admin.findOne({ email: req.body.email });
+
+		if (!admin) return res.status(404).json({ message: "Admin not found" });
+
+		const TOKEN = new Token({
+			userId: admin._id,
+			token: uuidv4(),
+		});
+
+		await TOKEN.save();
+
+		await verifyEmailForPasswordReset(admin.email, TOKEN.token);
+		return res.status(200).json({ message: "Verification link sent" });
+	} catch (err) {
+		console.error(err);
+	}
+};
+
+export const changePassword = async (req, res) => {
+	const { newPassword } = req.body;
+	try {
+		const admin = await Admin.findOneAndUpdate({ email: req.params.email });
+		if (!admin) return res.status(401).json({ message: "Invalid link" });
+
+		const token = await Token.findOne({
+			userId: admin._id,
+			token: req.params.token,
+		});
+
+		if (!token)
+			return res.status(401).json({ message: "Invalid link or expired" });
+
+		const salt = await bcrypt.genSalt(10);
+		const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+		await Admin.updateOne({ _id: admin._id }, { password: hashedPassword });
+		await token.deleteOne();
+
+		return res.status(200).json({ message: "Password changed successfully!" });
+	} catch (err) {
+		console.log(err);
+		return res.status(400).json({ message: "Error while verifying admin" });
 	}
 };

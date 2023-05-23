@@ -11,6 +11,8 @@ import Places from "./pages/Places";
 import Navbar from "./components/Navbar";
 import ViewEvent from "./pages/ViewEvent";
 import Analytics from "./pages/Analytics";
+import ForgotPassword from "./pages/ForgotPassword";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
 	return (
@@ -31,6 +33,14 @@ function App() {
 				<Route
 					path='users/:id/verify/:token'
 					element={<IsVerified />}
+				/>
+				<Route
+					path='/forgot-password'
+					element={<ForgotPassword />}
+				/>
+				<Route
+					path='/change-password/:email/token/:token'
+					element={<ChangePassword />}
 				/>
 				<Route
 					path='/*'
