@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -13,8 +13,19 @@ import ViewEvent from "./pages/ViewEvent";
 import Analytics from "./pages/Analytics";
 import ForgotPassword from "./pages/ForgotPassword";
 import ChangePassword from "./pages/ChangePassword";
+import Preloader from "./components/Preloader";
 
 function App() {
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		demoAsyncCall().then(() => setLoading(false));
+	}, []);
+
+	if (loading) {
+		return <Preloader />;
+	}
+
 	return (
 		<Router>
 			<Routes>
@@ -75,6 +86,10 @@ function App() {
 			</Routes>
 		</Router>
 	);
+}
+
+function demoAsyncCall() {
+	return new Promise((resolve) => setTimeout(resolve, 3000));
 }
 
 export default App;

@@ -23,3 +23,20 @@ body {
   background: #FF7900;
   border-radius: 10px;
 }
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in 3s ease-in;
+}
+
+.fade-delay {
+  animation: fade-in 3s ease-in 1s forwards;
+}
