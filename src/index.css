@@ -36,7 +36,3 @@ body {
 .fade-in {
   animation: fade-in 3s ease-in;
 }
-
-.fade-delay {
-  animation: fade-in 3s ease-in 1s forwards;
-}
