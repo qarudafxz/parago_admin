@@ -6,10 +6,16 @@ import TopLoadingBar from "react-top-loading-bar";
 function ForgotPassword() {
 	const [email, setEmail] = useState("");
 	const [progress, setProgress] = useState(0);
+	const [message, setMessage] = useState("");
 	const date = new Date();
 
 	const verifyEmail = async () => {
 		setProgress(40);
+		if (!email) {
+			setMessage("Please provide an email");
+			setProgress(100);
+			return;
+		}
 		try {
 			await fetch(buildUrl("/auth/verifyEmail"), {
 				method: "POST",
@@ -19,8 +25,10 @@ function ForgotPassword() {
 				body: JSON.stringify({
 					email,
 				}),
+			}).then(() => {
+				setProgress(100);
+				setMessage("Verification email sent!");
 			});
-			setProgress(50);
 		} catch (err) {
 			console.log(err);
 		}
@@ -56,6 +64,7 @@ function ForgotPassword() {
 			</div>
 			<div className='px-52 mt-32'>
 				<div className='flex flex-col gap-4 rounded-md p-8'>
+					{message && <p className='text-black font-semibold text-2xl'>{message}</p>}
 					<h1 className='font-extrabold text-7xl text-primary'>
 						Forgot <span className='text-secondary'>password</span>
 					</h1>

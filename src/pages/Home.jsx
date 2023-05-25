@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { buildUrl } from "../utils/buildUrl";
-import { handleGoogleLogin } from "../helpers/handleGoogleLogin";
+// import { handleGoogleLogin } from "../helpers/handleGoogleLogin";
 
 import pic from "../assets/enchanted.jpg";
 import logo from "../assets/logo.png";
@@ -64,22 +64,22 @@ function Home() {
 	};
 
 	useEffect(() => {
-		if (window.google) {
-			google.accounts.id.initialize({
-				client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-				callback: handleGoogleLogin,
-			});
+		// if (window.google) {
+		// 	google.accounts.id.initialize({
+		// 		client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+		// 		callback: handleGoogleLogin,
+		// 	});
 
-			google.accounts.id.renderButton(document.getElementById("googleLoginBtn"), {
-				theme: "outline",
-				size: "large",
-				text: "continue_width",
-				shape: "rectangular",
-				width: "1000px",
-				height: "50",
-				longtitle: "true",
-			});
-		}
+		// 	google.accounts.id.renderButton(document.getElementById("googleLoginBtn"), {
+		// 		theme: "outline",
+		// 		size: "large",
+		// 		text: "continue_width",
+		// 		shape: "rectangular",
+		// 		width: "1000px",
+		// 		height: "50",
+		// 		longtitle: "true",
+		// 	});
+		// }
 
 		if (
 			typeof localStorage.getItem("token") != null &&
@@ -98,7 +98,9 @@ function Home() {
 				height={10}
 				onLoaderFinished={() => setProgress(0)}
 			/>
-			<div className='relative group w-6/12'>
+			<div
+				className='relative group w-6/12'
+				style={{ height: "100vh" }}>
 				<div className='absolute z-10 flex flex-col gap-8 top-52 left-10'>
 					<img
 						src={logo}
@@ -129,7 +131,7 @@ function Home() {
 				/>
 				<div
 					className='absolute inset-0 bg-primary opacity-50'
-					style={{ height: "170%" }}></div>
+					style={{ height: "100%" }}></div>
 			</div>
 			<form
 				ref={formRef}
@@ -144,12 +146,12 @@ function Home() {
 					Keep your community engaged and informed by adding new events, updating
 					itineraries, and creating new places for people to explore.
 				</p>
-				<div id='googleLoginBtn'></div>
-				<div className='flex flex-row items-center place-content-center'>
+
+				{/* Google button here
 					<hr className='w-5/12 border-[#656565] ' />
 					<p className='px-10 text-[#656565] text-sm'>OR</p>
 					<hr className='w-5/12 border-[#656565] ' />
-				</div>
+				</div> */}
 				<label
 					htmlFor='firstName'
 					className='text-xs'>

@@ -33,7 +33,7 @@ export const sendVerification = async (name, email, userID, token) => {
 		const message = {
 			from: process.env.PARAGO_EMAIL,
 			to: email,
-			subject: "Parago Password Reset",
+			subject: "Parago Admin Verification Account",
 			html: `
 					<table cellpadding="0" cellspacing="0" border="0" align="center" width="100%" height="100%" bgcolor="#F3F3F3">
 							<tr>
@@ -120,7 +120,7 @@ export const verifyEmailForPasswordReset = async (email, token) => {
 		const message = {
 			from: process.env.PARAGO_EMAIL,
 			to: email,
-			subject: "Parago Admin Account Verification",
+			subject: "Parago Admin Password Reset",
 			html: `
 					<table cellpadding="0" cellspacing="0" border="0" align="center" width="100%" height="100%" bgcolor="#F3F3F3">
 							<tr>
