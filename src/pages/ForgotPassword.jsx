@@ -17,6 +17,13 @@ function ForgotPassword() {
 			setProgress(100);
 			return;
 		}
+
+		if (!email.includes("gmail")) {
+			setErr("Email not in correct format!");
+			setProgress(100);
+			return;
+		}
+
 		try {
 			await fetch(buildUrl("/auth/verifyEmail"), {
 				method: "POST",
