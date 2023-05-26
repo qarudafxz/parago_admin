@@ -7,7 +7,7 @@ function ForgotPassword() {
 	const [email, setEmail] = useState("");
 	const [progress, setProgress] = useState(0);
 	const [message, setMessage] = useState("");
-	const [err, setErr] = useState(0);
+	const [err, setErr] = useState("");
 	const date = new Date();
 
 	const verifyEmail = async () => {
