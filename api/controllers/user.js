@@ -198,7 +198,7 @@ export const verifyEmail = async (req, res) => {
 	try {
 		const admin = await Admin.findOne({ email: req.body.email });
 
-		if (!admin) return res.status(404).json({ message: "Admin not found" });
+		if (!admin) return res.status(404).json({ message: "Email does not exist" });
 
 		const TOKEN = new Token({
 			userId: admin._id,

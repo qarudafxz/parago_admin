@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/parago_logo.png";
 import { buildUrl } from "../utils/buildUrl.js";
@@ -7,6 +7,7 @@ function ForgotPassword() {
 	const [email, setEmail] = useState("");
 	const [progress, setProgress] = useState(0);
 	const [message, setMessage] = useState("");
+	const [err, setErr] = useState(0);
 	const date = new Date();
 
 	const verifyEmail = async () => {
@@ -25,7 +26,12 @@ function ForgotPassword() {
 				body: JSON.stringify({
 					email,
 				}),
-			}).then(() => {
+			}).then((res) => {
+				if (res.status === 404) {
+					setErr("Email does not exist!");
+					setProgress(100);
+					return;
+				}
 				setProgress(100);
 				setMessage("Verification email sent!");
 			});
@@ -33,6 +39,14 @@ function ForgotPassword() {
 			console.log(err);
 		}
 	};
+
+	useEffect(() => {
+		if (err) {
+			setTimeout(() => {
+				setErr("");
+			}, 2500);
+		}
+	}, [err]);
 
 	return (
 		<div className='font-primary flex flex-col'>
@@ -74,7 +88,9 @@ function ForgotPassword() {
 					</p>
 					<div className='flex flex-row gap-2 mt-36'>
 						<input
-							className='border-2 border-primary rounded-md px-4 py-2 w-9/12 focus: outline-none'
+							className={`${
+								err ? "border-red-600" : "border-primary"
+							} border-2 px-4 py-2 rounded-md w-9/12`}
 							type='email'
 							placeholder='Registered Email address'
 							onChange={(e) => setEmail(e.target.value)}
@@ -85,6 +101,7 @@ function ForgotPassword() {
 							Submit
 						</button>
 					</div>
+					{err && <p className='text-red-600 text-xs font-bold'>{err}</p>}
 				</div>
 			</div>
 			{/* //footer */}
