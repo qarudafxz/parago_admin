@@ -7,6 +7,7 @@ import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";
 import { RiCalendarEventFill, RiLogoutBoxRLine } from "react-icons/ri";
 import { GiIsland } from "react-icons/gi";
 import { MdAnalytics } from "react-icons/md";
+import { IoPeopleCircleSharp } from "react-icons/io5";
 
 import Logo from "../assets/parago_admin.png";
 
@@ -35,6 +36,12 @@ function Navbar() {
 		},
 		{
 			id: 4,
+			title: "Locals",
+			icon: <IoPeopleCircleSharp />,
+			link: "/locals",
+		},
+		{
+			id: 5,
 			title: "Analytics",
 			icon: <MdAnalytics />,
 			link: "/analytics",
@@ -100,7 +107,7 @@ function Navbar() {
 				))}
 			</ul>
 			<hr className='h-4' />
-			<ul className='my-28 flex flex-col gap-8 px-10'>
+			<ul className='mt-4 mb-16 flex flex-col gap-8 px-10'>
 				<li>
 					<NavLink
 						to='/dashboard'

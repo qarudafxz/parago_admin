@@ -14,6 +14,7 @@ import Analytics from "./pages/Analytics";
 import ForgotPassword from "./pages/ForgotPassword";
 import ChangePassword from "./pages/ChangePassword";
 import Preloader from "./components/Preloader";
+import Locals from "./pages/Locals";
 
 function App() {
 	const [loading, setLoading] = useState(true);
@@ -78,6 +79,10 @@ function App() {
 								<Route
 									path='analytics'
 									element={<Analytics />}
+								/>
+								<Route
+									path='locals'
+									element={<Locals />}
 								/>
 							</Routes>
 						</div>
