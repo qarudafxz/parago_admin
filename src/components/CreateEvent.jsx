@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { buildUrl } from "../utils/buildUrl";
-import { getAdminId } from "../helpers/getAdminId";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 
-import {
-	AiOutlineExclamationCircle,
-	AiOutlineCloseCircle,
-} from "react-icons/ai";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 	const [eventName, setEventName] = useState("");
@@ -16,12 +12,19 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 	const [eventAddr, setEventAddr] = useState("");
 	const [price, setPrice] = useState(0);
 	const [capacity, setCapacity] = useState(0);
-	const [destinations, setDestinations] = useState([]);
 	const [nights, setNights] = useState(0);
 	const [days, setDays] = useState(0);
-	const adminID = getAdminId();
+	const navigate = useNavigate();
 
-	const createEvent = async (e) => {
+	const createEventOnPress = (event) => {
+		if (event.key === "e") setIsCreateEvent(true);
+	};
+
+	const handleFormCancellationPress = (event) => {
+		if (event.key === "Escape") setIsCreateEvent(false);
+	};
+
+	const saveEvent = (e) => {
 		e.preventDefault();
 		if (!eventName || !eventDesc || !price || !capacity) {
 			toast.error("Please input all fields!", {
@@ -37,64 +40,17 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 			return;
 		}
 
-		try {
-			await fetch(buildUrl("/event/create-event"), {
-				method: "POST",
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem("token")}`,
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					creatorID: adminID,
-					eventName,
-					eventDesc,
-					eventAddr,
-					price,
-					capacity,
-					dateStart: destinations[0].date,
-					dateEnd: destinations[destinations.length - 1].date,
-					nights,
-					days,
-					locations: [...destinations],
-				}),
-			})
-				.then((res) => res.json())
-				.then((data) => console.log(data));
-			window.location.reload();
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
-	const handleAddLocation = () => {
-		setDestinations([
-			...destinations,
-			{ locName: "", desc: "", date: "", eventStart: "", eventEnd: "" },
-		]);
-	};
-
-	const handleSetLocation = (index, field, value) => {
-		const newDestinations = [...destinations];
-		newDestinations[index] = {
-			...newDestinations[index],
-			[field]: value,
+		const eventData = {
+			eventName,
+			eventDesc,
+			eventAddr,
+			price,
+			capacity,
+			nights,
+			days,
 		};
-		setDestinations(newDestinations);
-	};
 
-	const handleRemoveLocation = (e, index) => {
-		e.preventDefault();
-		const newDestinations = [...destinations];
-		newDestinations.splice(index, 1);
-		setDestinations(newDestinations);
-	};
-
-	const createEventOnPress = (event) => {
-		if (event.key === "e") setIsCreateEvent(true);
-	};
-
-	const handleFormCancellationPress = (event) => {
-		if (event.key === "Escape") setIsCreateEvent(false);
+		navigate("/itineraries", { state: { eventData } });
 	};
 
 	useEffect(() => {
@@ -131,7 +87,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 							delay: 0.5,
 							ease: [0, 0.71, 0.2, 1.01],
 						}}
-						className='flex flex-col gap-4 p-10 w-5/12 bg-white absolute z-10 left-62 top-6 bg-blend-overlay shadow-2xl'>
+						className='flex flex-col gap-4 p-10 w-5/12 bg-white absolute z-10 left-62 top-42 bg-blend-overlay shadow-2xl'>
 						<div className='flex justify-end items-center gap-4'>
 							<h1 className='font-thin text-[#808080]'>Press Esc to close</h1>
 							<button
@@ -197,88 +153,12 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 								className='py-2 pl-4 outline outline-slate-400 focus: outline-none rounded-sm'
 							/>
 						</div>
-						<div>
-							<div className='flex flex-col gap-2'>
-								<h1 className='text-xl font-semibold'>Itineraries</h1>
-								<p className='flex items-center gap-4 mb-2 text-gray'>
-									<AiOutlineExclamationCircle /> Note that the dates of your itineraries
-									must be in sequence
-								</p>
-								<div style={{ height: "140px", overflow: "auto" }}>
-									{destinations.map((_location, index) => {
-										return (
-											<div
-												key={index}
-												className='flex flex-row items-center bg-[#c5c5c5] border border-black'>
-												<input
-													type='text'
-													placeholder='Location'
-													name='locName'
-													onChange={(e) =>
-														handleSetLocation(index, "locName", e.target.value)
-													}
-													className='w-32'
-												/>
-												<textarea
-													type='text'
-													placeholder='Itinerary'
-													name='desc'
-													onChange={(e) => handleSetLocation(index, "desc", e.target.value)}
-													className='border border-black'
-												/>
-												<div>
-													<p>Date: </p>
-													<input
-														type='date'
-														placeholder='Date'
-														name='date'
-														onChange={(e) => handleSetLocation(index, "date", e.target.value)}
-													/>
-												</div>
-												<div>
-													<p>Time start: </p>
-													<input
-														type='time'
-														placeholder='Event Start'
-														name='time'
-														onChange={(e) =>
-															handleSetLocation(index, "eventStart", e.target.value)
-														}
-													/>
-												</div>
-												<div>
-													<p>Time end:</p>
-													<input
-														type='time'
-														placeholder='Event End'
-														name='time'
-														onChange={(e) =>
-															handleSetLocation(index, "eventEnd", e.target.value)
-														}
-													/>
-												</div>
-												<button
-													onClick={(e) => handleRemoveLocation(e, index)}
-													className='bg-primary text-white py-4 px-6'>
-													Remove
-												</button>
-											</div>
-										);
-									})}
-								</div>
-							</div>
-							<button
-								onClick={handleAddLocation}
-								type='button'
-								className='bg-secondary text-white py-2 px-4 rounded-md mt-10'>
-								Add Destination
-							</button>
-						</div>
+						<div></div>
 						<button
 							type='button'
-							onClick={createEvent}
+							onClick={saveEvent}
 							className='bg-primary text-white py-2 px-4 rounded-md flex justify-center'>
-							Create Event
+							Save Event
 						</button>
 					</motion.form>
 				</div>

@@ -23,7 +23,6 @@ function Navbar() {
 			link: "/dashboard",
 		},
 		{
-			id: 2,
 			title: "Events",
 			icon: <RiCalendarEventFill />,
 			link: "/events",

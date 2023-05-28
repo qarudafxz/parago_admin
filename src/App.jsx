@@ -9,6 +9,7 @@ import Events from "./pages/Events";
 import IsVerified from "./pages/isVerified";
 import Places from "./pages/Places";
 import Navbar from "./components/Navbar";
+import Itineraries from "./pages/Itineraries/Itineraries";
 import ViewEvent from "./pages/ViewEvent";
 import Analytics from "./pages/Analytics";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -71,6 +72,10 @@ function App() {
 								<Route
 									path='places'
 									element={<Places />}
+								/>
+								<Route
+									path='itineraries'
+									element={<Itineraries />}
 								/>
 								<Route
 									path='event/:id'
