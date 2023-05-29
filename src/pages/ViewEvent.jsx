@@ -125,46 +125,80 @@ function ViewEvent() {
 							)}
 						</div>
 						<div className='flex flex-row gap-8 items-center'>
-							<div className='flex flex-col gap-2'>
-								<h1 className='font-bold text-2xl'>Date Start</h1>
-								<div className='border border-black rounded-md'>
-									<div className='bg-[#BB0101] rounded-t-md px-4 py-2 font-bold text-white'>
-										<p className='text-center'>
-											{new Date(event.dateStart).toLocaleDateString("en-US", {
-												month: "long",
-												year: "numeric",
-											})}
-										</p>
-									</div>
-									<div>
-										<p className='text-center font-bold shadow-2xl py-4 text-3xl'>
-											{new Date(event.dateStart).toLocaleString("en-us", {
-												day: "2-digit",
-											})}
-										</p>
-									</div>
-								</div>
-							</div>
-							<div className='flex flex-col gap-2'>
-								<h1 className='font-bold text-2xl'>Date End</h1>
-								<div className='border border-black rounded-md'>
-									<div className='bg-[#BB0101] rounded-t-md px-4 py-2 font-bold text-white'>
-										<p className='text-center'>
-											{new Date(event.dateEnd).toLocaleDateString("en-US", {
-												month: "long",
-												year: "numeric",
-											})}
-										</p>
-									</div>
-									<div>
-										<p className='text-center font-bold shadow-2xl py-4 text-3xl'>
-											{new Date(event.dateEnd).toLocaleString("en-us", {
-												day: "2-digit",
-											})}
-										</p>
+							{isLoaded ? (
+								<div className='flex flex-col gap-2'>
+									<h1 className='font-bold text-2xl'>Date Start</h1>
+									<div className='border border-black rounded-md'>
+										<div className='bg-[#BB0101] rounded-t-md px-4 py-2 font-bold text-white'>
+											{isLoaded ? (
+												<p className='text-center'>
+													{new Date(event.dateStart).toLocaleDateString("en-US", {
+														month: "long",
+														year: "numeric",
+													})}
+												</p>
+											) : (
+												<Skeleton
+													variant='text'
+													width={100}
+													height={30}
+												/>
+											)}
+										</div>
+										<div>
+											{isLoaded ? (
+												<p className='text-center font-bold shadow-2xl py-4 text-3xl'>
+													{new Date(event.dateStart).toLocaleString("en-us", {
+														day: "2-digit",
+													})}
+												</p>
+											) : (
+												<Skeleton
+													variant='text'
+													width={100}
+													height={30}
+												/>
+											)}
+										</div>
 									</div>
 								</div>
-							</div>
+							) : (
+								<Skeleton
+									variant='square'
+									width={110}
+									height={110}
+									className='rounded-md mt-10'
+								/>
+							)}
+							{isLoaded ? (
+								<div className='flex flex-col gap-2'>
+									<h1 className='font-bold text-2xl'>Date End</h1>
+									<div className='border border-black rounded-md'>
+										<div className='bg-[#BB0101] rounded-t-md px-4 py-2 font-bold text-white'>
+											<p className='text-center'>
+												{new Date(event.dateEnd).toLocaleDateString("en-US", {
+													month: "long",
+													year: "numeric",
+												})}
+											</p>
+										</div>
+										<div>
+											<p className='text-center font-bold shadow-2xl py-4 text-3xl'>
+												{new Date(event.dateEnd).toLocaleString("en-us", {
+													day: "2-digit",
+												})}
+											</p>
+										</div>
+									</div>
+								</div>
+							) : (
+								<Skeleton
+									variant='square'
+									width={110}
+									height={110}
+									className='rounded-md mt-10'
+								/>
+							)}
 							<div className='flex flex-col gap-4'>
 								{isLoaded ? (
 									<p className='flex items-center gap-4 text-secondary text-2xl font-bold'>
@@ -196,7 +230,10 @@ function ViewEvent() {
 						</div>
 					</div>
 					<div>
-						<Itinerary itineraries={event.locations} />
+						<Itinerary
+							itineraries={event.locations}
+							isLoaded={isLoaded}
+						/>
 					</div>
 				</div>
 			</div>
