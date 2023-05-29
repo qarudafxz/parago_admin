@@ -25,9 +25,10 @@ function Itineraries() {
 		setProgress(50);
 
 		if (
-			(destinations.length == 0 || destinations[0] == "",
-			destinations[1] == "",
-			destinations[2] == "")
+			destinations.length == 0 ||
+			destinations[0] == "" ||
+			destinations[1] == "" ||
+			destinations[2] == ""
 		) {
 			toast.error("Please provide itineraries!", {
 				position: "top-right",
