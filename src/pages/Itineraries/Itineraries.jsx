@@ -28,7 +28,9 @@ function Itineraries() {
 			destinations.length == 0 ||
 			destinations[0] == "" ||
 			destinations[1] == "" ||
-			destinations[2] == ""
+			destinations[2] == null ||
+			destinations[3] == null ||
+			destinations[4] == null
 		) {
 			toast.error("Please provide itineraries!", {
 				position: "top-right",
