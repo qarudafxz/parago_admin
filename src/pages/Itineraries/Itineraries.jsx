@@ -29,7 +29,8 @@ function Itineraries() {
 				return Object.values(destination).some(
 					(value) => value === null || value === undefined || value === ""
 				);
-			})
+			}) ||
+			destinations.length === 0
 		) {
 			toast.error("Please provide itineraries!", {
 				position: "top-right",
