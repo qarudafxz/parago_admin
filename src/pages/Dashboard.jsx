@@ -49,7 +49,7 @@ function Dashboard() {
 				</div>
 				<div className='flex flex-row gap-40'>
 					<NumberEvents />
-					<ChartComponent />
+					{/* <ChartComponent /> */}
 				</div>
 			</div>
 		</>

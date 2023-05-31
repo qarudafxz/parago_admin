@@ -1,4 +1,4 @@
-import { Event } from "../models/Events.js";
+import { Event } from "../models/Entities.js";
 import { Admin } from "../models/Admin.js";
 
 export const createEvent = async (req, res) => {

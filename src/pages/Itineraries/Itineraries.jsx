@@ -5,6 +5,8 @@ import { getAdminId } from "../../helpers/getAdminId";
 import TopLoadingBar from "react-top-loading-bar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BsSunFill, BsFillMoonStarsFill } from "react-icons/bs";
@@ -12,6 +14,27 @@ import { BsSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 
 function Itineraries() {
+	const locType = [
+		{ key: 1, value: "beach", label: "Beach" },
+		{ key: 2, value: "mountain", label: "Mountain" },
+		{ key: 3, value: "forest", label: "Forest" },
+		{ key: 4, value: "lake", label: "Lake" },
+		{ key: 5, value: "river", label: "River" },
+		{ key: 6, value: "waterfall", label: "Waterfall" },
+		{ key: 7, value: "cave", label: "Cave" },
+		{ key: 8, value: "island", label: "Island" },
+		{ key: 9, value: "museum", label: "Museum" },
+		{ key: 10, value: "park", label: "Park" },
+		{ key: 11, value: "zoo", label: "Zoo" },
+		{ key: 12, value: "theme park", label: "Theme Park" },
+		{ key: 13, value: "garden", label: "Garden" },
+		{ key: 14, value: "church", label: "Church" },
+		{ key: 15, value: "temple", label: "Temple" },
+		{ key: 16, value: "mosque", label: "Mosque" },
+		{ key: 17, value: "cathedral", label: "Cathedral" },
+		{ key: 18, value: "castle", label: "Castle" },
+	];
+
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { eventData } = location.state;
@@ -82,7 +105,15 @@ function Itineraries() {
 	const handleAddLocation = () => {
 		setDestinations([
 			...destinations,
-			{ locName: "", desc: "", date: "", eventStart: "", eventEnd: "" },
+			{
+				locName: "",
+				locDesc: "",
+				type: "",
+				desc: "",
+				date: "",
+				eventStart: "",
+				eventEnd: "",
+			},
 		]);
 		setCounter(counter + 1);
 	};
@@ -154,7 +185,7 @@ function Itineraries() {
 						<AiOutlineExclamationCircle /> Note that the dates of your itineraries
 						must be in sequence
 					</p>
-					<div style={{ height: "40%", overflow: "auto" }}>
+					<div style={{ height: "40%" }}>
 						{destinations.map((_location, index) => {
 							return (
 								<div
@@ -166,6 +197,18 @@ function Itineraries() {
 										name='locName'
 										onChange={(e) => handleSetLocation(index, "locName", e.target.value)}
 										className='py-2 pl-4'
+									/>
+									<textarea
+										type='text'
+										placeholder='Location Description'
+										name='desc'
+										onChange={(e) => handleSetLocation(index, "locDesc", e.target.value)}
+									/>
+									<Dropdown
+										className='border border-gray pl-2 py-2 rounded-md text-primary focus:outline-none'
+										options={locType}
+										onChange={(e) => handleSetLocation(index, "type", locType?.value)}
+										placeholder='Destination Type'
 									/>
 									<textarea
 										type='text'

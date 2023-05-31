@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const collectionName = "events";
+const eventCollectionName = "events";
+const tourismCollectionName = "tourism";
 
 const EventSchema = new mongoose.Schema(
 	{
@@ -20,6 +21,8 @@ const EventSchema = new mongoose.Schema(
 		locations: [
 			{
 				locName: { type: String },
+				locDesc: { type: String },
+				type: { type: String },
 				desc: { type: String },
 				date: { type: String },
 				eventStart: { type: String },
@@ -40,4 +43,13 @@ const EventSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-export const Event = mongoose.model(collectionName, EventSchema);
+export const Event = mongoose.model(eventCollectionName, EventSchema);
+
+const TourismSchema = new mongoose.Schema({
+	creatorID: { type: mongoose.Schema.Types.ObjectId, refs: "admins" },
+	name: { type: String, required: true, unique: true },
+	contactNumber: { type: Number, required: true },
+	availability: { type: Boolean, default: true },
+});
+
+export const Tourism = mongoose.model(tourismCollectionName, TourismSchema);
