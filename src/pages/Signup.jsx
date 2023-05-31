@@ -183,7 +183,6 @@ function Home() {
 						onChange={(municipalities) => setMunicipality(municipalities?.value)}
 						placeholder='Select Municipality'
 					/>
-
 					{message && <p className='text-red-600 text-xs font-bold'>{message}</p>}
 					<label
 						htmlFor='firstName'

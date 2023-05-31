@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { buildUrl } from "../../utils/buildUrl";
 import { getAdminId } from "../../helpers/getAdminId";
@@ -207,7 +207,9 @@ function Itineraries() {
 									<Dropdown
 										className='border border-gray pl-2 py-2 rounded-md text-primary focus:outline-none'
 										options={locType}
-										onChange={(e) => handleSetLocation(index, "type", locType?.value)}
+										onChange={(locType) =>
+											handleSetLocation(index, "type", locType?.value)
+										}
 										placeholder='Destination Type'
 									/>
 									<textarea
