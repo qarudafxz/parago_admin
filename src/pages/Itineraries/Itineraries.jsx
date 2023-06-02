@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { buildUrl } from "../../utils/buildUrl";
 import { getAdminId } from "../../helpers/getAdminId";
@@ -135,6 +135,24 @@ function Itineraries() {
 		setCounter(counter - 1);
 	};
 
+	const createItineraryOnPress = (e) => {
+		if (e.key === "d") {
+			handleAddLocation();
+		}
+	};
+
+	useEffect(() => {
+		const handleCreateItinerary = (e) => {
+			createItineraryOnPress(e);
+		};
+
+		window.addEventListener("keydown", handleCreateItinerary);
+
+		return () => {
+			window.removeEventListener("keydown", handleCreateItinerary);
+		};
+	});
+
 	return (
 		<div className='font-primary w-full p-10'>
 			<ToastContainer />
@@ -173,19 +191,24 @@ function Itineraries() {
 				<div className='flex flex-col'>
 					<div className='flex flex-row justify-between items-center'>
 						<h1 className='text-4xl font-semibold'>Itineraries</h1>
-						<button
-							onClick={handleAddLocation}
-							type='button'
-							className='bg-secondary text-white py-2 px-4 rounded-md mt-10'>
-							Add Destination
-						</button>
+						<div className='flex flex-row gap-8 items-center'>
+							<p className='font-thin text-[#808080]'>Press D to create Destination</p>
+							<button
+								onClick={handleAddLocation}
+								type='button'
+								className='bg-secondary text-white py-2 px-4 rounded-md'>
+								Add Destination
+							</button>
+						</div>
 					</div>
 					<h1>Intineraries: {counter}</h1>
 					<p className='flex items-center gap-4 mb-2 text-gray'>
 						<AiOutlineExclamationCircle /> Note that the dates of your itineraries
 						must be in sequence
 					</p>
-					<div style={{ height: "40%" }}>
+					<div
+						className='grid grid-rows-12 customScroll'
+						style={{ maxHeight: "585px", overflow: "auto" }}>
 						{destinations.map((_location, index) => {
 							return (
 								<div

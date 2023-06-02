@@ -12,8 +12,14 @@ import {
 	GiCaveEntrance,
 	GiIsland,
 	GiAnimalSkull,
+	GiCarousel,
+	GiFlowers,
+	GiChurch,
+	GiTempleGate,
+	GiSaintBasilCathedral,
+	GiCastle,
 } from "react-icons/gi";
-import { MdOutlineMuseum } from "react-icons/md";
+import { MdOutlineMuseum, MdMosque } from "react-icons/md";
 import { TbBuildingCarousel } from "react-icons/tb";
 
 function Places() {
@@ -32,13 +38,13 @@ function Places() {
 		{ value: "museum", icon: <MdOutlineMuseum /> },
 		{ value: "park", icon: <TbBuildingCarousel /> },
 		{ value: "zoo", icon: <GiAnimalSkull /> },
-		{ value: "theme park", icon: <TbBuildingCarousel /> },
-		{ value: "garden", icon: <TbBuildingCarousel /> },
-		{ value: "church", icon: <TbBuildingCarousel /> },
-		{ value: "temple", icon: <TbBuildingCarousel /> },
-		{ value: "mosque", icon: <TbBuildingCarousel /> },
-		{ value: "cathedral", icon: <TbBuildingCarousel /> },
-		{ value: "castle", icon: <TbBuildingCarousel /> },
+		{ value: "theme park", icon: <GiCarousel /> },
+		{ value: "garden", icon: <GiFlowers /> },
+		{ value: "church", icon: <GiChurch /> },
+		{ value: "temple", icon: <GiTempleGate /> },
+		{ value: "mosque", icon: <MdMosque /> },
+		{ value: "cathedral", icon: <GiSaintBasilCathedral /> },
+		{ value: "castle", icon: <GiCastle /> },
 	];
 
 	const fetchPlaces = async () => {
@@ -82,19 +88,18 @@ function Places() {
 				<div className='grid grid-cols-4 mt-10 gap-10'>
 					{places?.events?.map((place) => {
 						return place.locations.map((location) => {
-							// Update this line
-							const LocationIcon = LOCATION_TYPE.find(
-								(loc) => loc.value === location.locType
-							)?.icon;
+							const { icon } = LOCATION_TYPE.find(
+								(type) => type.value === location.type
+							);
 							return (
 								<div
 									className='shadow-xl rounded-md p-6 flex flex-col gap-4'
 									key={location._id}>
 									<h1 className='text-4xl font-bold flex items-center gap-6 text-primary'>
-										{LocationIcon}
+										{icon}
 										{location.locName}
 									</h1>
-									<p className='text-md font-thin'>{location.locDesc}</p>
+									<p className='text-md font-thin text-ellipsis'>{location.locDesc}</p>
 								</div>
 							);
 						});
