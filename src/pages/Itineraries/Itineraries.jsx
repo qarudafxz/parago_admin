@@ -136,7 +136,7 @@ function Itineraries() {
 	};
 
 	const createItineraryOnPress = (e) => {
-		if (e.key === "d") {
+		if (e.key === "`") {
 			handleAddLocation();
 		}
 	};
@@ -192,7 +192,7 @@ function Itineraries() {
 					<div className='flex flex-row justify-between items-center'>
 						<h1 className='text-4xl font-semibold'>Itineraries</h1>
 						<div className='flex flex-row gap-8 items-center'>
-							<p className='font-thin text-[#808080]'>Press D to create Destination</p>
+							<p className='font-thin text-[#808080]'>Press ` to create Destination</p>
 							<button
 								onClick={handleAddLocation}
 								type='button'
