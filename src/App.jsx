@@ -16,6 +16,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ChangePassword from "./pages/ChangePassword";
 import Preloader from "./components/Preloader";
 import Locals from "./pages/Locals";
+import Transportation from "./pages/locals/Transportation";
 
 function App() {
 	const [loading, setLoading] = useState(true);
@@ -88,6 +89,10 @@ function App() {
 								<Route
 									path='locals'
 									element={<Locals />}
+								/>
+								<Route
+									path='transportation'
+									element={<Transportation />}
 								/>
 							</Routes>
 						</div>
