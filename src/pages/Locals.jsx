@@ -1,7 +1,32 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { MdEmojiTransportation } from "react-icons/md";
+import { IoMan } from "react-icons/io5";
+import { SiHomeassistantcommunitystore } from "react-icons/si";
+
 function Locals() {
+	const locals = [
+		{
+			link: "/transportation",
+			title: "Local Transportation",
+			description: "View the local transportation in your municipality!",
+			icon: <MdEmojiTransportation size={50} />,
+		},
+		{
+			link: "/tourism",
+			title: "Local Tour Guide",
+			description: "View the local tour guides in your municipality!",
+			icon: <IoMan size={50} />,
+		},
+		{
+			link: "/local-stores",
+			title: "Local Stores",
+			description: "View the local stores in your municipality!",
+			icon: <SiHomeassistantcommunitystore size={50} />,
+		},
+	];
+
 	return (
 		<div className='w-full'>
 			<div className='w-full h-72 p-24 flex flex-col gap-2 shadow-2xl inset-0 bg-secondary'>
@@ -17,16 +42,20 @@ function Locals() {
 				</p>
 			</div>
 			<div className='px-32 pt-14 grid grid-cols-3 gap-6'>
-				<Link
-					to='/transportation'
-					className='w-7/12 h-full shadow-md'>
-					<div className='flex flex-col gap-2'>
-						<h1 className='font-bold text-2xl text-white bg-primary rounded-t-md py-4 px-8'>
-							Local Transportation
-						</h1>
-						<p className='p-4 rounded-b-md'>View Details</p>
-					</div>
-				</Link>
+				{locals.map((local, index) => (
+					<Link
+						to={local.link}
+						className='w-10/12 h-full shadow-md'
+						key={index}>
+						<div className='flex flex-col gap-2'>
+							<h1 className='flex gap-4 items-center font-bold text-2xl text-white bg-primary rounded-t-md py-4 px-8'>
+								{local.icon}
+								{local.title}
+							</h1>
+							<p className='p-4 rounded-b-md'>{local.description}</p>
+						</div>
+					</Link>
+				))}
 			</div>
 		</div>
 	);

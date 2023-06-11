@@ -38,6 +38,18 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 				theme: "light",
 			});
 			return;
+		} else if (eventDesc.length > 255) {
+			toast.error("Event Description is too long!", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: false,
+				pauseOnHover: false,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+			});
+			return;
 		}
 
 		const eventData = {
@@ -116,7 +128,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 						/>
 						<textarea
 							type='text'
-							placeholder='Event Description'
+							placeholder='Event Description (Maximum of 255 Characters only)'
 							onChange={(e) => setEventDesc(e.target.value)}
 							className='py-2 pl-4 outline outline-slate-400 h-48 focus: outline-none rounded-sm'
 						/>

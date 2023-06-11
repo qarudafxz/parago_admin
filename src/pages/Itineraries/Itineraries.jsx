@@ -272,6 +272,14 @@ function Itineraries() {
 											}
 										/>
 									</div>
+									<Dropdown
+										className='border border-gray pl-2 py-2 rounded-md text-primary focus:outline-none'
+										options={locType}
+										onChange={(locType) =>
+											handleSetLocation(index, "type", locType?.value)
+										}
+										placeholder='Select Accommodation'
+									/>
 									<button
 										onClick={(e) => handleRemoveLocation(e, index)}
 										className='bg-primary text-white py-4 px-6'>

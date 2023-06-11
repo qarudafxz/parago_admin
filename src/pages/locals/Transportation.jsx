@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Transportation() {
 	return (
 		<>
-			<div className='w-full'>Hi</div>
+			<div className='w-full'></div>
 		</>
 	);
 }

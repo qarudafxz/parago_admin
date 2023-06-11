@@ -154,3 +154,9 @@ export const bookingsData = async (req, res) => {
 		console.log(bookingsData);
 	}
 };
+
+//accommodations
+export const createAccommodation = async (req, res) => {
+	try {
+	} catch (err) {}
+};

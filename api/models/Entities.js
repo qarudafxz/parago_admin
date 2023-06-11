@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const eventCollectionName = "events";
 const tourismCollectionName = "tourism";
+const accomCollectionName = "accom";
 
 const EventSchema = new mongoose.Schema(
 	{
@@ -53,3 +54,16 @@ const TourismSchema = new mongoose.Schema({
 });
 
 export const Tourism = mongoose.model(tourismCollectionName, TourismSchema);
+
+//this model is for the accommodations
+const AccomSchema = new mongoose.Schema({
+	creatorID: { type: mongoose.Schema.Types.ObjectId, refs: "admins" },
+	name: { type: String, required: true },
+	gender: { type: String, required: true },
+	contactNumber: { type: Number, required: true },
+	availability: { type: Boolean, default: true },
+	service: { type: String, required: true },
+	location: { type: String, default: "" },
+});
+
+export const Accom = mongoose.model(accomCollectionName, AccomSchema);
