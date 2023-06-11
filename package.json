@@ -11,6 +11,7 @@
     "server": "nodemon api/devServer.js"
   },
   "dependencies": {
+    "@babel/plugin-syntax-jsx": "^7.22.5",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.13.0",
@@ -23,6 +24,7 @@
     "framer-motion": "^10.12.12",
     "jsonwebtoken": "^9.0.0",
     "jwt-decode": "^3.1.2",
+    "million": "^2.4.4",
     "mongoose": "^7.1.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
