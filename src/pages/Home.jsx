@@ -106,6 +106,7 @@ function Home() {
 						src={logo}
 						alt='paraGO Logo'
 						className='w-44'
+						loading='lazy'
 					/>
 					<h1 className='text-white text-7xl font-extrabold w-10/12'>
 						Travel to hidden gems
@@ -128,6 +129,7 @@ function Home() {
 					src={pic}
 					className='h-full w-full object-cover'
 					style={{ height: "100%" }}
+					loading='lazy'
 				/>
 				<div
 					className='absolute inset-0 bg-primary opacity-50'
