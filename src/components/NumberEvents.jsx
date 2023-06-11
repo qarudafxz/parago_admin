@@ -6,6 +6,7 @@ import { TbKayak } from "react-icons/tb";
 
 function NumberEvents() {
 	const [fetchedData, setFetchData] = useState({});
+	const [isLoaded, setIsLoaded] = useState(null);
 	const adminID = getAdminId();
 	const currentDate = new Date().toLocaleDateString("en-US", {
 		year: "numeric",
@@ -14,6 +15,7 @@ function NumberEvents() {
 	});
 
 	const fetchData = async () => {
+		setIsLoaded(false);
 		await fetch(buildUrl(`/auth/admin/${adminID}`), {
 			method: "GET",
 			headers: {
@@ -24,7 +26,7 @@ function NumberEvents() {
 			.then((res) => res.json())
 			.then((data) => {
 				setFetchData(data);
-				console.log(data.admin?.eventsCreated);
+				setIsLoaded(true);
 			});
 	};
 
@@ -38,7 +40,11 @@ function NumberEvents() {
 				<div className='flex flex-row justify-between p-10 bg-[#B7FFB0]'>
 					<div className='flex flex-col items-center'>
 						<h1 className='text-7xl font-bold text-[#2A7A23]'>
-							{fetchedData.admin?.eventsCreated}
+							{isLoaded ? (
+								fetchedData.admin?.eventsCreated
+							) : (
+								<span className='text-4xl'>Loading...</span>
+							)}
 						</h1>
 						<p className='text-xl text-[#2A7A23]'>Events Created</p>
 					</div>
