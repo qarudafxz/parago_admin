@@ -12,7 +12,8 @@ function Transportation() {
 							<span className='text-white font-semibold'>Transportations</span>
 						</h1>
 						<h1 className='text-4xl text-white font-bold'>
-							View the places you created!
+							Add transportation services to your tourists who visits your wonderful
+							places
 						</h1>
 						<p className='text-white font-thin w-7/12 mt-4'>
 							These are the hidden gems you wish for the tourists to explore. You can

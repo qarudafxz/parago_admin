@@ -170,6 +170,7 @@ export const createAccommodation = async (req, res) => {
 		}
 
 		const newAccommodation = new Accom({
+			creatorID: id,
 			name,
 			gender,
 			contactNumber,
@@ -186,9 +187,21 @@ export const createAccommodation = async (req, res) => {
 };
 
 export const getAllAvailableAccommodations = async (req, res) => {
+	const { id } = req.params;
 	try {
-		const accommodations = await Accom.find({ availability: true });
-		return res.status(200).json({ accommodations });
+		const accommodations = await Accom.find({ creatorID: id });
+		if (!accommodations) {
+			return res.status(404).json({ message: "Accommodations not found!" });
+		}
+
+		const availableAccommodations = accommodations.filter(
+			(accommodation) => accommodation.availability === true
+		);
+
+		return res.status(200).json({
+			availableAccommodations,
+			message: "All accommodations that are available retrieved	successfully!",
+		});
 	} catch (e) {
 		console.error(e);
 		throw new Error(e);
