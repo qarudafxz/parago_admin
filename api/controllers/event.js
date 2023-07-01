@@ -1,5 +1,6 @@
 import { Event } from "../models/Entities.js";
 import { Admin } from "../models/Admin.js";
+import { Accom } from "../models/Entities.js";
 
 export const createEvent = async (req, res) => {
 	const {
@@ -140,7 +141,7 @@ export const bookingsData = async (req, res) => {
 		};
 
 		//dynamically add new booking data if the date is not the same
-		admin?.bookings.map((book) => {
+		admin?.bookings?.map((book) => {
 			if (book.currentDate != date.now()) {
 				admin.bookings.push(newBook);
 			} else {
@@ -157,6 +158,38 @@ export const bookingsData = async (req, res) => {
 
 //accommodations
 export const createAccommodation = async (req, res) => {
+	const { id } = req.params;
+	const { name, gender, contact, availability, service, location } = req.body;
+
 	try {
+		const admin = await Admin.findById(id);
+
+		if (!admin) {
+			return res.status(404).json({ message: " Admin not found" });
+		}
+
+		const newAccommodation = new Accom({
+			name,
+			gender,
+			contact,
+			availability,
+			service,
+			location,
+		});
+
+		await newAccommodation.save();
+		return res
+			.status(200)
+			.json({ newAccommodation, message: "New accommodation created!" });
 	} catch (err) {}
+};
+
+export const getAllAvailableAccommodations = async (req, res) => {
+	try {
+		const accommodations = await Accom.find({ availability: true });
+		return res.status(200).json({ accommodations });
+	} catch (e) {
+		console.error(e);
+		throw new Error(e);
+	}
 };
