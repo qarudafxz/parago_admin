@@ -159,7 +159,8 @@ export const bookingsData = async (req, res) => {
 //accommodations
 export const createAccommodation = async (req, res) => {
 	const { id } = req.params;
-	const { name, gender, contact, availability, service, location } = req.body;
+	const { name, gender, contactNumber, availability, service, location } =
+		req.body;
 
 	try {
 		const admin = await Admin.findById(id);
@@ -171,7 +172,7 @@ export const createAccommodation = async (req, res) => {
 		const newAccommodation = new Accom({
 			name,
 			gender,
-			contact,
+			contactNumber,
 			availability,
 			service,
 			location,

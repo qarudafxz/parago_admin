@@ -61,7 +61,7 @@ const AccomSchema = new mongoose.Schema({
 	name: { type: String, required: true },
 	gender: { type: String, required: true },
 	contactNumber: { type: Number, required: true },
-	availability: { type: Boolean, default: true },
+	availability: { type: Boolean },
 	service: { type: String, required: true },
 	location: { type: String, default: "" },
 });

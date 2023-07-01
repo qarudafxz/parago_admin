@@ -8,6 +8,7 @@ import {
 	getEvents,
 	getEventById,
 	deleteEvent,
+	createAccommodation,
 } from "../controllers/event.js";
 
 const router = express.Router();
@@ -29,6 +30,7 @@ const router = express.Router();
 
 // const upload = multer({ storage });
 
+router.post("/create-accom/:id", createAccommodation);
 router.post(
 	"/create-event",
 	isAuthenticated,
