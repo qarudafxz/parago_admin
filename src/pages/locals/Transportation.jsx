@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { motion } from "framer-motion";
 
-import { AiOutlineArrowLeft } from "react-icons/ai";
+import { AiOutlineArrowLeft, AiFillPlusCircle } from "react-icons/ai";
+import AddTranspo from "../../components/AddTranspo";
 
 function Transportation() {
+	const [isAdd, setIsAdd] = useState(false);
+
 	return (
 		<>
 			<div className='w-full'>
@@ -40,9 +43,21 @@ function Transportation() {
 								/>
 							</Link>
 						</motion.div>
-						<h1>Locals</h1>
+						<div className='flex w-full justify-between items-center'>
+							<h1>Locals</h1>
+							<button
+								onClick={() => setIsAdd(!isAdd)}
+								className='flex flex-row gap-4 items-center text-xl font-semibold place-self-end mr-10 bg-primary px-4 py-2 rounded-md text-white hover:bg-[#0032a8] duration-150'>
+								<AiFillPlusCircle size={30} />
+								Add Transportation
+							</button>
+						</div>
 					</div>
 				</div>
+				<AddTranspo
+					isAdd={isAdd}
+					setIsAdd={setIsAdd}
+				/>
 			</div>
 		</>
 	);

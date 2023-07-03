@@ -186,6 +186,7 @@ export const createAccommodation = async (req, res) => {
 	} catch (err) {}
 };
 
+//getting all accommodations
 export const getAllAvailableAccommodations = async (req, res) => {
 	const { id } = req.params;
 	try {
