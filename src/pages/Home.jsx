@@ -16,9 +16,11 @@ function Home() {
 	const [progress, setProgress] = useState(0);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [message, setMessage] = useState("");
+	const [emailMessage, setEmailMessage] = useState("");
+	const [passwordMessage, setPasswordMessage] = useState("");
 	const [isVisible, setIsVisible] = useState(false);
-	const [isValid, setIsValid] = useState(true);
+	const [isEmailValid, setIsEmailValid] = useState(true);
+	const [isPasswordValid, setIsPasswordValid] = useState(true);
 	const formRef = useRef(null);
 
 	const handleLogin = async (e) => {
@@ -38,9 +40,17 @@ function Home() {
 			const data = await res.json();
 
 			if (!(res.status === 200)) {
-				setMessage(data.message);
-				setIsValid(false);
-				setProgress(100);
+				if (
+					data.message === "Email not verified" ||
+					data.message === "Admin doesn't exist!"
+				) {
+					setEmailMessage(data.message);
+					setIsEmailValid(false);
+				} else {
+					setPasswordMessage(data.message);
+					setIsPasswordValid(false);
+				}
+
 				return;
 			}
 
@@ -161,12 +171,16 @@ function Home() {
 				</label>
 				<input
 					type='text'
-					className='border border-gray pl-2 py-2 rounded-md focus:outline-none'
+					className={`border ${
+						!isEmailValid ? "border-rose-500" : "border-gray"
+					} pl-2 py-2 rounded-md w-full focus:outline-none`}
 					required
 					autoComplete='off'
 					onChange={(e) => setEmail(e.target.value)}
 				/>
-				{message && <p className='text-red-600 text-xs font-bold'>{message}</p>}
+				{emailMessage && (
+					<p className='text-red-600 text-xs font-bold'>{emailMessage}</p>
+				)}
 				<label
 					htmlFor='firstName'
 					className='text-xs'>
@@ -187,12 +201,15 @@ function Home() {
 					<input
 						type={isVisible ? "text" : "password"}
 						className={`border ${
-							!isValid ? "border-rose-500" : "border-gray"
+							!isPasswordValid ? "border-rose-500" : "border-gray"
 						} pl-2 py-2 rounded-md w-full focus:outline-none`}
 						required
 						autoComplete='off'
 						onChange={(e) => setPassword(e.target.value)}
 					/>
+					{passwordMessage && (
+						<p className='text-red-600 mt-2 text-xs font-bold'>{passwordMessage}</p>
+					)}
 				</div>
 				<Link
 					to='/forgot-password'
