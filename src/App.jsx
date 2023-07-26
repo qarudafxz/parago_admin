@@ -17,7 +17,15 @@ import ChangePassword from "./pages/ChangePassword";
 import Preloader from "./components/Preloader";
 import Locals from "./pages/Locals";
 import Transportation from "./pages/locals/Transportation";
-import Settings from "./pages/Settings";
+
+import SettingsNavbar from "./components/SettingsNavbar";
+
+//settings
+
+import MyProfile from "./pages/Settings/MyProfile";
+import Security from "./pages/Settings/Security";
+import Municipalities from "./pages/Settings/Municipalities";
+import Billing from "./pages/Settings/Billing";
 
 function App() {
 	const [loading, setLoading] = useState(true);
@@ -95,10 +103,37 @@ function App() {
 									path='transportation'
 									element={<Transportation />}
 								/>
-								<Route
-									path='settings'
-									element={<Settings />}
-								/>
+								<Route path='settings'>
+									<Route
+										path='/settings/*'
+										element={
+											<div className='p-10 bg-zinc-100 w-full'>
+												<h1 className='font-bold text-3xl mb-4'>Account Settings</h1>
+												<div className='font-primary flex flex-row gap-4 bg-white p-4 rounded-2xl shadow-2xl'>
+													<SettingsNavbar />
+													<Routes>
+														<Route
+															path='my-profile'
+															element={<MyProfile />}
+														/>
+														<Route
+															path='security'
+															element={<Security />}
+														/>
+														<Route
+															path='municipalities'
+															element={<Municipalities />}
+														/>
+														<Route
+															path='billing'
+															element={<Billing />}
+														/>
+													</Routes>
+												</div>
+											</div>
+										}
+									/>
+								</Route>
 							</Routes>
 						</div>
 					}

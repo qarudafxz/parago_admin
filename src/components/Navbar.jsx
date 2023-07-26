@@ -106,21 +106,30 @@ function Navbar() {
 				))}
 			</ul>
 			<hr className='h-4' />
-			<ul className='mb-16 flex flex-col px-10 md:gap-6 lg:mt-4 gap-8'>
+			<ul className='mb-16 flex flex-col md:gap-6 lg:mt-4 gap-8'>
 				<li>
 					<NavLink
-						to='/settings'
-						className='flex items-center gap-10 text-lg'>
-						<AiOutlineSetting size={30} />
-						Settings
+						to='/settings/my-profile'
+						className={({ isActive }) =>
+							"flex items-center gap-10 text-lg' " +
+							(isActive
+								? "bg-[#DCE7FF] text-primary duration-300 pl-4 border-l-8 border-primary"
+								: "")
+						}>
+						<div className='flex items-center gap-10 text-lg py-2 pl-4'>
+							<AiOutlineSetting size={30} />
+							Settings
+						</div>
 					</NavLink>
 				</li>
 				<li>
 					<button
 						onClick={handleLogout}
 						className='flex items-center gap-10 text-lg'>
-						<RiLogoutBoxRLine size={30} />
-						Logout
+						<div className='flex items-center gap-10 text-lg py-2 pl-4'>
+							<RiLogoutBoxRLine size={30} />
+							Logout
+						</div>
 					</button>
 				</li>
 			</ul>
