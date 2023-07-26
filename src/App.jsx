@@ -17,6 +17,7 @@ import ChangePassword from "./pages/ChangePassword";
 import Preloader from "./components/Preloader";
 import Locals from "./pages/Locals";
 import Transportation from "./pages/locals/Transportation";
+import Settings from "./pages/Settings";
 
 function App() {
 	const [loading, setLoading] = useState(true);
@@ -93,6 +94,10 @@ function App() {
 								<Route
 									path='transportation'
 									element={<Transportation />}
+								/>
+								<Route
+									path='settings'
+									element={<Settings />}
 								/>
 							</Routes>
 						</div>

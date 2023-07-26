@@ -78,7 +78,7 @@ function Navbar() {
 					ease: [0, 0.71, 0.2, 1.01],
 				}}
 				src={Logo}
-				className='w-48 mx-10'
+				className='mx-10 md:w-32 xl:w-48'
 				alt='Logo'
 			/>
 			<label
@@ -109,7 +109,7 @@ function Navbar() {
 			<ul className='mb-16 flex flex-col px-10 md:gap-6 lg:mt-4 gap-8'>
 				<li>
 					<NavLink
-						to='/dashboard'
+						to='/settings'
 						className='flex items-center gap-10 text-lg'>
 						<AiOutlineSetting size={30} />
 						Settings
