@@ -62,7 +62,7 @@ function Navbar() {
 	};
 
 	return (
-		<div className='flex flex-col w-2/12 gap-10 pt-14 font-primary border-r-2 border-[#dcdcdc] shadow-md overflow-hidden sticky'>
+		<div className='flex flex-col w-2/12 pt-14 font-primary border-r-2 border-[#dcdcdc] shadow-md overflow-hidden sticky md:gap-2 xl:gap-10'>
 			<TopLoadingBar
 				progress={progress}
 				color='#FF7900'
@@ -86,7 +86,7 @@ function Navbar() {
 				className='font-thin text-gray px-10'>
 				Main Menu
 			</label>
-			<ul className='flex flex-col gap-8 pb-28'>
+			<ul className='flex flex-col gap-8 md:pb-14 xl:pb-28'>
 				{menu.map((item) => (
 					<li key={item.id}>
 						<NavLink
@@ -106,7 +106,7 @@ function Navbar() {
 				))}
 			</ul>
 			<hr className='h-4' />
-			<ul className='mt-4 mb-16 flex flex-col gap-8 px-10'>
+			<ul className='mb-16 flex flex-col px-10 md:gap-6 lg:mt-4 gap-8'>
 				<li>
 					<NavLink
 						to='/dashboard'

@@ -113,23 +113,23 @@ function Home() {
 				<div className='bg-primary'>
 					<SignupImage className='lg:w-full h-full' />
 				</div>
-				<div className='bg-secondary pl-10 py-10 flex flex-col gap-2'>
+				<div className='bg-secondary flex flex-col md:p-6 xl:pl-10 py-10 gap-2'>
 					<img
 						src={logo}
 						alt='paraGO Logo'
 						className='w-12'
 					/>
-					<h1 className='text-5xl font-extrabold text-white'>
-						Travel to hidden gems
+					<h1 className='font-extrabold text-white md:text-3xl xl:text-5xl'>
+						Travel to hidden gems with ParaGO
 					</h1>
-					<p className='text-white font-lg text-md w-10/12'>
+					<p className='text-white font-lg w-10/12 md:hidden xl:block'>
 						Go travel with ease and Explore ew heights with paraGO
 					</p>
 				</div>
 			</div>
 			<div className='bg-[#e7e7e7] w-full'>
 				<form
-					className='bg-white rounded-xl flex flex-col gap-3 w-9/12 p-8 m-auto mt-8 shadow-lg md:mt-2 w-6/12 lg:mt-24'
+					className='bg-white rounded-xl flex flex-col gap-2 w-9/12 p-8 m-auto mt-8 shadow-lg md:mt-1 w-6/12 xl:mt-24'
 					onSubmit={registerUser}>
 					<img
 						src={pg_admin_img}
@@ -236,7 +236,7 @@ function Home() {
 					</div>
 					<button
 						type='submit'
-						className='bg-primary py-2 rounded-md mt-10 text-white font-bold hover:bg-[#0032a8] duration-100'>
+						className='bg-primary py-2 rounded-md text-white font-bold hover:bg-[#0032a8] duration-100 md:mt-4 xl:mt-10'>
 						Sign Up
 					</button>
 					<p className='font-thin text-center mt-4'>

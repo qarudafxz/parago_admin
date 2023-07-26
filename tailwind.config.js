@@ -8,6 +8,7 @@ export default {
 				xxs: "320px",
 				md: "1020px",
 				lg: "1440px",
+				xl: "1620px",
 			},
 			colors: {
 				primary: "#0043DC",

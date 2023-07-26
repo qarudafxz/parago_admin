@@ -14,28 +14,28 @@ import {
 
 const router = express.Router();
 
-// const storage = multer.diskStorage({
-// 	destination: (req, file, cb) => {
-// 		//we dont want errors to occur so we put null as the first parameter
-// 		//second parameter is the destination of the file
-// 		cb(null, "D:PICTURES");
-// 	},
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		//we dont want errors to occur so we put null as the first parameter
+		//second parameter is the destination of the file
+		cb(null, "D:\\parago_admin\\src\\images");
+	},
 
-// 	filename: (req, file, cb) => {
-// 		//we dont want errors to occur so we put null as the first parameter
-// 		//second parameter is the name of the file
-// 		console.log(file);
-// 		cb(null, Date.now() + path.extname(file.originalname));
-// 	},
-// });
+	filename: (req, file, cb) => {
+		//we dont want errors to occur so we put null as the first parameter
+		//second parameter is the name of the file
+		console.log(file);
+		cb(null, Date.now() + path.extname(file.originalname));
+	},
+});
 
-// const upload = multer({ storage });
+const upload = multer({ storage });
 
 router.post("/create-accom/:id", createAccommodation);
 router.post(
 	"/create-event",
 	isAuthenticated,
-	// upload.single("image"),
+	upload.single("image"),
 	createEvent
 );
 router.get("/events/:id", isAuthenticated, getEvents);

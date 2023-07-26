@@ -137,7 +137,7 @@ function Home() {
 			</div>
 			<form
 				ref={formRef}
-				className='p-20 flex flex-col gap-7 m-auto md:w-7/12 lg:w-5/12'
+				className='p-20 flex flex-col gap-6 m-auto md:w-7/12 lg:w-5/12'
 				onSubmit={handleLogin}>
 				<img
 					src={parago_admin}
@@ -201,7 +201,7 @@ function Home() {
 				</Link>
 				<button
 					type='submit'
-					className='bg-primary py-2 text-white font-bold rounded-md mt-24 hover:bg-[#0032a8] duration-100'>
+					className='bg-primary py-2 text-white font-bold rounded-md hover:bg-[#0032a8] duration-100 md:mt-8'>
 					Sign in
 				</button>
 				<p className='font-thin text-center'>
