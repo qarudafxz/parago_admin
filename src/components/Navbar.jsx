@@ -109,11 +109,12 @@ function Navbar() {
 			<ul className='mb-16 flex flex-col md:gap-6 lg:mt-4 gap-8'>
 				<li>
 					<NavLink
-						to='/settings/my-profile'
+						//I want my to={} to be many
+						to={"/settings/my-profile"}
 						className={({ isActive }) =>
 							"flex items-center gap-10 text-lg' " +
 							(isActive
-								? "bg-[#DCE7FF] text-primary duration-300 pl-4 border-l-8 border-primary"
+								? "bg-[#ffefdc] text-secondary duration-300 pl-4 border-l-8 border-secondary"
 								: "")
 						}>
 						<div className='flex items-center gap-10 text-lg py-2 pl-4'>
