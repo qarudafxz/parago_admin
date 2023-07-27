@@ -15,6 +15,13 @@ function Navbar() {
 	const navigate = useNavigate();
 	const [progress, setProgress] = useState(0);
 
+	const allSettingsMenu = [
+		"/settings/my-profile",
+		"/settings/security",
+		"/settings/municipality",
+		"/settings/billing",
+	];
+
 	const menu = [
 		{
 			id: 1,
@@ -109,7 +116,6 @@ function Navbar() {
 			<ul className='mb-16 flex flex-col md:gap-6 lg:mt-4 gap-8'>
 				<li>
 					<NavLink
-						//I want my to={} to be many
 						to={"/settings/my-profile"}
 						className={({ isActive }) =>
 							"flex items-center gap-10 text-lg' " +

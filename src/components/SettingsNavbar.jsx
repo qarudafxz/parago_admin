@@ -27,12 +27,12 @@ function SettingsNavbar() {
 
 	return (
 		<div
-			className='flex flex-col gap-10 pr-32 border-r border-zinc-200'
+			className='flex flex-col gap-4 pr-32 border-r border-zinc-200'
 			style={{ height: "80vh" }}>
 			{menu.map((item) => (
 				<NavLink
 					key={item.id}
-					to={item.link} // Set the 'to' prop to the link URL
+					to={item.link}
 					className={({ isActive }) =>
 						"flex flex-col px-4 py-2 " +
 						(isActive
@@ -42,6 +42,9 @@ function SettingsNavbar() {
 					{item.name}
 				</NavLink>
 			))}
+			<button className='text-red-500 bg-red-200 py-2 px-4 rounded-full text-xs mt-10 ml-2'>
+				Delete Account
+			</button>
 		</div>
 	);
 }
