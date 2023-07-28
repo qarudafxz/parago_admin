@@ -16,9 +16,20 @@ export const createEvent = async (req, res) => {
 		days,
 		locations,
 	} = req.body;
-	const admin = await Admin.findOne({ _id: creatorID });
 
 	try {
+		const admin = await Admin.findOne({ _id: creatorID });
+
+		if (!admin) {
+			return res.status(401).json({ message: "Admin not found!" });
+		}
+
+		if (capacity > 30) {
+			return res
+				.status(401)
+				.json({ message: "Maximum pax is 30. Subscribe to add 20 more paxes." });
+		}
+
 		const newEvent = new Event({
 			creatorID,
 			eventName,

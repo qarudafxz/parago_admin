@@ -10,6 +10,7 @@ const AdminSchema = new mongoose.Schema(
 		password: { type: String, required: true },
 		role: { type: String, default: "admin" },
 		isVerified: { type: Boolean },
+		isSubscribed: { type: Boolean, default: false },
 		profile: { type: String, default: "" },
 		municipality: { type: String, required: true },
 		eventsCreated: { type: Number, default: 0 },

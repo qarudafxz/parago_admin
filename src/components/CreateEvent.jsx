@@ -38,8 +38,24 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 				theme: "light",
 			});
 			return;
-		} else if (eventDesc.length > 255) {
+		}
+
+		if (eventDesc.length > 255) {
 			toast.error("Event Description is too long!", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: false,
+				pauseOnHover: false,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+			});
+			return;
+		}
+
+		if (capacity > 30) {
+			toast.error("Maximum pax is 30. Subscribe to add 20 more paxes.", {
 				position: "top-right",
 				autoClose: 3000,
 				hideProgressBar: false,

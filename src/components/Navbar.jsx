@@ -9,18 +9,12 @@ import { GiIsland } from "react-icons/gi";
 import { MdAnalytics } from "react-icons/md";
 import { IoPeopleCircleSharp } from "react-icons/io5";
 
+import Pro from "../components/Pro.jsx";
 import Logo from "../assets/parago_admin.png";
 
 function Navbar() {
 	const navigate = useNavigate();
 	const [progress, setProgress] = useState(0);
-
-	const allSettingsMenu = [
-		"/settings/my-profile",
-		"/settings/security",
-		"/settings/municipality",
-		"/settings/billing",
-	];
 
 	const menu = [
 		{
@@ -93,7 +87,7 @@ function Navbar() {
 				className='font-thin text-gray px-10'>
 				Main Menu
 			</label>
-			<ul className='flex flex-col gap-8 md:pb-14 xl:pb-28'>
+			<ul className='flex flex-col md:gap-2 xl:gap-5'>
 				{menu.map((item) => (
 					<li key={item.id}>
 						<NavLink
@@ -113,7 +107,8 @@ function Navbar() {
 				))}
 			</ul>
 			<hr className='h-4' />
-			<ul className='mb-16 flex flex-col md:gap-6 lg:mt-4 gap-8'>
+			<Pro />
+			<ul className='mb-16 flex flex-col md:gap-2 xl:mt-4 gap-8'>
 				<li>
 					<NavLink
 						to={"/settings/my-profile"}
