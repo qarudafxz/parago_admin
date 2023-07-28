@@ -208,3 +208,22 @@ export const getAllAvailableAccommodations = async (req, res) => {
 		throw new Error(e);
 	}
 };
+
+export const checkEventIfDone = async (req, res) => {
+	try {
+		const event = await Event.findOne({ _id: req.params.id });
+
+		if (!event) {
+			return res.status(400).json({ message: "Event not found!" });
+		}
+
+		event.isFinished = true;
+
+		await event.save();
+
+		return res.status(200).json({ message: "Event set to closed" });
+	} catch (err) {
+		console.log(err);
+		return res.status(500).json({ message: "Server error" });
+	}
+};

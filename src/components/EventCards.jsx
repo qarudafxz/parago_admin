@@ -106,6 +106,39 @@ function EventCards({ fetchData, isLoaded, setData }) {
 		);
 	};
 
+	const checkEvent = async (eventID) => {
+		const url = import.meta.env.DEV
+			? `http://localhost:3001/api/event/check-event/${eventID}/`
+			: `/api/event/check-event/${eventID}/`;
+		try {
+			await fetch(url, {
+				method: "PUT",
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("token")}`,
+					"Content-Type": "application/json",
+				},
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					toast.success(data.message, {
+						position: "top-right",
+						autoClose: 2000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: false,
+						draggable: false,
+						progress: undefined,
+						theme: "light",
+					});
+					setTimeout(() => {
+						window.location.reload();
+					}, 4000);
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	return (
 		<>
 			{fetchData?.length > 0 ? (
@@ -117,18 +150,37 @@ function EventCards({ fetchData, isLoaded, setData }) {
 							style={{ height: "430px" }} // Set a fixed height here
 						>
 							{isLoaded ? (
-								<h1 className='text-3xl font-semibold text-primary flex items-center justify-between'>
-									{event.eventName}
-									<BsTrashFill
-										size={30}
-										className='cursor-pointer hover:text-secondary duration-150'
-										type='button'
-										onClick={() => {
-											setIsClicked(true);
-											setEventID(event._id);
-										}}
-									/>
-								</h1>
+								<div className='flex justify-between'>
+									<div className='flex gap-4'>
+										<h1
+											className={`text-3xl font-semibold flex items-center justify-between ${
+												!event.isFinished ? "text-primary" : "text-zinc-500 line-through"
+											}`}>
+											{event.eventName}{" "}
+										</h1>
+										<span className='text-zinc-500 text-xs font-thin'>
+											{event.isFinished && "(finished)"}
+										</span>
+									</div>
+									<div className='flex gap-4 items-center'>
+										{!event.isFinished && (
+											<button
+												onClick={() => checkEvent(event._id)}
+												className='border border-zinc-400 px-4 py-1 rounded-full text-zinc-400 hover:bg-zinc-900 duration-200 hover:text-white hover:border-none'>
+												Done
+											</button>
+										)}
+										<BsTrashFill
+											size={30}
+											className='cursor-pointer text-primary hover:text-secondary duration-150'
+											type='button'
+											onClick={() => {
+												setIsClicked(true);
+												setEventID(event._id);
+											}}
+										/>
+									</div>
+								</div>
 							) : (
 								<Skeleton
 									variant='text'
@@ -137,7 +189,12 @@ function EventCards({ fetchData, isLoaded, setData }) {
 								/>
 							)}
 							{isLoaded ? (
-								<p className='text-lg text-justify truncate pb-4'>{event.eventDesc}</p>
+								<p
+									className={`text-lg text-justify truncate pb-4 ${
+										event.isFinished && "text-zinc-500"
+									}`}>
+									{event.eventDesc}
+								</p>
 							) : (
 								<Skeleton
 									variant='text'
@@ -147,7 +204,10 @@ function EventCards({ fetchData, isLoaded, setData }) {
 							)}
 							<div className='flex flex-row justify-between'>
 								{isLoaded ? (
-									<p className='text-sm text-justify font-thin flex items-center gap-4 w-6/12'>
+									<p
+										className={`text-sm text-justify font-thin flex items-center gap-4 w-6/12 ${
+											event.isFinished && "text-zinc-500"
+										}`}>
 										<HiOutlineLocationMarker />
 										{event.eventAddr}
 									</p>
@@ -160,7 +220,10 @@ function EventCards({ fetchData, isLoaded, setData }) {
 								)}
 								<div className='flex flex-row gap-4'>
 									{isLoaded ? (
-										<p className='flex items-center gap-1 text-secondary'>
+										<p
+											className={`flex items-center gap-1 ${
+												!event.isFinished ? "text-secondary" : "text-zinc-500"
+											}`}>
 											<HiSun size={20} />
 											{event.days > 1 ? `${event.days} days` : `${event.days} day`}
 										</p>
@@ -172,7 +235,10 @@ function EventCards({ fetchData, isLoaded, setData }) {
 										/>
 									)}
 									{isLoaded ? (
-										<p className='flex items-center gap-1 text-primary'>
+										<p
+											className={`flex items-center gap-1 ${
+												!event.isFinished ? "text-primary" : "text-zinc-500"
+											}`}>
 											<BsMoonStarsFill size={20} />
 											{event.nights > 1
 												? `${event.nights} nights`
@@ -190,7 +256,12 @@ function EventCards({ fetchData, isLoaded, setData }) {
 							<hr></hr>
 							<div className='flex items-center gap-8 my-4'>
 								{isLoaded ? (
-									<p className='flex flex-row gap-4 items-center border border-primary px-4 py-2 rounded-md text-primary'>
+									<p
+										className={`flex flex-row gap-4 items-center px-4 py-2 rounded-md ${
+											!event.isFinished
+												? "text-primary border border-primary"
+												: "text-zinc-500 border border-zinc-500"
+										}`}>
 										<p>₱</p>
 										{event.price.toFixed(2)}
 									</p>
@@ -202,7 +273,12 @@ function EventCards({ fetchData, isLoaded, setData }) {
 									/>
 								)}
 								{isLoaded ? (
-									<p className='flex flex-row gap-4 items-center border border-primary px-4 py-2 rounded-md text-primary'>
+									<p
+										className={`flex flex-row gap-4 items-center px-4 py-2 rounded-md ${
+											!event.isFinished
+												? "text-primary border border-primary"
+												: "text-zinc-500 border border-zinc-500"
+										}`}>
 										<FaUsers />
 										{event.capacity}
 									</p>
@@ -214,7 +290,12 @@ function EventCards({ fetchData, isLoaded, setData }) {
 									/>
 								)}
 								{isLoaded ? (
-									<p className='flex flex-row gap-4 items-center border border-primary px-4 py-2 rounded-md text-primary'>
+									<p
+										className={`flex flex-row gap-4 items-center px-4 py-2 rounded-md ${
+											!event.isFinished
+												? "text-primary border border-primary"
+												: "text-zinc-500 border border-zinc-500"
+										}`}>
 										<FaSearchLocation />
 										{event?.locations?.length}
 									</p>
@@ -247,7 +328,11 @@ function EventCards({ fetchData, isLoaded, setData }) {
 										<Link
 											to={`/event/${event._id}`}
 											state={{ id: event._id }}
-											className='bg-primary py-2 px-4 rounded-md font-bold text-white hover:bg-[#0032a8] duration-150'>
+											className={`py-2 px-4 rounded-md font-bold ${
+												!event.isFinished
+													? "text-white bg-primary hover:bg-[#0032a8] duration-150"
+													: "text-zinc-700 bg-zinc-500"
+											}`}>
 											View Event
 										</Link>
 									</div>

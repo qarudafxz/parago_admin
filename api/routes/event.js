@@ -10,6 +10,7 @@ import {
 	deleteEvent,
 	createAccommodation,
 	getAllAvailableAccommodations,
+	checkEventIfDone,
 } from "../controllers/event.js";
 
 const router = express.Router();
@@ -43,5 +44,7 @@ router.get("/what-event/:id", isAuthenticated, getEventById);
 router.get("/get-accomms/:id", getAllAvailableAccommodations);
 
 router.delete("/delete-event/:id", isAuthenticated, deleteEvent);
+
+router.put("/check-event/:id", isAuthenticated, checkEventIfDone);
 
 export { router as eventRouter };

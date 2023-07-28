@@ -106,7 +106,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 								<h1 className='font-thin text-[#808080]'>Press Esc to close</h1>
 								<button
 									onClick={() => setIsCreateEvent(!isCreateEvent)}
-									className='text-primary'>
+									className='text-primary '>
 									<AiOutlineCloseCircle size={40} />
 								</button>
 							</div>

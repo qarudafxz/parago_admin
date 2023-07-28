@@ -18,6 +18,7 @@ const EventSchema = new mongoose.Schema(
 		days: { type: Number, default: 0 },
 		dateStart: { type: String },
 		dateEnd: { type: String },
+		isFinished: { type: Boolean, default: false },
 		filePath: { type: String },
 		locations: [
 			{
