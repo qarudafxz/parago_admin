@@ -42,7 +42,7 @@ function Navbar() {
 		},
 		{
 			id: 5,
-			title: "Analytic",
+			title: "Analytics",
 			icon: <MdAnalytics />,
 			link: "/analytics",
 		},
