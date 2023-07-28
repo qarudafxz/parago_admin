@@ -6,6 +6,7 @@ import { HiOutlineBuildingLibrary } from "react-icons/hi2";
 
 import ChartComponent from "../components/Chart.jsx";
 import NumberEvents from "../components/NumberEvents.jsx";
+import MostBookedEvent from "../components/MostBookedEvent.jsx";
 
 function Dashboard() {
 	const [data, setData] = useState({});
@@ -47,8 +48,9 @@ function Dashboard() {
 						itineraries, and creating new places for people to explore.
 					</p>
 				</div>
-				<div className='flex flex-row gap-40'>
+				<div className='flex flex-row gap-20'>
 					<NumberEvents />
+					<MostBookedEvent />
 					{/* <ChartComponent /> */}
 				</div>
 			</div>

@@ -220,6 +220,7 @@ export const getAllAvailableAccommodations = async (req, res) => {
 	}
 };
 
+//check if the event is done
 export const checkEventIfDone = async (req, res) => {
 	try {
 		const event = await Event.findOne({ _id: req.params.id });
@@ -233,6 +234,75 @@ export const checkEventIfDone = async (req, res) => {
 		await event.save();
 
 		return res.status(200).json({ message: "Event set to closed" });
+	} catch (err) {
+		console.log(err);
+		return res.status(500).json({ message: "Server error" });
+	}
+};
+
+//needs to improve logic
+export const getUpcomingEvent = async (req, res) => {
+	const { id } = req.params;
+	try {
+		// Assuming the Event.find() method returns an array, use findOne() to get a single event.
+		const events = await Event.find({ creatorID: id, isFinished: false });
+
+		if (!events || events.length === 0) {
+			return res.status(400).json({ message: "Event not found!" });
+		}
+
+		const twoDaysFromNow = new Date();
+		twoDaysFromNow.setDate(twoDaysFromNow.getDate() + 2);
+
+		for (const event of events) {
+			const eventStartDate = new Date(event.dateStart);
+			const fiveDaysFromNow = 5;
+			console.log(event.dateStart);
+
+			//check if the current event's month and year is equal to the current month and year
+			if (
+				eventStartDate.getYear() === twoDaysFromNow.getYear() &&
+				eventStartDate.getMonth() === twoDaysFromNow.getMonth()
+			) {
+				//get the event days by subtracting the event start date to the current date
+				let eventDays = eventStartDate.getDate() - twoDaysFromNow.getDate();
+				eventDays *= -1;
+				console.log(eventDays);
+
+				//if the event days is less than or equal to 5 days from now
+				//then return the event
+				return fiveDaysFromNow <= eventDays
+					? res.status(200).json({ message: "Upcoming event", event })
+					: res.status(401).json({ message: "No nearest event this month" });
+			}
+		}
+
+		res.status(401).json({ message: "No upcoming event" });
+	} catch (err) {
+		console.log(err);
+		return res.status(500).json({ message: "Server error" });
+	}
+};
+
+//get the top most event that has a lot of bookings
+export const getTopEvent = async (req, res) => {
+	const { id } = req.params;
+	try {
+		const events = await Event.find({ creatorID: id });
+
+		if (!events) {
+			return res.status(400).json({ message: "Event not found!" });
+		}
+
+		//the less the capacity, the more travelers booked or avail the event
+		//because the capacity will be subtracted by the number of travelers
+
+		//then sort the events by capacity and get the first index
+		const topEvent = events.sort((a, b) => {
+			return a.capacity - b.capacity;
+		});
+
+		return res.status(200).json({ message: "Top event", topEvent: topEvent[0] });
 	} catch (err) {
 		console.log(err);
 		return res.status(500).json({ message: "Server error" });

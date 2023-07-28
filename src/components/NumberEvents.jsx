@@ -36,7 +36,7 @@ function NumberEvents() {
 
 	return (
 		<>
-			<div className='flex flex-col font-primary shadow-md w-3/12 rounded-xl relative bottom-10 left-20'>
+			<div className='flex flex-col font-primary shadow-md w-3/12 relative bottom-10 left-20'>
 				<div className='flex flex-row justify-between p-10 bg-[#B7FFB0]'>
 					<div className='flex flex-col items-center'>
 						<h1 className='text-7xl font-bold text-[#2A7A23]'>
