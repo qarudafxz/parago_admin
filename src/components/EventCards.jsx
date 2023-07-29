@@ -360,9 +360,9 @@ function EventCards({ fetchData, isLoaded, setData }) {
 						animate={{ y: [0, 20, 0] }}
 						transition={{ duration: 4, repeat: Infinity }}
 						src={Travel}
-						className='w-56 h-56 pointer-events-none'
+						className='pointer-events-none md:w-56 h-56 xl:w-96 xl:h-96'
 					/>
-					<h1 className='text-2xl font-extrabold text-primary'>
+					<h1 className='font-extrabold text-primary md:text-2xl xl:text-5xl'>
 						No existing events
 					</h1>
 				</div>
