@@ -42,13 +42,22 @@ function Home() {
 			if (!(res.status === 200)) {
 				if (
 					data.message === "Email not verified" ||
-					data.message === "Admin doesn't exist!"
+					data.message === "Admin doesn't exist!" ||
+					data.message === "Email not verified. Please verify your email first!"
 				) {
+					setProgress(70);
 					setEmailMessage(data.message);
 					setIsEmailValid(false);
+					setTimeout(() => {
+						setProgress(100);
+					}, 1500);
 				} else {
+					setProgress(70);
 					setPasswordMessage(data.message);
 					setIsPasswordValid(false);
+					setTimeout(() => {
+						setProgress(100);
+					}, 1500);
 				}
 
 				return;
@@ -56,13 +65,10 @@ function Home() {
 
 			console.log(data);
 			localStorage.setItem("token", data.token);
-			localStorage.setItem(
-				"name",
-				data.admin.firstName + " " + data.admin.lastName
-			);
+
 			localStorage.setItem("isAuthenticated", true);
 			localStorage.setItem("userID", data.admin._id);
-			localStorage.setItem("muni", data.admin.municipality);
+
 			setProgress(100);
 
 			setTimeout(() => {
@@ -72,6 +78,22 @@ function Home() {
 			console.error(err);
 		}
 	};
+
+	useEffect(() => {
+		if (!isEmailValid) {
+			setTimeout(() => {
+				setIsEmailValid(true);
+				setEmailMessage("");
+			}, 2500);
+		}
+
+		if (!isPasswordValid) {
+			setTimeout(() => {
+				setIsPasswordValid(true);
+				setPasswordMessage("");
+			}, 2500);
+		}
+	}, [isEmailValid, isPasswordValid]);
 
 	useEffect(() => {
 		// if (window.google) {

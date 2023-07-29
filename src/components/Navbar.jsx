@@ -51,11 +51,9 @@ function Navbar() {
 	const handleLogout = () => {
 		setProgress(50);
 		localStorage.removeItem("token");
-		localStorage.removeItem("name");
 		localStorage.removeItem("isAuthenticated");
-		localStorage.removeItem("admin");
 		localStorage.removeItem("userID");
-		localStorage.removeItem("muni");
+
 		setTimeout(() => {
 			setProgress(100);
 			navigate("/");

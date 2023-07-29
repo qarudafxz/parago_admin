@@ -8,6 +8,7 @@ import {
 	getUser,
 	verifyEmail,
 	changePassword,
+	editProfile,
 } from "../controllers/user.js";
 
 import isAuthenticated from "../middlewares/isAuthenticated.js";
@@ -24,5 +25,6 @@ router.get("/:id/verify/:token", verify);
 router.get("/admin/:id", isAuthenticated, getUser);
 
 router.put("/change-password/:email/:token", changePassword);
+router.put("/edit-profile/:id", isAuthenticated, editProfile);
 
 export { router as authRouter };

@@ -240,3 +240,36 @@ export const changePassword = async (req, res) => {
 		return res.status(400).json({ message: "Error while verifying admin" });
 	}
 };
+
+//edit profile
+export const editProfile = async (req, res) => {
+	const { firstName, lastName, municipality } = req.body;
+
+	try {
+		const admin = await Admin.findOneAndUpdate({ _id: req.params.id });
+
+		if (!admin) return res.status(404).json({ message: "Admin not found" });
+
+		//if some of the inputs from req.body is empty
+		//then use the old data from the database
+
+		const newFirstName = firstName ? firstName : admin.firstName;
+		const newLastName = lastName ? lastName : admin.lastName;
+		const newMunicipality = municipality ? municipality : admin.municipality;
+		await Admin.updateOne(
+			{ _id: req.params.id },
+			{
+				firstName: newFirstName,
+				lastName: newLastName,
+				municipality: "Municipality of " + newMunicipality,
+			}
+		);
+
+		return res.status(200).json({ message: "Admin updated successfully" });
+	} catch (err) {
+		console.error(err);
+		return res
+			.status(500)
+			.json({ message: "Server Error. Please try again later" });
+	}
+};

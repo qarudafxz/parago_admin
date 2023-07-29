@@ -18,7 +18,7 @@ function MyProfile() {
 	const [myProfile, setMyProfile] = useState({});
 	const [loading, setLoading] = useState(false);
 
-	const fetchEvents = async () => {
+	const fetchProfile = async () => {
 		setLoading(true);
 		try {
 			await fetch(buildUrl(`/auth/admin/${adminID}`), {
@@ -31,8 +31,8 @@ function MyProfile() {
 				.then((res) => res.json())
 				.then((data) => {
 					setMyProfile(data.admin);
-				})
-				.then(() => console.log(myProfile));
+				});
+
 			setTimeout(() => {
 				setLoading(false);
 			}, 1500);
@@ -42,7 +42,7 @@ function MyProfile() {
 	};
 
 	useEffect(() => {
-		fetchEvents();
+		fetchProfile();
 		if (!localStorage.getItem("token")) {
 			navigate("/");
 		}
@@ -196,6 +196,7 @@ function MyProfile() {
 					setIsEdit={setIsEdit}
 					isEdit={isEdit}
 					myProfile={myProfile}
+					fetchProfile={fetchProfile}
 				/>
 			)}
 		</div>

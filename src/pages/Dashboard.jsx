@@ -14,8 +14,8 @@ import Img from "../assets/bg_for_dashboard.svg";
 function Dashboard() {
 	const navigate = useNavigate();
 	const [data, setData] = useState({});
-	const adminName = getAdmin();
-	const municipality = getMunicipality();
+	const [adminName, setAdminName] = useState("");
+	const [municipality, setMunicipality] = useState("");
 
 	const fetchData = async () => {
 		await fetch(buildUrl(`/auth/admin/${localStorage.getItem("userID")}`), {
@@ -26,7 +26,12 @@ function Dashboard() {
 			},
 		})
 			.then((res) => res.json())
-			.then((data) => setData(data));
+			.then((data) => {
+				setData(data);
+				console.log(data);
+				setAdminName(data?.admin?.firstName + " " + data?.admin?.lastName);
+				setMunicipality(data?.admin?.municipality);
+			});
 	};
 
 	useEffect(() => {
