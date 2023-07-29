@@ -246,7 +246,7 @@ export const editProfile = async (req, res) => {
 	const { firstName, lastName, municipality } = req.body;
 
 	try {
-		const admin = await Admin.findOneAndUpdate({ _id: req.params.id });
+		const admin = await Admin.findOne({ _id: req.params.id });
 
 		if (!admin) return res.status(404).json({ message: "Admin not found" });
 
