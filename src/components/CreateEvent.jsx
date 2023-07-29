@@ -4,9 +4,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { buildUrl } from "../utils/buildUrl.js";
+import { getAdminId } from "../helpers/getAdminId.js";
+
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
+	const adminID = getAdminId();
 	const [eventName, setEventName] = useState("");
 	const [eventDesc, setEventDesc] = useState("");
 	const [eventAddr, setEventAddr] = useState("");
@@ -14,7 +18,28 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 	const [capacity, setCapacity] = useState(0);
 	const [nights, setNights] = useState(0);
 	const [days, setDays] = useState(0);
+	const [myProfile, setMyProfile] = useState({});
 	const navigate = useNavigate();
+
+	const fetchProfile = async () => {
+		try {
+			const response = await fetch(buildUrl(`/auth/admin/${adminID}`), {
+				method: "GET",
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("token")}`,
+					"Content-Type": "application/json",
+				},
+			});
+			if (!response.ok) {
+				throw new Error("Failed to fetch profile");
+			}
+
+			const data = await response.json();
+			setMyProfile(data.admin);
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	const createEventOnPress = (event) => {
 		if (event.key === "e") setIsCreateEvent(true);
@@ -54,7 +79,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 			return;
 		}
 
-		if (capacity > 30) {
+		if (!myProfile?.isSubscribed) {
 			toast.error("Maximum pax is 30. Subscribe to add 20 more paxes.", {
 				position: "top-right",
 				autoClose: 3000,
@@ -98,6 +123,10 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 			window.removeEventListener("keydown", handleCreateEvent);
 		};
 	}, []);
+
+	useEffect(() => {
+		fetchProfile();
+	}, [isCreateEvent]);
 
 	return (
 		<>
