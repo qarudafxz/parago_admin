@@ -31,6 +31,9 @@ function MyProfile() {
 				.then((res) => res.json())
 				.then((data) => {
 					setMyProfile(data.admin);
+				})
+				.then(() => {
+					console.log(myProfile.isSubscribed);
 				});
 
 			setTimeout(() => {
@@ -58,17 +61,26 @@ function MyProfile() {
 						className='w-20 h-20'
 					/>
 					<div className='flex flex-col'>
-						<h1 className='text-xl font-semibold'>
-							{loading ? (
-								<Skeleton
-									variant='text'
-									width={130}
-									height={35}
-								/>
-							) : (
-								myProfile?.firstName + " " + myProfile?.lastName
+						<div className='flex gap-4 items-center'>
+							<h1 className='text-xl font-semibold'>
+								{loading ? (
+									<Skeleton
+										variant='text'
+										width={130}
+										height={35}
+									/>
+								) : (
+									myProfile?.firstName + " " + myProfile?.lastName
+								)}
+							</h1>
+							{myProfile?.isSubscribed && (
+								<div className='bg-primary text-xs text-white px-2 py-1 rounded-md text-center'>
+									<h1>
+										Pro<span className='text-secondary relative bottom-1'>+</span>
+									</h1>
+								</div>
 							)}
-						</h1>
+						</div>
 						<p className='text-zinc-500 font-medium'>
 							{loading ? (
 								<Skeleton
@@ -185,6 +197,20 @@ function MyProfile() {
 									/>
 								) : (
 									myProfile?.totalBookings
+								)}
+							</h1>
+						</div>
+						<div className='flex flex-col gap-2'>
+							<p className='text-zinc-400'>Total Earnings</p>
+							<h1>
+								{loading ? (
+									<Skeleton
+										variant='text'
+										width={130}
+										height={35}
+									/>
+								) : (
+									"₱" + myProfile?.totalEarnings?.toFixed(2)
 								)}
 							</h1>
 						</div>
