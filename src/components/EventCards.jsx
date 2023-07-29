@@ -16,7 +16,7 @@ import TopLoadingBar from "react-top-loading-bar";
 
 import Travel from "../assets/travel.svg";
 
-function EventCards({ fetchData, isLoaded, setData }) {
+function EventCards({ fetchData, isLoaded, setData, fetchEvents }) {
 	const [isClicked, setIsClicked] = useState(false);
 	const [eventID, setEventID] = useState("");
 	const adminID = getAdminId();
@@ -133,7 +133,7 @@ function EventCards({ fetchData, isLoaded, setData }) {
 						theme: "light",
 					});
 					setTimeout(() => {
-						window.location.reload();
+						fetchEvents();
 					}, 4000);
 				});
 		} catch (err) {

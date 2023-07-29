@@ -93,6 +93,7 @@ function Events() {
 							fetchData={fetchData}
 							isLoaded={isLoaded}
 							setData={setData}
+							fetchEvents={fetchEvents}
 						/>
 					</div>
 				</div>
