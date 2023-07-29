@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { buildUrl } from "../../utils/buildUrl.js";
 
 import { getAdminId } from "../../helpers/getAdminId.js";
@@ -11,6 +12,7 @@ import { RiEdit2Line } from "react-icons/ri";
 import EditProfile from "../../components/Settings/EditProfile.jsx";
 
 function MyProfile() {
+	const navigate = useNavigate();
 	const adminID = getAdminId();
 	const [isEdit, setIsEdit] = useState(false);
 	const [myProfile, setMyProfile] = useState({});
@@ -41,6 +43,9 @@ function MyProfile() {
 
 	useEffect(() => {
 		fetchEvents();
+		if (!localStorage.getItem("token")) {
+			navigate("/");
+		}
 	}, []);
 	return (
 		<div className='w-full'>

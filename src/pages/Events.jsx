@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import CreateEvent from "../components/CreateEvent";
 import EventCards from "../components/EventCards";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,6 +11,7 @@ import { getAdminId } from "../helpers/getAdminId.js";
 import { buildUrl } from "../utils/buildUrl.js";
 
 function Events() {
+	const navigate = useNavigate();
 	const [isCreateEvent, setIsCreateEvent] = useState(false);
 	const adminID = getAdminId();
 	const [fetchData, setData] = useState([]);
@@ -39,6 +41,11 @@ function Events() {
 		fetchEvents();
 	}, [window.location.isLoaded]);
 
+	useEffect(() => {
+		if (!localStorage.getItem("token")) {
+			navigate("/");
+		}
+	}, []);
 	return (
 		<>
 			<div className='w-full flex flex-col'>

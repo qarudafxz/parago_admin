@@ -17,6 +17,8 @@ import ChangePassword from "./pages/ChangePassword";
 import Preloader from "./components/Preloader";
 import Locals from "./pages/Locals";
 import Transportation from "./pages/locals/Transportation";
+import Tourism from "./pages/locals/Tourism";
+import Msme from "./pages/locals/Msme";
 
 import SettingsNavbar from "./components/SettingsNavbar";
 
@@ -102,6 +104,14 @@ function App() {
 								<Route
 									path='transportation'
 									element={<Transportation />}
+								/>
+								<Route
+									path='tourism'
+									element={<Tourism />}
+								/>
+								<Route
+									path='local-stores'
+									element={<Msme />}
 								/>
 								<Route path='settings'>
 									<Route

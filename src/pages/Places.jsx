@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { buildUrl } from "../utils/buildUrl";
 import { getAdminId } from "../helpers/getAdminId.js";
 
@@ -6,6 +7,7 @@ import { LOCATION_TYPE } from "../data/Icons";
 import { Skeleton } from "@mui/material";
 
 function Places() {
+	const navigate = useNavigate();
 	const adminID = getAdminId();
 	const [places, setPlaces] = useState([]);
 	const [loading, setLoading] = useState(false);
@@ -32,6 +34,9 @@ function Places() {
 
 	useEffect(() => {
 		fetchPlaces();
+		if (!localStorage.getItem("token")) {
+			navigate("/");
+		}
 	}, []);
 	return (
 		<div className='flex flex-col w-full font-primary'>

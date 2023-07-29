@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -8,6 +9,7 @@ import { SiHomeassistantcommunitystore } from "react-icons/si";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
 function Locals() {
+	const navigate = useNavigate();
 	const locals = [
 		{
 			link: "/transportation",
@@ -37,6 +39,12 @@ function Locals() {
 			icon: <SiHomeassistantcommunitystore size={50} />,
 		},
 	];
+
+	useEffect(() => {
+		if (!localStorage.getItem("token")) {
+			navigate("/");
+		}
+	}, []);
 
 	return (
 		<div className='w-full'>

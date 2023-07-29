@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams, Link } from "react-router-dom";
 import { buildUrl } from "../utils/buildUrl";
 
@@ -11,6 +12,7 @@ import { Skeleton } from "@mui/material";
 import Itinerary from "../components/Itinerary";
 
 function ViewEvent() {
+	const navigate = useNavigate();
 	const { id } = useParams();
 	const [event, setEvent] = useState({});
 	const [isLoaded, setIsLoaded] = useState(true);
@@ -35,6 +37,9 @@ function ViewEvent() {
 
 	useEffect(() => {
 		fetchEvent();
+		if (!localStorage.getItem("token")) {
+			navigate("/");
+		}
 	}, []);
 
 	return (

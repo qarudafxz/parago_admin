@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { buildUrl } from "../utils/buildUrl.js";
 import { getAdmin } from "../helpers/getAdmin.js";
 import { getMunicipality } from "../helpers/getMunicipality.js";
@@ -11,6 +12,7 @@ import MostBookedEvent from "../components/MostBookedEvent.jsx";
 import Img from "../assets/bg_for_dashboard.svg";
 
 function Dashboard() {
+	const navigate = useNavigate();
 	const [data, setData] = useState({});
 	const adminName = getAdmin();
 	const municipality = getMunicipality();
@@ -28,6 +30,9 @@ function Dashboard() {
 	};
 
 	useEffect(() => {
+		if (!localStorage.getItem("token")) {
+			navigate("/");
+		}
 		fetchData();
 	}, []);
 
@@ -35,7 +40,7 @@ function Dashboard() {
 		<>
 			<div className='w-full flex flex-col'>
 				<div
-					className='bg-primary w-full h-80 p-16 flex flex-col gap-2 shadow-2xl'
+					className='bg-primary w-full h-72 p-16 flex flex-col gap-2 shadow-2xl'
 					style={{
 						backgroundImage: `url(${Img})`,
 						backgroundRepeat: "no-repeat",
