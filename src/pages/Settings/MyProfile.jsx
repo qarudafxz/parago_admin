@@ -74,7 +74,7 @@ function MyProfile() {
 								)}
 							</h1>
 							{myProfile?.isSubscribed && (
-								<div className='bg-primary text-xs text-white px-2 py-1 rounded-md text-center'>
+								<div className='bg-primary rounded-full text-xs text-white px-2 py-1 text-center'>
 									<h1>
 										Pro<span className='text-secondary relative bottom-1'>+</span>
 									</h1>
