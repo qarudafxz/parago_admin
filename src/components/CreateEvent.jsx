@@ -121,8 +121,9 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 							<div className='flex justify-end items-center gap-4'>
 								<h1 className='font-thin text-[#808080]'>Press Esc to close</h1>
 								<button
-									onClick={() => setIsCreateEvent(!isCreateEvent)}
-									className='text-primary '>
+									type='button'
+									className='text-primary'
+									onClick={() => setIsCreateEvent(!isCreateEvent)}>
 									<AiOutlineCloseCircle size={40} />
 								</button>
 							</div>

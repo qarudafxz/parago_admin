@@ -8,6 +8,8 @@ import ChartComponent from "../components/Chart.jsx";
 import NumberEvents from "../components/NumberEvents.jsx";
 import MostBookedEvent from "../components/MostBookedEvent.jsx";
 
+import Img from "../assets/bg_for_dashboard.svg";
+
 function Dashboard() {
 	const [data, setData] = useState({});
 	const adminName = getAdmin();
@@ -32,7 +34,14 @@ function Dashboard() {
 	return (
 		<>
 			<div className='w-full flex flex-col'>
-				<div className='bg-primary w-full h-80 p-16 flex flex-col gap-2 shadow-2xl'>
+				<div
+					className='bg-primary w-full h-80 p-16 flex flex-col gap-2 shadow-2xl'
+					style={{
+						backgroundImage: `url(${Img})`,
+						backgroundRepeat: "no-repeat",
+						backgroundSize: "contain",
+						backgroundPosition: "right",
+					}}>
 					<h1 className='text-[#92B0F5]'>
 						Dashboard/<span className='text-white font-semibold'>Overview</span>
 					</h1>
@@ -48,7 +57,7 @@ function Dashboard() {
 						itineraries, and creating new places for people to explore.
 					</p>
 				</div>
-				<div className='flex flex-row gap-20'>
+				<div className='flex flex-row gap-20 mx-16 mt-10'>
 					<NumberEvents />
 					<MostBookedEvent />
 					{/* <ChartComponent /> */}

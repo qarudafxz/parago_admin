@@ -2,53 +2,17 @@ import React, { useState, useEffect } from "react";
 import { buildUrl } from "../utils/buildUrl";
 import { getAdminId } from "../helpers/getAdminId.js";
 
-import { FaUmbrellaBeach } from "react-icons/fa";
-import { BiWater } from "react-icons/bi";
-import {
-	GiMountaintop,
-	GiCircleForest,
-	GiBoatHorizon,
-	GiWaterfall,
-	GiCaveEntrance,
-	GiIsland,
-	GiAnimalSkull,
-	GiCarousel,
-	GiFlowers,
-	GiChurch,
-	GiTempleGate,
-	GiSaintBasilCathedral,
-	GiCastle,
-} from "react-icons/gi";
-import { MdOutlineMuseum, MdMosque } from "react-icons/md";
-import { TbBuildingCarousel } from "react-icons/tb";
+import { LOCATION_TYPE } from "../data/Icons";
+import { Skeleton } from "@mui/material";
 
 function Places() {
 	const adminID = getAdminId();
 	const [places, setPlaces] = useState([]);
-
-	const LOCATION_TYPE = [
-		{ value: "beach", icon: <FaUmbrellaBeach /> },
-		{ value: "mountain", icon: <GiMountaintop /> },
-		{ value: "forest", icon: <GiCircleForest /> },
-		{ value: "lake", icon: <GiBoatHorizon /> },
-		{ value: "river", icon: <BiWater /> },
-		{ value: "waterfall", icon: <GiWaterfall /> },
-		{ value: "cave", icon: <GiCaveEntrance /> },
-		{ value: "island", icon: <GiIsland /> },
-		{ value: "museum", icon: <MdOutlineMuseum /> },
-		{ value: "park", icon: <TbBuildingCarousel /> },
-		{ value: "zoo", icon: <GiAnimalSkull /> },
-		{ value: "theme park", icon: <GiCarousel /> },
-		{ value: "garden", icon: <GiFlowers /> },
-		{ value: "church", icon: <GiChurch /> },
-		{ value: "temple", icon: <GiTempleGate /> },
-		{ value: "mosque", icon: <MdMosque /> },
-		{ value: "cathedral", icon: <GiSaintBasilCathedral /> },
-		{ value: "castle", icon: <GiCastle /> },
-	];
+	const [loading, setLoading] = useState(false);
 
 	const fetchPlaces = async () => {
 		try {
+			setLoading(true);
 			const res = await fetch(buildUrl(`/event/events/${adminID}`), {
 				method: "GET",
 				headers: {
@@ -58,6 +22,9 @@ function Places() {
 
 			const data = await res.json();
 			setPlaces(data);
+			setTimeout(() => {
+				setLoading(false);
+			}, 1500);
 		} catch (err) {
 			console.error(err);
 		}
@@ -95,11 +62,31 @@ function Places() {
 								<div
 									className='shadow-xl rounded-md p-6 flex flex-col gap-4'
 									key={location._id}>
-									<h1 className='text-4xl font-bold flex items-center gap-6 text-primary'>
-										{icon}
-										{location.locName}
-									</h1>
-									<p className='text-md font-thin text-ellipsis'>{location.locDesc}</p>
+									{loading ? (
+										<Skeleton
+											variant='rectangular'
+											width={`${
+												window.innerWidth >= 1020 && window.innerWidth < 1620 ? 230 : 300
+											}`}
+											height={50}
+										/>
+									) : (
+										<h1 className='text-4xl font-bold flex items-center gap-6 text-primary'>
+											{icon}
+											{location.locName}
+										</h1>
+									)}
+									{loading ? (
+										<Skeleton
+											variant='rectangular'
+											width={`${
+												window.innerWidth >= 1020 && window.innerWidth < 1620 ? 230 : 300
+											}`}
+											height={20}
+										/>
+									) : (
+										<p className='font-thin'>{location.locDesc}</p>
+									)}
 								</div>
 							);
 						});

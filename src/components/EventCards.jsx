@@ -14,6 +14,8 @@ import { HiSun } from "react-icons/hi";
 import { Skeleton } from "@mui/material";
 import TopLoadingBar from "react-top-loading-bar";
 
+import Travel from "../assets/travel.svg";
+
 function EventCards({ fetchData, isLoaded, setData }) {
 	const [isClicked, setIsClicked] = useState(false);
 	const [eventID, setEventID] = useState("");
@@ -146,16 +148,21 @@ function EventCards({ fetchData, isLoaded, setData }) {
 					return (
 						<div
 							key={event._id}
-							className='flex flex-col gap-3 p-10 shadow-md border border-[#d3d3d3] rounded-md'
-							style={{ height: "430px" }} // Set a fixed height here
-						>
+							className='flex flex-col gap-3 shadow-md border border-[#d3d3d3] rounded-md md:p-5 xl:p-10'
+							style={{
+								height: `${
+									window.innerWidth >= 1020 && window.innerWidth < 1620
+										? "380px"
+										: "430px"
+								}`,
+							}}>
 							{isLoaded ? (
 								<div className='flex justify-between'>
 									<div className='flex gap-4'>
 										<h1
-											className={`text-3xl font-semibold flex items-center justify-between ${
+											className={`font-semibold flex items-center justify-between ${
 												!event.isFinished ? "text-primary" : "text-zinc-500 line-through"
-											}`}>
+											} md:text-lg xl:text-3xl`}>
 											{event.eventName}{" "}
 										</h1>
 										<span className='text-zinc-500 text-xs font-thin'>
@@ -190,9 +197,9 @@ function EventCards({ fetchData, isLoaded, setData }) {
 							)}
 							{isLoaded ? (
 								<p
-									className={`text-lg text-justify truncate pb-4 ${
+									className={`text-justify truncate pb-4 ${
 										event.isFinished && "text-zinc-500"
-									}`}>
+									} md:text-sm xl:text-lg`}>
 									{event.eventDesc}
 								</p>
 							) : (
@@ -223,7 +230,7 @@ function EventCards({ fetchData, isLoaded, setData }) {
 										<p
 											className={`flex items-center gap-1 ${
 												!event.isFinished ? "text-secondary" : "text-zinc-500"
-											}`}>
+											} md:text-xs xl:text-lg`}>
 											<HiSun size={20} />
 											{event.days > 1 ? `${event.days} days` : `${event.days} day`}
 										</p>
@@ -238,7 +245,7 @@ function EventCards({ fetchData, isLoaded, setData }) {
 										<p
 											className={`flex items-center gap-1 ${
 												!event.isFinished ? "text-primary" : "text-zinc-500"
-											}`}>
+											} md:text-xs xl:text-lg`}>
 											<BsMoonStarsFill size={20} />
 											{event.nights > 1
 												? `${event.nights} nights`
@@ -261,7 +268,7 @@ function EventCards({ fetchData, isLoaded, setData }) {
 											!event.isFinished
 												? "text-primary border border-primary"
 												: "text-zinc-500 border border-zinc-500"
-										}`}>
+										} md:text-xs xl:text-lg`}>
 										<p>₱</p>
 										{event.price.toFixed(2)}
 									</p>
@@ -278,7 +285,7 @@ function EventCards({ fetchData, isLoaded, setData }) {
 											!event.isFinished
 												? "text-primary border border-primary"
 												: "text-zinc-500 border border-zinc-500"
-										}`}>
+										} md:text-xs xl:text-lg`}>
 										<FaUsers />
 										{event.capacity}
 									</p>
@@ -295,7 +302,7 @@ function EventCards({ fetchData, isLoaded, setData }) {
 											!event.isFinished
 												? "text-primary border border-primary"
 												: "text-zinc-500 border border-zinc-500"
-										}`}>
+										} md:text-xs xl:text-lg`}>
 										<FaSearchLocation />
 										{event?.locations?.length}
 									</p>
@@ -332,7 +339,7 @@ function EventCards({ fetchData, isLoaded, setData }) {
 												!event.isFinished
 													? "text-white bg-primary hover:bg-[#0032a8] duration-150"
 													: "text-zinc-700 bg-zinc-500"
-											}`}>
+											} md:text-md xl:text-lg`}>
 											View Event
 										</Link>
 									</div>
@@ -348,7 +355,17 @@ function EventCards({ fetchData, isLoaded, setData }) {
 					);
 				})
 			) : (
-				<h1>No existing events.</h1>
+				<div className='flex flex-col gap-2 place-content-center'>
+					<motion.img
+						animate={{ y: [0, 20, 0] }}
+						transition={{ duration: 4, repeat: Infinity }}
+						src={Travel}
+						className='w-56 h-56 pointer-events-none'
+					/>
+					<h1 className='text-2xl font-extrabold text-primary'>
+						No existing events
+					</h1>
+				</div>
 			)}
 			{isClicked && deleteConfirmationComponent(eventID)}
 		</>

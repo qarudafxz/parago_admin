@@ -36,8 +36,8 @@ function NumberEvents() {
 
 	return (
 		<>
-			<div className='flex flex-col font-primary shadow-md w-3/12 relative bottom-10 left-20'>
-				<div className='flex flex-row justify-between p-10 bg-[#B7FFB0]'>
+			<div className='flex flex-col font-primary shadow-md'>
+				<div className='flex flex-row gap-16 justify-between p-10 bg-[#B7FFB0]'>
 					<div className='flex flex-col items-center'>
 						<h1 className='text-7xl font-bold text-[#2A7A23]'>
 							{isLoaded ? (
@@ -46,7 +46,9 @@ function NumberEvents() {
 								<span className='text-4xl'>Loading...</span>
 							)}
 						</h1>
-						<p className='text-xl text-[#2A7A23]'>Events Created</p>
+						<p className='text-xl text-[#2A7A23]'>
+							{fetchedData.admin?.eventsCreated > 1 ? "Events" : "Event"} Created
+						</p>
 					</div>
 					<TbKayak
 						size={80}

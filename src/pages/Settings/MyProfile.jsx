@@ -8,8 +8,11 @@ import { Skeleton } from "@mui/material";
 
 import { RiEdit2Line } from "react-icons/ri";
 
+import EditProfile from "../../components/Settings/EditProfile.jsx";
+
 function MyProfile() {
 	const adminID = getAdminId();
+	const [isEdit, setIsEdit] = useState(false);
 	const [myProfile, setMyProfile] = useState({});
 	const [loading, setLoading] = useState(false);
 
@@ -88,7 +91,9 @@ function MyProfile() {
 				<div className='p-4 border border-200'>
 					<div className='flex justify-between items-center'>
 						<h1 className='mb-5 font-semibold'>Personal Information</h1>
-						<button className='flex gap-4 items-center text-zinc-400 border border-zinc-400 px-4 py-2 rounded-full'>
+						<button
+							onClick={() => setIsEdit(!isEdit)}
+							className='flex gap-4 items-center text-zinc-400 border border-zinc-400 px-4 py-2 rounded-full'>
 							<RiEdit2Line />
 							Edit
 						</button>
@@ -181,6 +186,13 @@ function MyProfile() {
 					</div>
 				</div>
 			</div>
+			{isEdit && (
+				<EditProfile
+					setIsEdit={setIsEdit}
+					isEdit={isEdit}
+					myProfile={myProfile}
+				/>
+			)}
 		</div>
 	);
 }

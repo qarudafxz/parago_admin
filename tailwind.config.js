@@ -22,7 +22,8 @@ export default {
 				primary: ["Poppins", "sans-serif"],
 			},
 			maxHeight: {
-				events: "560px",
+				mdEvents: "280px",
+				xlEvents: "600px",
 			},
 		},
 	},

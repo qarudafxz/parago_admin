@@ -11,6 +11,11 @@ function MostBookedEvent() {
 	const adminID = getAdminId();
 	const [event, setEvent] = useState({});
 	const [loading, setLoading] = useState(false);
+	const currentDate = new Date().toLocaleDateString("en-US", {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+	});
 
 	const getEvent = async () => {
 		try {
@@ -28,7 +33,9 @@ function MostBookedEvent() {
 				.then((data) => {
 					setEvent(data.topEvent);
 				})
-				.then(() => setLoading(false));
+				.then(() => {
+					setLoading(false);
+				});
 		} catch (err) {
 			console.error(err);
 			throw err;
@@ -41,82 +48,59 @@ function MostBookedEvent() {
 
 	return (
 		<div>
-			<div
-				className='bg-[#131313] py-8 px-10 text-white relative bottom-10 left-20 shadow-2xl'
-				style={{ width: "650px" }}>
-				<div className='flex justify-between items-center'>
-					<h1 className='text-zinc-300 font-extrabold md:text-2xl'>
-						Most Booked Event
-					</h1>
-					<BsFillBookmarkCheckFill
-						size={40}
-						className='bg-zinc-800 p-2 rounded-md'
-					/>
-				</div>
-				<p className='font-thin text-zinc-500 mt-1 md:text-sm'>
-					Calculated based on the remaining pax of the event
-				</p>
-				{event ? (
-					<div className='flex gap-8 items-center'>
-						<div className='flex flex-col border border-zinc-800 p-4 mt-4'>
-							<p className='text-zinc-600 font-medium text-sm'>Event Name</p>
-							<h1 className='text-xl font-bold'>
-								{loading ? <Skeleton /> : event?.eventName}
-							</h1>
-						</div>
-						<div>
-							<h1 className='font-bold text-primary md:text-6xl'>
-								{loading ? <Skeleton /> : event?.capacity}
-							</h1>
-							<span className='text-zinc-300 font-thin text-xs flex gap-3 items-center'>
-								<HiUserCircle size={20} />
-								pax left
-							</span>
-						</div>
-						<div className='flex flex-col gap-1'>
-							<div className='flex gap-4 items-center '>
-								<div className='flex flex-col'>
-									<p className='text-xs'>Event Start</p>
-									<h1 className='font-bold text-primary md:text-md'>
+			<div className='flex flex-col font-primary shadow-md'>
+				<div className='flex flex-row gap-16 justify-between p-10 bg-[#FFC964]'>
+					<div className='flex flex-col'>
+						<p className='text-left text-sm font-semibold'>Most Booked Event</p>
+						{event ? (
+							<div className='flex gap-4'>
+								<div className='flex flex-col gap-1'>
+									<h1 className='font-bold text-[#BD8419] md:text-6xl xl:text-7xl'>
 										{loading ? (
 											<Skeleton />
 										) : (
-											new Date(event?.dateStart).toLocaleDateString("en-US", {
-												year: "numeric",
-												month: "long",
-												day: "numeric",
-											})
+											<div className='flex flex-col mt-2'>
+												<p className='text-sm font-thin'>Event Name</p>
+												<span className='text-4xl'>{event?.eventName}</span>
+											</div>
 										)}
 									</h1>
-								</div>
-								<div className='flex flex-col'>
-									<p className='text-xs'>Event End</p>
-									<h1 className='font-bold text-secondary md:text-md'>
-										{loading ? (
-											<Skeleton />
-										) : (
-											new Date(event?.dateStart).toLocaleDateString("en-US", {
-												year: "numeric",
-												month: "long",
-												day: "numeric",
-											})
-										)}
-									</h1>
+									<p className='text-xl text-[#BD8419]'>
+										{/* {fetchedData.admin?.eventsCreated > 1 ? "Events" : "Event"} Created */}
+									</p>
 								</div>
 							</div>
-							<h1 className='text-xs font-thin text-zinc-400'>
-								Event created on{" "}
-								{new Date(event?.createdAt).toLocaleDateString("en-US", {
-									year: "numeric",
-									month: "long",
-									day: "numeric",
-								})}
+						) : (
+							<h1 className='text-3xl text-[#BD8419] font-extrabold'>
+								No Events Found
 							</h1>
-						</div>
+						)}
 					</div>
-				) : (
-					<h1 className='text-white font-bold text-4xl'>Event not found</h1>
-				)}
+					<div className='flex flex-col gap-2'>
+						<h1 className='text-left text-sm font-semibold'>Number of Bookings</h1>
+						{loading ? (
+							<Skeleton />
+						) : (
+							<div className='flex gap-2 items-center'>
+								<h1 className='text-[#BD8419] font-bold text-7xl'>{event?.capacity}</h1>
+								<div className='flex flex-col'>
+									<HiUserCircle
+										size={40}
+										className='text-[#BD8419]'
+									/>
+									<p className='text-xs font-semibold text-[#BD8419]'>pax left</p>
+								</div>
+							</div>
+						)}
+					</div>
+					<BsFillBookmarkCheckFill
+						size={80}
+						className='bg-[#F8FFF8] p-4 rounded-md text-[#BD8419]'
+					/>
+				</div>
+				<div className='w-full p-8 bg-white'>
+					<h1 className='text-2xl font-bold'>As of {currentDate}</h1>
+				</div>
 			</div>
 		</div>
 	);

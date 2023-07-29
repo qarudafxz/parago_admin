@@ -66,7 +66,11 @@ function ViewEvent() {
 							/>
 						)}
 						{isLoaded ? (
-							<p className='text-xl font-thin'>{event.eventDesc}</p>
+							<p
+								className=''
+								style={{ maxWidth: "250px" }}>
+								{event.eventDesc}
+							</p>
 						) : (
 							<Skeleton
 								variant='box'
