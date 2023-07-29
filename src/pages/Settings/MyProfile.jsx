@@ -21,20 +21,19 @@ function MyProfile() {
 	const fetchProfile = async () => {
 		setLoading(true);
 		try {
-			await fetch(buildUrl(`/auth/admin/${adminID}`), {
+			const response = await fetch(buildUrl(`/auth/admin/${adminID}`), {
 				method: "GET",
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem("token")}`,
 					"Content-Type": "application/json",
 				},
-			})
-				.then((res) => res.json())
-				.then((data) => {
-					setMyProfile(data.admin);
-				})
-				.then(() => {
-					console.log(myProfile.isSubscribed);
-				});
+			});
+			if (!response.ok) {
+				throw new Error("Failed to fetch profile");
+			}
+
+			const data = await response.json();
+			setMyProfile(data.admin);
 
 			setTimeout(() => {
 				setLoading(false);
