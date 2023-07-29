@@ -76,23 +76,27 @@ function MostBookedEvent() {
 							</h1>
 						)}
 					</div>
-					<div className='flex flex-col gap-2'>
-						<h1 className='text-left text-sm font-semibold'>Number of Bookings</h1>
-						{loading ? (
-							<Skeleton />
-						) : (
-							<div className='flex gap-2 items-center'>
-								<h1 className='text-[#BD8419] font-bold text-7xl'>{event?.capacity}</h1>
-								<div className='flex flex-col'>
-									<HiUserCircle
-										size={40}
-										className='text-[#BD8419]'
-									/>
-									<p className='text-xs font-semibold text-[#BD8419]'>pax left</p>
+					{event && (
+						<div className='flex flex-col gap-2'>
+							<h1 className='text-left text-sm font-semibold'>Number of Bookings</h1>
+							{loading ? (
+								<Skeleton />
+							) : (
+								<div className='flex gap-2 items-center'>
+									<h1 className='text-[#BD8419] font-bold text-7xl'>
+										{event?.capacity}
+									</h1>
+									<div className='flex flex-col'>
+										<HiUserCircle
+											size={40}
+											className='text-[#BD8419]'
+										/>
+										<p className='text-xs font-semibold text-[#BD8419]'>pax left</p>
+									</div>
 								</div>
-							</div>
-						)}
-					</div>
+							)}
+						</div>
+					)}
 					<BsFillBookmarkCheckFill
 						size={80}
 						className='bg-[#F8FFF8] p-4 rounded-md text-[#BD8419]'
