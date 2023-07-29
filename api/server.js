@@ -59,6 +59,7 @@ try {
 // 		await connect();
 
 // 		// // Set a test key in Redis
+// runs with a key-value pair (hash table structure)
 // 		// await client.set("testKey", "Hello, Redis!");
 
 // 		// // Get the value of the key from Redis

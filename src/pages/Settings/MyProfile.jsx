@@ -114,7 +114,7 @@ function MyProfile() {
 							Edit
 						</button>
 					</div>
-					<div className='grid grid-cols-2 gap-16'>
+					<div className='grid grid-cols-2 md:gap-8 xl:gap-16'>
 						<div className='flex flex-col gap-2'>
 							<p className='text-zinc-400'>First Name</p>
 							<h1>
