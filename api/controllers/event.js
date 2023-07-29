@@ -24,7 +24,7 @@ export const createEvent = async (req, res) => {
 			return res.status(401).json({ message: "Admin not found!" });
 		}
 
-		if (capacity > 30) {
+		if (!admin.isSubscribed && capacity > 30) {
 			return res
 				.status(401)
 				.json({ message: "Maximum pax is 30. Subscribe to add 20 more paxes." });
