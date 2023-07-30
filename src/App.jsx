@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Verify from "./pages/Verified";
 import Dashboard from "./pages/Dashboard";
+import EventCalendar from "./pages/EventCalendar";
 import Events from "./pages/Events";
 import IsVerified from "./pages/isVerified";
 import Places from "./pages/Places";
@@ -75,6 +76,10 @@ function App() {
 								<Route
 									path='dashboard'
 									element={<Dashboard />}
+								/>
+								<Route
+									path='calendar'
+									element={<EventCalendar />}
 								/>
 								<Route
 									path='events'
