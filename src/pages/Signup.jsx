@@ -149,7 +149,7 @@ function Home() {
 					<input
 						autoFocus
 						type='text'
-						className='border border-gray pl-2 py-2 rounded-md text-primary focus:outline-none'
+						className='border border-gray pl-2 py-2 rounded-md  focus:outline-none'
 						required
 						autoComplete='off'
 						onChange={(e) => setFirstName(e.target.value)}
@@ -161,7 +161,7 @@ function Home() {
 					</label>
 					<input
 						type='text'
-						className='border border-gray pl-2 py-2 rounded-md text-primary focus:outline-none'
+						className='border border-gray pl-2 py-2 rounded-md  focus:outline-none'
 						required
 						autoComplete='off'
 						onChange={(e) => setLastName(e.target.value)}
@@ -173,13 +173,13 @@ function Home() {
 					</label>
 					<input
 						type='text'
-						className='border border-gray pl-2 py-2 rounded-md text-primary focus:outline-none'
+						className='border border-gray pl-2 py-2 rounded-md  focus:outline-none'
 						required
 						autoComplete='off'
 						onChange={(e) => setEmail(e.target.value)}
 					/>
 					<Dropdown
-						className='border border-gray pl-2 py-2 rounded-md text-primary focus:outline-none'
+						className='py-2 focus:outline-none'
 						options={municipalities}
 						onChange={(municipalities) => setMunicipality(municipalities?.value)}
 						placeholder='Select Municipality'
@@ -220,7 +220,7 @@ function Home() {
 					<div className='relative'>
 						<input
 							type='password'
-							className='border border-gray pl-2 py-2 rounded-md w-full text-primary focus:outline-none'
+							className='border border-gray pl-2 py-2 rounded-md w-full focus:outline-none'
 							required
 							autoComplete='off'
 							onChange={(e) => setConfirmPassword(e.target.value)}
