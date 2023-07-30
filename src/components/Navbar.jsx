@@ -40,12 +40,6 @@ function Navbar() {
 			icon: <IoPeopleCircleSharp />,
 			link: "/locals",
 		},
-		{
-			id: 5,
-			title: "Analytics",
-			icon: <MdAnalytics />,
-			link: "/analytics",
-		},
 	];
 
 	const handleLogout = () => {
@@ -101,7 +95,7 @@ function Navbar() {
 			</ul>
 			<hr className='h-4' />
 			<Pro />
-			<ul className='mb-20 flex flex-col md:mt-10 md:gap-2 xl:mt-4 gap-8'>
+			<ul className='mb-32 flex flex-col md:mt-10 md:gap-2 xl:mt-4 gap-8'>
 				<li>
 					<NavLink
 						to={"/settings/my-profile"}

@@ -5,7 +5,9 @@ import { getAdmin } from "../helpers/getAdmin.js";
 import { getMunicipality } from "../helpers/getMunicipality.js";
 import { HiOutlineBuildingLibrary } from "react-icons/hi2";
 
-import ChartComponent from "../components/Chart.jsx";
+import TotalBookingsChart from "../components/Charts/TotalBookingsChart.jsx";
+import RevenueChart from "../components/Charts/RevenueChart.jsx";
+
 import NumberEvents from "../components/NumberEvents.jsx";
 import MostBookedEvent from "../components/MostBookedEvent.jsx";
 
@@ -28,7 +30,6 @@ function Dashboard() {
 			.then((res) => res.json())
 			.then((data) => {
 				setData(data);
-				console.log(data);
 				setAdminName(data?.admin?.firstName + " " + data?.admin?.lastName);
 				setMunicipality(data?.admin?.municipality);
 			});
@@ -67,10 +68,17 @@ function Dashboard() {
 						itineraries, and creating new places for people to explore.
 					</p>
 				</div>
-				<div className='flex flex-row gap-20 mx-16 mt-10'>
+				<div
+					className='grid grid-cols-2 gap-10 px-10 my-10 pb-16'
+					style={{
+						minHeight: "calc(100vh - 18rem)",
+						maxHeight: "calc(100vh - 18rem)",
+						overflow: "auto", // Add this to make the div scrollable if needed
+					}}>
 					<NumberEvents />
 					<MostBookedEvent />
-					{/* <ChartComponent /> */}
+					<RevenueChart />
+					<TotalBookingsChart />
 				</div>
 			</div>
 		</>

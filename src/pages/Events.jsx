@@ -88,7 +88,7 @@ function Events() {
 						isCreateEvent={isCreateEvent}
 						setIsCreateEvent={setIsCreateEvent}
 					/>
-					<div className='grid grid-cols-3 gap-6 overflow-y-auto customScroll md:max-h-mdEvents xl:max-h-xlEvents pb-32'>
+					<div className='grid grid-cols-3 gap-6 overflow-y-auto md:max-h-mdEvents xl:max-h-xlEvents pb-32'>
 						<EventCards
 							fetchData={fetchData}
 							isLoaded={isLoaded}

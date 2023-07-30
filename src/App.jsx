@@ -11,7 +11,6 @@ import Places from "./pages/Places";
 import Navbar from "./components/Navbar";
 import Itineraries from "./pages/Itineraries/Itineraries";
 import ViewEvent from "./pages/ViewEvent";
-import Analytics from "./pages/Analytics";
 import ForgotPassword from "./pages/ForgotPassword";
 import ChangePassword from "./pages/ChangePassword";
 import Preloader from "./components/Preloader";
@@ -92,10 +91,6 @@ function App() {
 								<Route
 									path='event/:id'
 									element={<ViewEvent />}
-								/>
-								<Route
-									path='analytics'
-									element={<Analytics />}
 								/>
 								<Route
 									path='locals'
