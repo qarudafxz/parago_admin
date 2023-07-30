@@ -192,6 +192,7 @@ function Home() {
 					Email
 				</label>
 				<input
+					autoFocus
 					type='text'
 					className={`border ${
 						!isEmailValid ? "border-rose-500" : "border-gray"

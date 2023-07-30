@@ -147,6 +147,7 @@ function Home() {
 						First Name
 					</label>
 					<input
+						autoFocus
 						type='text'
 						className='border border-gray pl-2 py-2 rounded-md text-primary focus:outline-none'
 						required

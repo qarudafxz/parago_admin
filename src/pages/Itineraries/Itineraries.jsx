@@ -206,88 +206,88 @@ function Itineraries() {
 						<AiOutlineExclamationCircle /> Note that the dates of your itineraries
 						must be in sequence
 					</p>
-					<div
-						className='grid grid-rows-12 customScroll'
-						style={{ maxHeight: "585px", overflow: "auto" }}>
-						{destinations.map((_location, index) => {
-							return (
-								<div
-									key={index}
-									className='flex flex-row justify-evenly items-center border-2 border-b-[#c5c5c5]'>
-									<input
-										type='text'
-										placeholder='Location'
-										name='locName'
-										onChange={(e) => handleSetLocation(index, "locName", e.target.value)}
-										className='py-2 pl-4'
-									/>
-									<textarea
-										type='text'
-										placeholder='Location Description'
-										name='desc'
-										onChange={(e) => handleSetLocation(index, "locDesc", e.target.value)}
-									/>
-									<Dropdown
-										className='border border-gray pl-2 py-2 rounded-md text-primary focus:outline-none'
-										options={locType}
-										onChange={(locType) =>
-											handleSetLocation(index, "type", locType?.value)
-										}
-										placeholder='Destination Type'
-									/>
-									<textarea
-										type='text'
-										placeholder='Itinerary'
-										name='desc'
-										onChange={(e) => handleSetLocation(index, "desc", e.target.value)}
-									/>
-									<div>
-										<p>Date: </p>
+					<div style={{ maxHeight: "600px", overflow: "auto" }}>
+						<div className='w-full grid grid-rows-12 gap-2'>
+							{destinations.map((_location, index) => {
+								return (
+									<div
+										key={index}
+										className='flex flex-row justify-evenly items-center border-2 border-b-[#c5c5c5]'>
 										<input
-											type='date'
-											placeholder='Date'
-											name='date'
-											onChange={(e) => handleSetLocation(index, "date", e.target.value)}
+											type='text'
+											placeholder='Location'
+											name='locName'
+											onChange={(e) => handleSetLocation(index, "locName", e.target.value)}
+											className='py-2 pl-4'
 										/>
-									</div>
-									<div>
-										<p>Time start: </p>
-										<input
-											type='time'
-											placeholder='Event Start'
-											name='time'
-											onChange={(e) =>
-												handleSetLocation(index, "eventStart", e.target.value)
+										<textarea
+											type='text'
+											placeholder='Location Description'
+											name='desc'
+											onChange={(e) => handleSetLocation(index, "locDesc", e.target.value)}
+										/>
+										<Dropdown
+											className='pl-2 py-2 rounded-md text-primary focus:outline-none'
+											options={locType}
+											onChange={(locType) =>
+												handleSetLocation(index, "type", locType?.value)
 											}
+											placeholder='Destination Type'
 										/>
-									</div>
-									<div>
-										<p>Time end:</p>
-										<input
-											type='time'
-											placeholder='Event End'
-											name='time'
-											onChange={(e) =>
-												handleSetLocation(index, "eventEnd", e.target.value)
+										<textarea
+											type='text'
+											placeholder='Itinerary'
+											name='desc'
+											onChange={(e) => handleSetLocation(index, "desc", e.target.value)}
+										/>
+										<div>
+											<p>Date: </p>
+											<input
+												type='date'
+												placeholder='Date'
+												name='date'
+												onChange={(e) => handleSetLocation(index, "date", e.target.value)}
+											/>
+										</div>
+										<div>
+											<p>Time start: </p>
+											<input
+												type='time'
+												placeholder='Event Start'
+												name='time'
+												onChange={(e) =>
+													handleSetLocation(index, "eventStart", e.target.value)
+												}
+											/>
+										</div>
+										<div>
+											<p>Time end:</p>
+											<input
+												type='time'
+												placeholder='Event End'
+												name='time'
+												onChange={(e) =>
+													handleSetLocation(index, "eventEnd", e.target.value)
+												}
+											/>
+										</div>
+										<Dropdown
+											className='pl-2 py-2 rounded-md text-primary focus:outline-none'
+											options={locType}
+											onChange={(locType) =>
+												handleSetLocation(index, "type", locType?.value)
 											}
+											placeholder='Select Accommodation'
 										/>
+										<button
+											onClick={(e) => handleRemoveLocation(e, index)}
+											className='bg-primary text-white py-4 px-6'>
+											Remove
+										</button>
 									</div>
-									<Dropdown
-										className='border border-gray pl-2 py-2 rounded-md text-primary focus:outline-none'
-										options={locType}
-										onChange={(locType) =>
-											handleSetLocation(index, "type", locType?.value)
-										}
-										placeholder='Select Accommodation'
-									/>
-									<button
-										onClick={(e) => handleRemoveLocation(e, index)}
-										className='bg-primary text-white py-4 px-6'>
-										Remove
-									</button>
-								</div>
-							);
-						})}
+								);
+							})}
+						</div>
 					</div>
 				</div>
 				<button

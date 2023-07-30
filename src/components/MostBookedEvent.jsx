@@ -61,7 +61,9 @@ function MostBookedEvent() {
 										) : (
 											<div className='flex flex-col mt-2'>
 												<p className='text-sm font-thin'>Event Name</p>
-												<span className='text-4xl'>{event?.eventName}</span>
+												<span className='w-44 md:text-xl xl:text-4xl'>
+													{event?.eventName}
+												</span>
 											</div>
 										)}
 									</h1>
@@ -83,7 +85,7 @@ function MostBookedEvent() {
 								<Skeleton />
 							) : (
 								<div className='flex gap-2 items-center'>
-									<h1 className='text-[#BD8419] font-bold text-7xl'>
+									<h1 className='text-[#BD8419] font-bold md:text-5xl xl:text-7xl'>
 										{event?.capacity}
 									</h1>
 									<div className='flex flex-col'>
