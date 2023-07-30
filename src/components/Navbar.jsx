@@ -3,10 +3,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import TopLoadingBar from "react-top-loading-bar";
 import { motion } from "framer-motion";
 
+import { TbKayak } from "react-icons/tb";
+
 import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";
 import { RiCalendarEventFill, RiLogoutBoxRLine } from "react-icons/ri";
 import { GiIsland } from "react-icons/gi";
-import { MdAnalytics } from "react-icons/md";
 import { IoPeopleCircleSharp } from "react-icons/io5";
 
 import Pro from "../components/Pro.jsx";
@@ -24,18 +25,25 @@ function Navbar() {
 			link: "/dashboard",
 		},
 		{
-			title: "Events",
+			id: 2,
+			title: "Calendar",
 			icon: <RiCalendarEventFill />,
-			link: "/events",
+			link: "/calendar",
 		},
 		{
 			id: 3,
+			title: "Events",
+			icon: <TbKayak />,
+			link: "/events",
+		},
+		{
+			id: 4,
 			title: "Places",
 			icon: <GiIsland />,
 			link: "/places",
 		},
 		{
-			id: 4,
+			id: 5,
 			title: "Locals",
 			icon: <IoPeopleCircleSharp />,
 			link: "/locals",

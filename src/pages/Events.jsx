@@ -46,6 +46,7 @@ function Events() {
 			navigate("/");
 		}
 	}, []);
+
 	return (
 		<>
 			<div className='w-full flex flex-col'>
