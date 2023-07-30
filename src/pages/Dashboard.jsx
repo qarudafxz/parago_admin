@@ -29,7 +29,7 @@ function Dashboard() {
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				setData(data);
+				setData(data?.admin);
 				setAdminName(data?.admin?.firstName + " " + data?.admin?.lastName);
 				setMunicipality(data?.admin?.municipality);
 			});
@@ -57,7 +57,10 @@ function Dashboard() {
 						Dashboard/<span className='text-white font-semibold'>Overview</span>
 					</h1>
 					<h1 className='text-4xl text-white font-bold'>
-						Welcome back, <span className='text-secondary'>{adminName}</span>
+						Welcome back, <span className='text-secondary'>{adminName}</span>{" "}
+						<span className='text-xs relative bottom-4 bg-white py-1 px-2 rounded-md text-primary pointer-events-none'>
+							{data?.isSubscribed && "Pro+✨"}
+						</span>
 					</h1>
 					<p className='font-semibold text-white bg-secondary py-2 px-4 rounded-md w-5/12 flex gap-4 items-center'>
 						<HiOutlineBuildingLibrary size={20} />

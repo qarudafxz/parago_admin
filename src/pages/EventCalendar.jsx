@@ -75,7 +75,10 @@ function EventCalendar() {
 					startAccessor='start'
 					endAccessor='end'
 					className='p-10 bg-white rounded-md shadow-2xl text-xs font-thin'
-					style={{ height: 500, width: 900 }}
+					style={{
+						height: window.innerWidth >= 1020 && window.innerWidth < 1620 ? 500 : 700,
+						width: window.innerWidth >= 1020 && window.innerWidth < 1620 ? 900 : 1200,
+					}}
 				/>
 			</div>
 		</div>
