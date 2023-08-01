@@ -14,8 +14,6 @@ import { HiSun } from "react-icons/hi";
 import { Skeleton } from "@mui/material";
 import TopLoadingBar from "react-top-loading-bar";
 
-import Travel from "../assets/travel.svg";
-
 function EventCards({ fetchData, isLoaded, setData, fetchEvents }) {
 	const [isClicked, setIsClicked] = useState(false);
 	const [eventID, setEventID] = useState("");
@@ -356,13 +354,7 @@ function EventCards({ fetchData, isLoaded, setData, fetchEvents }) {
 				})
 			) : (
 				<div className='flex flex-col gap-2 place-content-center'>
-					<motion.img
-						animate={{ y: [0, 20, 0] }}
-						transition={{ duration: 4, repeat: Infinity }}
-						src={Travel}
-						className='pointer-events-none md:w-56 h-56 xl:w-96 xl:h-96'
-					/>
-					<h1 className='font-extrabold text-primary md:text-2xl xl:text-5xl'>
+					<h1 className='font-extrabold text-primary md:text-4xl xl:text-7xl'>
 						No existing events
 					</h1>
 				</div>
