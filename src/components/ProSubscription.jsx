@@ -11,19 +11,18 @@ function ProSubscription({ isOpen, setIsOpen }) {
 			{isOpen && (
 				<div
 					className={`fixed inset-0 flex gap-4 items-center bg-black bg-opacity-60 justify-center backdrop-blur-lg`}>
-					<button
-						className=''
-						onClick={() => setIsOpen(!isOpen)}>
+					<button onClick={() => setIsOpen(!isOpen)}>
 						<AiOutlineCloseCircle
 							className='text-white'
 							size={40}
 						/>
 					</button>
 					<div className='flex flex-row w-6/12'>
-						<motion.form
+						<motion.div
+							key={1}
 							initial={{ opacity: 0, y: -1000 }}
 							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: -1000 }}
+							exit={{ opacity: 0, y: 1000 }}
 							transition={{
 								duration: 1.5,
 								ease: [0, 0.71, 0.2, 1.01],
@@ -32,17 +31,16 @@ function ProSubscription({ isOpen, setIsOpen }) {
 							style={{ height: "510px" }}>
 							<h1 className='font-base text-primary'>Free</h1>
 							<h1 className='font-bold text-[#202020] md:text-5xl xl:text-7xl'>
-								₱ 0.00<span className='font-normal text-sm text-zinc-500'>/month</span>
+								₱ 0.00
+								<span className='font-normal text-sm text-zinc-500'>/month</span>
 							</h1>
 							<p className='text-sm font-normal text-zinc-600 leading-relaxed'>
 								The perfect opportunity for you to get started on organizing events.
 							</p>
 							<div className='flex flex-col gap-4 mt-6'>
-								{free.map((item, idx) => {
+								{free.map((item) => {
 									return (
-										<div
-											key={idx}
-											className='flex gap-8'>
+										<div className='flex gap-8'>
 											<AiOutlineCheck
 												className='text-primary'
 												size={20}
@@ -55,11 +53,12 @@ function ProSubscription({ isOpen, setIsOpen }) {
 							<div className='m-auto py-2 w-full bg-[#e7e7e7] rounded-md md:mt-14 xl:mt-8'>
 								<h1 className='text-center text-zinc-400'>Current Subscription</h1>
 							</div>
-						</motion.form>
-						<motion.form
+						</motion.div>
+						<motion.div
+							key={2}
 							initial={{ opacity: 0, y: 1000 }}
 							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: 1000 }}
+							exit={{ opacity: 0, y: -1000 }}
 							transition={{
 								duration: 1.5,
 								delay: 0.2,
@@ -77,11 +76,9 @@ function ProSubscription({ isOpen, setIsOpen }) {
 								Unlock additional but promising features of ParaGO Admin.
 							</p>
 							<div className='flex flex-col gap-4 mt-6'>
-								{subscribed.map((item, idx) => {
+								{subscribed.map((item) => {
 									return (
-										<div
-											key={idx}
-											className='flex gap-8'>
+										<div className='flex gap-8'>
 											<AiOutlineCheck
 												className='text-secondary'
 												size={20}
@@ -96,7 +93,7 @@ function ProSubscription({ isOpen, setIsOpen }) {
 								className='mt-8 m-auto py-2 w-full border border-white rounded-md text-center text-white hover:bg-white duration-200 hover:text-primary'>
 								Subscribe
 							</button>
-						</motion.form>
+						</motion.div>
 					</div>
 				</div>
 			)}

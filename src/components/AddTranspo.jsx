@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { getAdminId } from "../helpers/getAdminId.js";
@@ -130,7 +130,7 @@ function AddTranspo({ ...props }) {
 						initial={{ opacity: 0, scale: 0.5 }}
 						animate={{ opacity: 1, scale: 1 }}
 						transition={{
-							duration: 0.8,
+							duration: 1.2,
 							delay: 0.5,
 							ease: [0, 0.71, 0.2, 1.01],
 						}}

@@ -8,7 +8,7 @@ function RevenueChart() {
 	const chartRef = useRef(null);
 
 	const data = {
-		labels: ["2021", "2022", "2023"],
+		labels: ["May 2023", "June 2023", "July 2023"],
 		datasets: [
 			{
 				data: [5000, 8000, 12000], // Replace with your earnings data for the past 3 years
@@ -57,11 +57,11 @@ function RevenueChart() {
 	return (
 		<div className='bg-white rounded-md shadow-2xl p-10 h-96'>
 			<div className='flex justify-between'>
-				<h1 className='font-bold text-xl'>Total Earnings for the Past 3 Years</h1>
+				<h1 className='font-bold text-xl'>Total Earnings for the Past 3 Months</h1>
 				<Dropdown
 					className='text-sm'
 					options={data?.labels}
-					placeholder='Select Year'
+					placeholder='Select Month'
 				/>
 			</div>
 			<div
