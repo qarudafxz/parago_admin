@@ -11,14 +11,12 @@ import { GiIsland } from "react-icons/gi";
 import { IoPeopleCircleSharp } from "react-icons/io5";
 
 import Pro from "../components/Pro.jsx";
-import ProSubscription from "./ProSubscription.jsx";
 import Logo from "../assets/parago_admin.png";
 
 function Navbar() {
 	const navigate = useNavigate();
 	const [progress, setProgress] = useState(0);
 	const adminIsSub = localStorage.getItem("isSub");
-	const [isOpen, setIsOpen] = useState(false);
 
 	const menu = [
 		{
@@ -108,18 +106,7 @@ function Navbar() {
 				))}
 			</ul>
 			<hr className='h-4' />
-			{adminIsSub === "false" && (
-				<Pro
-					isOpen={isOpen}
-					setIsOpen={setIsOpen}
-				/>
-			)}
-			{isOpen && (
-				<ProSubscription
-					setIsOpen={setIsOpen}
-					isOpen={isOpen}
-				/>
-			)}
+			{adminIsSub === "false" && <Pro />}
 			<ul
 				className={`${
 					adminIsSub === "true" ? "mb-56" : "mb-32"

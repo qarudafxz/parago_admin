@@ -5,18 +5,21 @@ import { AiOutlineCheck, AiOutlineCloseCircle } from "react-icons/ai";
 
 import { free, subscribed } from "../data/benefits.js";
 
-function ProSubscription({ isOpen, setIsOpen }) {
+function ProSubscription({ ...props }) {
 	return (
 		<AnimatePresence>
-			{isOpen && (
+			{props.isOpen && (
 				<div
 					className={`fixed inset-0 flex gap-4 items-center bg-black bg-opacity-60 justify-center backdrop-blur-lg`}>
-					<button onClick={() => setIsOpen(!isOpen)}>
+					<motion.button
+						animate={{ opacity: 1, x: 0 }}
+						exit={{ opacity: 0, x: -1000 }}
+						onClick={() => props.setIsOpen(!props.isOpen)}>
 						<AiOutlineCloseCircle
 							className='text-white'
 							size={40}
 						/>
-					</button>
+					</motion.button>
 					<div className='flex flex-row w-6/12'>
 						<motion.div
 							key={1}
@@ -24,6 +27,7 @@ function ProSubscription({ isOpen, setIsOpen }) {
 							animate={{ opacity: 1, y: 0 }}
 							exit={{ opacity: 0, y: 1000 }}
 							transition={{
+								delay: 0.2,
 								duration: 1.5,
 								ease: [0, 0.71, 0.2, 1.01],
 							}}
@@ -61,7 +65,7 @@ function ProSubscription({ isOpen, setIsOpen }) {
 							exit={{ opacity: 0, y: -1000 }}
 							transition={{
 								duration: 1.5,
-								delay: 0.2,
+								delay: 0.4,
 								ease: [0, 0.71, 0.2, 1.01],
 							}}
 							className='p-8 bg-primary w-10/12 rounded-2xl flex flex-col gap-4 text-white'>
