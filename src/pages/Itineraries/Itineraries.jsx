@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { buildUrl } from "../../utils/buildUrl";
 import { getAdminId } from "../../helpers/getAdminId";
@@ -8,10 +9,12 @@ import "react-toastify/dist/ReactToastify.css";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
+import { motion } from "framer-motion";
+
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BsSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 
-import { AiOutlineExclamationCircle } from "react-icons/ai";
+import { AiOutlineExclamationCircle, AiOutlineArrowLeft } from "react-icons/ai";
 
 function Itineraries() {
 	const locType = [
@@ -74,7 +77,7 @@ function Itineraries() {
 			.replace("Municipality of ", "");
 
 		try {
-			await fetch(buildUrl("/event/create-event"), {
+			const res = await fetch(buildUrl("/event/create-event"), {
 				method: "POST",
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -94,14 +97,32 @@ function Itineraries() {
 					days: eventData.days,
 					locations: [...destinations],
 				}),
-			}).then((res) => {
-				if (res.ok) {
-					setProgress(100);
-					setTimeout(() => {
-						navigate("/events");
-					}, 1000);
-				}
 			});
+
+			if (res.ok) {
+				setProgress(100);
+				setTimeout(() => {
+					navigate("/events");
+				}, 1000);
+			}
+
+			if (!res.ok || res.status >= 401) {
+				(async function () {
+					const data = await res.json();
+
+					toast.error(data.message, {
+						position: "top-right",
+						autoClose: 3000,
+						hideProgressBar: false,
+						closeOnClick: false,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+					});
+				})();
+				setProgress(100);
+			}
 		} catch (err) {
 			console.error(err);
 		}
@@ -167,7 +188,20 @@ function Itineraries() {
 				height={10}
 				onLoaderFinished={() => setProgress(0)}
 			/>
-			<h1 className='text-3xl font-extrabold mb-4'>Event Details</h1>
+			<div className='flex gap-2 items-center mb-4'>
+				<motion.div
+					whileHover={{
+						initial: { x: 0 },
+						x: -9.5,
+					}}>
+					<Link
+						to='/events'
+						className='cursor-pointer'>
+						<AiOutlineArrowLeft size={25} />
+					</Link>
+				</motion.div>
+				<h1 className='text-3xl font-extrabold'>Event Details</h1>
+			</div>
 			<div className='grid grid-cols-2 gap-2'>
 				<div className='flex flex-row gap-4 items-center border border-gray rounded-md py-2 pl-4 shadow-md'>
 					<h1 className='text-xl font-semibold'>Event Name</h1>
