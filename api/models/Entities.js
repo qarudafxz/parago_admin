@@ -12,6 +12,7 @@ const EventSchema = new mongoose.Schema(
 		eventDesc: { type: String },
 		eventAddr: { type: String },
 		price: { type: Number, required: true },
+		municipality: { type: String, required: true },
 		capacity: { type: Number, required: true },
 		dateCreated: { type: Date, default: Date.now },
 		nights: { type: Number, default: 0 },
@@ -29,16 +30,6 @@ const EventSchema = new mongoose.Schema(
 				date: { type: String },
 				eventStart: { type: String },
 				eventEnd: { type: String },
-			},
-		],
-		itinerary: [
-			{
-				date: { type: Date },
-				day: { type: Number },
-				activity: { type: String, maxlength: 100 },
-				time: {
-					type: Date,
-				},
 			},
 		],
 	},

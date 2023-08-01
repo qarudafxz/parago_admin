@@ -69,6 +69,10 @@ function Itineraries() {
 			return;
 		}
 
+		const municipality = localStorage
+			.getItem("muni")
+			.replace("Municipality of ", "");
+
 		try {
 			await fetch(buildUrl("/event/create-event"), {
 				method: "POST",
@@ -81,6 +85,7 @@ function Itineraries() {
 					eventName: eventData.eventName,
 					eventDesc: eventData.eventDesc,
 					eventAddr: eventData.eventAddr,
+					municipality,
 					price: eventData.price,
 					capacity: eventData.capacity,
 					dateStart: destinations[0].date,

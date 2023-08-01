@@ -80,7 +80,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 		}
 
 		if (!myProfile?.isSubscribed && capacity > 30) {
-			toast.error("Maximum pax is 30. Subscribe to add 20 more paxes.", {
+			toast.error("Maximum pax is 30. Subscribe to add more paxes.", {
 				position: "top-right",
 				autoClose: 3000,
 				hideProgressBar: false,
