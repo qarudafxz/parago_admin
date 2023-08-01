@@ -10,7 +10,8 @@ function Pro() {
 				</span>
 			</div>
 			<p className='text-white text-xs text-center font-thin'>
-				Subscribe now to get more 20+ capacity for your events
+				Subscribe now to get{" "}
+				<span className='font-semibold italic'>more capacity</span> for your events
 			</p>
 			<button className='mt-2 py-2 px-3 font-semibold text-xs rounded-md text-white bg-secondary'>
 				Subscribe
