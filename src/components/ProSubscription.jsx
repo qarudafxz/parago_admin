@@ -70,7 +70,8 @@ function ProSubscription({ isOpen, setIsOpen }) {
 								Pro+
 							</h1>
 							<h1 className='font-bold  md:text-5xl xl:text-7xl'>
-								₱ 25.00<span className='font-normal text-sm text-zinc-200'>/month</span>
+								₱ 149.00
+								<span className='font-normal text-sm text-zinc-200'>/month</span>
 							</h1>
 							<p className='text-sm font-thin leading-relaxed'>
 								Unlock additional but promising features of ParaGO Admin.

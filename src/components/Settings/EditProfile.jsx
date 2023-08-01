@@ -50,8 +50,11 @@ function EditProfile({ ...props }) {
 						progress: undefined,
 						theme: "light",
 					});
-					localStorage.setItem("adminName", firstName + " " + lastName);
-					localStorage.setItem("muni", "Muncipality of " + municipality);
+
+					if (firstName && lastName && municipality) {
+						localStorage.setItem("adminName", firstName + " " + lastName);
+						localStorage.setItem("adminName", firstName + " " + lastName);
+					}
 
 					setProgress(100);
 					setTimeout(() => {
