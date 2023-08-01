@@ -1,5 +1,5 @@
 export const free = [
-	"Maximum of 3 events",
+	"Maximum of 5 events",
 	"Maximum of 30 paxes",
 	"2% share from 5% per booking",
 	"Freedom to create mark-ups in prices per events.",

@@ -25,10 +25,10 @@ export const createEvent = async (req, res) => {
 			return res.status(401).json({ message: "Admin not found!" });
 		}
 
-		if (admin.eventsCreated > 2 && !admin.isSubscribed) {
+		if (admin.eventsCreated > 4 && !admin.isSubscribed) {
 			return res.status(401).json({
 				message:
-					"Number of events are only up to 3. Subscribe to Pro+ for you to create more events",
+					"Number of events are only up to 5. Subscribe to Pro+ for you to create more events",
 			});
 		}
 
