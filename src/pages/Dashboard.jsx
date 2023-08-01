@@ -16,8 +16,14 @@ import Img from "../assets/bg_for_dashboard.svg";
 function Dashboard() {
 	const navigate = useNavigate();
 	const [data, setData] = useState({});
-	const [adminName, setAdminName] = useState("");
-	const [municipality, setMunicipality] = useState("");
+	// const [adminName, setAdminName] = useState("");
+	// const [municipality, setMunicipality] = useState("");
+
+	const adminData = {
+		adminName: localStorage.getItem("adminName"),
+		isSub: localStorage.getItem("isSub"),
+		municipality: localStorage.getItem("muni"),
+	};
 
 	const fetchData = async () => {
 		await fetch(buildUrl(`/auth/admin/${localStorage.getItem("userID")}`), {
@@ -30,8 +36,8 @@ function Dashboard() {
 			.then((res) => res.json())
 			.then((data) => {
 				setData(data?.admin);
-				setAdminName(data?.admin?.firstName + " " + data?.admin?.lastName);
-				setMunicipality(data?.admin?.municipality);
+				// setAdminName(data?.admin?.firstName + " " + data?.admin?.lastName);
+				// setMunicipality(data?.admin?.municipality);
 			});
 	};
 
@@ -57,8 +63,9 @@ function Dashboard() {
 						Dashboard/<span className='text-white font-semibold'>Overview</span>
 					</h1>
 					<h1 className='text-4xl text-white font-bold'>
-						Welcome back, <span className='text-secondary'>{adminName}</span>{" "}
-						{data?.isSubscribed && (
+						Welcome back,{" "}
+						<span className='text-secondary'>{adminData?.adminName}</span>{" "}
+						{adminData?.isSub === "true" && (
 							<span className='text-xs relative bottom-4 bg-white py-1 px-2 rounded-md text-primary pointer-events-none'>
 								Pro+✨
 							</span>
@@ -66,7 +73,7 @@ function Dashboard() {
 					</h1>
 					<p className='font-semibold text-white bg-secondary py-2 px-4 rounded-md w-5/12 flex gap-4 items-center'>
 						<HiOutlineBuildingLibrary size={20} />
-						{municipality}
+						{adminData?.municipality}
 					</p>
 					<p className='text-white font-thin w-7/12'>
 						Keep your community engaged and informed by adding new events, updating

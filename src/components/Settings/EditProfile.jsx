@@ -50,6 +50,9 @@ function EditProfile({ ...props }) {
 						progress: undefined,
 						theme: "light",
 					});
+					localStorage.setItem("adminName", firstName + " " + lastName);
+					localStorage.setItem("muni", "Muncipality of " + municipality);
+
 					setProgress(100);
 					setTimeout(() => {
 						props.setIsEdit(false);

@@ -25,7 +25,6 @@ function EventCalendar() {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					console.log(data);
 					setMyEventList(
 						data.events.map((event) => {
 							return {
@@ -35,9 +34,6 @@ function EventCalendar() {
 							};
 						})
 					);
-				})
-				.then(() => {
-					console.log(myEventList);
 				});
 		} catch (err) {
 			console.error(err);

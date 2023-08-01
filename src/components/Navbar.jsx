@@ -16,6 +16,7 @@ import Logo from "../assets/parago_admin.png";
 function Navbar() {
 	const navigate = useNavigate();
 	const [progress, setProgress] = useState(0);
+	const adminIsSub = localStorage.getItem("isSub");
 
 	const menu = [
 		{
@@ -57,6 +58,9 @@ function Navbar() {
 		localStorage.removeItem("userID");
 
 		setTimeout(() => {
+			localStorage.removeItem("adminName");
+			localStorage.removeItem("isSub");
+			localStorage.removeItem("muni");
 			setProgress(100);
 			navigate("/");
 		}, 1000);
@@ -102,8 +106,11 @@ function Navbar() {
 				))}
 			</ul>
 			<hr className='h-4' />
-			<Pro />
-			<ul className='mb-32 flex flex-col md:mt-10 md:gap-2 xl:mt-4 gap-8'>
+			{adminIsSub === "false" && <Pro />}
+			<ul
+				className={`${
+					adminIsSub === "true" ? "mb-56" : "mb-32"
+				} flex flex-col md:mt-10 md:gap-2 xl:mt-4 gap-8`}>
 				<li>
 					<NavLink
 						to={"/settings/my-profile"}

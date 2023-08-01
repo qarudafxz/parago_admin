@@ -64,8 +64,14 @@ function Home() {
 			}
 
 			console.log(data);
-			localStorage.setItem("token", data.token);
 
+			localStorage.setItem("token", data.token);
+			localStorage.setItem(
+				"adminName",
+				data.admin.firstName + " " + data.admin.lastName
+			);
+			localStorage.setItem("muni", data.admin.municipality);
+			localStorage.setItem("isSub", data.admin.isSubscribed);
 			localStorage.setItem("isAuthenticated", true);
 			localStorage.setItem("userID", data.admin._id);
 
