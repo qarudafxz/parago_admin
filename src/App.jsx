@@ -19,6 +19,7 @@ import Locals from "./pages/Locals";
 import Transportation from "./pages/locals/Transportation";
 import Tourism from "./pages/locals/Tourism";
 import Msme from "./pages/locals/Msme";
+import Bookings from "./pages/Bookings";
 
 import SettingsNavbar from "./components/SettingsNavbar";
 
@@ -84,6 +85,10 @@ function App() {
 								<Route
 									path='events'
 									element={<Events />}
+								/>
+								<Route
+									path='bookings'
+									element={<Bookings />}
 								/>
 								<Route
 									path='places'

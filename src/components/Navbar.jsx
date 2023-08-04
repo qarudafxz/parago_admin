@@ -5,10 +5,12 @@ import { motion } from "framer-motion";
 
 import { TbKayak } from "react-icons/tb";
 
-import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";
+import { AiOutlineSetting } from "react-icons/ai";
+import { HiViewGrid } from "react-icons/hi";
 import { RiCalendarEventFill, RiLogoutBoxRLine } from "react-icons/ri";
 import { GiIsland } from "react-icons/gi";
 import { IoPeopleCircleSharp } from "react-icons/io5";
+import { TbBrandBooking } from "react-icons/tb";
 
 import Pro from "../components/Pro.jsx";
 import Logo from "../assets/parago_admin.png";
@@ -20,31 +22,31 @@ function Navbar() {
 
 	const menu = [
 		{
-			id: 1,
 			title: "Overview",
-			icon: <AiOutlineHome />,
+			icon: <HiViewGrid />,
 			link: "/dashboard",
 		},
 		{
-			id: 2,
 			title: "Calendar",
 			icon: <RiCalendarEventFill />,
 			link: "/calendar",
 		},
 		{
-			id: 3,
 			title: "Events",
 			icon: <TbKayak />,
 			link: "/events",
 		},
 		{
-			id: 4,
+			title: "Bookings",
+			icon: <TbBrandBooking />,
+			link: "/bookings",
+		},
+		{
 			title: "Places",
 			icon: <GiIsland />,
 			link: "/places",
 		},
 		{
-			id: 5,
 			title: "Locals",
 			icon: <IoPeopleCircleSharp />,
 			link: "/locals",
