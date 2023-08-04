@@ -88,7 +88,7 @@ function Navbar() {
 				className='mx-10 md:w-32 xl:w-48'
 				alt='Logo'
 			/>
-			<ul className='flex flex-col md:gap-2 mb-10 xl:gap-5'>
+			<ul className='flex flex-col md:gap-2 mb-10 xl:gap-3 xl:mb-1'>
 				{menu.map((item) => (
 					<li key={item.id}>
 						<NavLink
@@ -99,7 +99,7 @@ function Navbar() {
 									? "bg-[#DCE7FF] text-primary duration-300 pl-4 border-l-8 border-primary"
 									: "")
 							}>
-							<div className='flex items-center gap-10 py-2 pl-4 md:text-xs xl:text-lg'>
+							<div className='flex items-center gap-10 py-2 pl-4 md:text-xs xl:text-base'>
 								{item.icon}
 								{item.title}
 							</div>
@@ -112,7 +112,7 @@ function Navbar() {
 			<ul
 				className={`${
 					adminIsSub === "true" ? "mb-56" : "mb-32"
-				} flex flex-col md:mt-4 md:gap-2 xl:mt-4 gap-8`}>
+				} flex flex-col md:mt-4 md:gap-2 xl:mt-4`}>
 				<li>
 					<NavLink
 						to={"/settings/my-profile"}
@@ -122,7 +122,7 @@ function Navbar() {
 								? "bg-[#ffefdc] text-secondary duration-300 pl-4 border-l-8 border-secondary"
 								: "")
 						}>
-						<div className='flex items-center gap-10 text-lg py-2 pl-8 md:text-xs xl:text-lg'>
+						<div className='flex items-center gap-10 text-lg py-2 pl-8 md:text-xs xl:text-base'>
 							<AiOutlineSetting />
 							Settings
 						</div>
@@ -132,7 +132,7 @@ function Navbar() {
 					<button
 						onClick={handleLogout}
 						className='flex items-center gap-10 text-lg'>
-						<div className='flex items-center gap-10 text-lg py-2 pl-8 md:text-xs xl:text-lg'>
+						<div className='flex items-center gap-10 text-lg py-2 pl-8 md:text-xs xl:text-base'>
 							<RiLogoutBoxRLine />
 							Logout
 						</div>
