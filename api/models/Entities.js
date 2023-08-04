@@ -59,3 +59,17 @@ const AccomSchema = new mongoose.Schema({
 });
 
 export const Accom = mongoose.model(accomCollectionName, AccomSchema);
+
+// bookers
+const bookerCollectionName = "bookers";
+
+const BookerSchema = new mongoose.Schema({
+	bookerID: { type: mongoose.Schema.Types.ObjectId, refs: "users" },
+	eventID: { type: mongoose.Schema.Types.ObjectId, refs: "events" },
+	bookerName: { type: String },
+	bookerLastName: { type: String },
+	bookerEmail: { type: String },
+	bookerContact: { type: Number },
+});
+
+export const Booker = mongoose.model(bookerCollectionName, BookerSchema);
