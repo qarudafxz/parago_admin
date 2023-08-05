@@ -180,7 +180,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 								type='text'
 								placeholder='Event Description (Maximum of 255 Characters only)'
 								onChange={(e) => setEventDesc(e.target.value)}
-								className='py-2 pl-4 outline outline-slate-400 h-48 focus: outline-none rounded-sm'
+								className='py-2 pl-4 outline outline-slate-400 h-48 focus: outline-none rounded-sm resize-none'
 							/>
 							<DescCounter desc={eventDesc} />
 							<input

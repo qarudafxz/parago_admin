@@ -15,7 +15,7 @@ function DescCounter({ ...props }) {
 		handleCount();
 	}, [props.desc]);
 	return (
-		<div className='absolute top-[380px] right-12 border border-zinc-100 px-2 py-1 rounded-md shadow-xl'>
+		<div className='absolute border border-zinc-100 px-2 py-1 rounded-md shadow-xl md:top-[380px] right-12 xl:top-[345px]'>
 			<h1
 				className={`${
 					textCounter > 50
