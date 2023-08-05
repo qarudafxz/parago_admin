@@ -9,6 +9,8 @@ import { getAdminId } from "../helpers/getAdminId.js";
 
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
+import DescCounter from "./DescCounter.jsx";
+
 function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 	const adminID = getAdminId();
 	const [eventName, setEventName] = useState("");
@@ -180,6 +182,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 								onChange={(e) => setEventDesc(e.target.value)}
 								className='py-2 pl-4 outline outline-slate-400 h-48 focus: outline-none rounded-sm'
 							/>
+							<DescCounter desc={eventDesc} />
 							<input
 								type='text'
 								placeholder='Event Address'
