@@ -273,3 +273,22 @@ export const editProfile = async (req, res) => {
 			.json({ message: "Server Error. Please try again later" });
 	}
 };
+
+//subscribe to pro
+//this is temporary as if there is a payment system
+export const subscribeToPro = async (req, res) => {
+	try {
+		const admin = await Admin.findById(req.params.id);
+
+		if (!admin) {
+			return res.status(400).json({ message: "Admin not found!" });
+		}
+
+		await Admin.updateOne({ _id: req.params.id }, { isSubscribed: true });
+
+		return res.status(200).json({ message: "Admin subscribed to pro!" });
+	} catch (err) {
+		console.log(err);
+		return res.status(500).json({ message: "Internal Server error" });
+	}
+};

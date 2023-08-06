@@ -58,11 +58,13 @@ function Navbar() {
 		localStorage.removeItem("token");
 		localStorage.removeItem("isAuthenticated");
 		localStorage.removeItem("userID");
+		localStorage.removeItem("email");
 
 		setTimeout(() => {
 			localStorage.removeItem("adminName");
 			localStorage.removeItem("isSub");
 			localStorage.removeItem("muni");
+
 			setProgress(100);
 			navigate("/");
 		}, 1000);

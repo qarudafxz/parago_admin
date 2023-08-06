@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { AiOutlineCheck, AiOutlineCloseCircle } from "react-icons/ai";
 
 import { free, subscribed } from "../data/benefits.js";
+import Subscribe from "./Subscribe.jsx";
 
 function ProSubscription({ ...props }) {
+	const [isClick, setIsClick] = useState(false);
 	return (
 		<AnimatePresence>
 			{props.isOpen && (
@@ -92,11 +95,11 @@ function ProSubscription({ ...props }) {
 									);
 								})}
 							</div>
-							<button
-								type='click'
+							<Link
+								to='/subscribe'
 								className='mt-8 m-auto py-2 w-full border border-white rounded-md text-center text-white hover:bg-white duration-200 hover:text-primary'>
 								Subscribe
-							</button>
+							</Link>
 						</motion.div>
 					</div>
 				</div>

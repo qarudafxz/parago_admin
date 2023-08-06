@@ -23,6 +23,8 @@ import Bookings from "./pages/Bookings";
 
 import SettingsNavbar from "./components/SettingsNavbar";
 
+import Subscribe from "./components/Subscribe";
+
 //settings
 
 import MyProfile from "./pages/Settings/MyProfile";
@@ -48,6 +50,7 @@ function App() {
 					path='/'
 					element={<Home />}
 				/>
+
 				<Route
 					path='/signup'
 					element={<Signup />}
@@ -77,6 +80,10 @@ function App() {
 								<Route
 									path='dashboard'
 									element={<Dashboard />}
+								/>{" "}
+								<Route
+									path='/subscribe'
+									element={<Subscribe />}
 								/>
 								<Route
 									path='calendar'

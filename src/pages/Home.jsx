@@ -74,6 +74,7 @@ function Home() {
 			localStorage.setItem("isSub", data.admin.isSubscribed);
 			localStorage.setItem("isAuthenticated", true);
 			localStorage.setItem("userID", data.admin._id);
+			localStorage.setItem("email", data.admin.email);
 
 			setProgress(100);
 
