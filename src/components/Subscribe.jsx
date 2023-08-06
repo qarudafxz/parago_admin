@@ -92,10 +92,10 @@ function Subscribe() {
 		}
 	}, []);
 	return (
-		<div className='w-full bg-zinc-200 p-14'>
-			<div className='bg-white rounded-xl p-6 flex justify-between'>
+		<div className='w-full bg-zinc-200 md:p-6 xl:p-14'>
+			<div className='bg-white rounded-xl p-6 flex justify-between m-auto md:mt-2 md:w-full xl:mt-10 xl:w-9/12'>
 				{/* form */}
-				<div className='flex flex-col gap-4 w-5/12'>
+				<div className='flex flex-col w-5/12 md:gap-2 xl:gap-4'>
 					<h1 className='font-semibold text-xl'>Payment Details</h1>
 					<form className='flex flex-col gap-4 mt-6'>
 						<label
@@ -155,7 +155,7 @@ function Subscribe() {
 								/>
 							</div>
 						</div>
-						<div className='flex flex-col gap-4 mt-10'>
+						<div className='flex flex-col gap-4 md:mt-4 xl:mt-10'>
 							<div className='flex justify-between'>
 								<h1 className='text-zinc-600'>Sub Total</h1>
 								<h1>₱149.00</h1>
