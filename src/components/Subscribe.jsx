@@ -108,6 +108,7 @@ function Subscribe() {
 							ref={email}
 							required
 							placeholder={emailAdd}
+							disabled
 							className='p-2 border border-zinc-300 rounded-md'
 						/>
 						<div className='flex justify-between items-center'>
