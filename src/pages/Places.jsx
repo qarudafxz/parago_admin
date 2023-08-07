@@ -57,7 +57,12 @@ function Places() {
 			</div>
 			<div className='p-10'>
 				<h1 className='font-bold text-5xl'>Hidden Gems</h1>
-				<div className='grid grid-cols-4 mt-10 gap-10'>
+				<div
+					className='grid grid-cols-4 my-10 gap-10'
+					style={{
+						maxHeight: "350px",
+						overflow: "auto",
+					}}>
 					{places?.events?.map((place) => {
 						return place.locations.map((location) => {
 							const { icon } = LOCATION_TYPE.find(

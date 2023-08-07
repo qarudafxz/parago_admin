@@ -100,6 +100,7 @@ function Subscribe() {
 			navigate("/dashboard");
 		}
 	}, []);
+
 	return (
 		<div className='w-full bg-zinc-200 md:p-6 xl:p-14'>
 			<div className='bg-white rounded-xl p-6 flex gap-16 justify-between m-auto md:mt-2 md:w-full xl:mt-10 xl:w-9/12'>
