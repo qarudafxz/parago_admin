@@ -2,6 +2,8 @@ import { Event } from "../models/Entities.js";
 import { Admin } from "../models/Admin.js";
 import { Accom } from "../models/Entities.js";
 
+import { MongoClient, ObjectId } from "mongodb";
+
 export const createEvent = async (req, res) => {
 	const {
 		creatorID,
@@ -315,5 +317,35 @@ export const getTopEvent = async (req, res) => {
 	} catch (err) {
 		console.log(err);
 		return res.status(500).json({ message: "Server error" });
+	}
+};
+
+/// query on another db
+export const getBookers = async (req, res) => {
+	const initMongoClient = async () => {
+		const client = await MongoClient.connect(process.env.ANOTHER_MONGO_URI, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		});
+		return client;
+	};
+
+	try {
+		const client = await initMongoClient();
+		const db = client.db("paraGO");
+		const bookersCollection = db.collection("userbookings");
+
+		// access a specific property inside a collection
+		const bookings = await bookersCollection
+			.find({ "eventDetails.eventId": req.params.id })
+			.toArray();
+
+		if (!bookings || bookings.length <= 0) {
+			return res.status(404).json({ message: "Bookers not found!" });
+		}
+
+		return res.status(200).json({ bookings, message: "Bookers found" });
+	} catch (err) {
+		console.error(err);
 	}
 };

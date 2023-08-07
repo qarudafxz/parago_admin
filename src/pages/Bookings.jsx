@@ -1,6 +1,59 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { buildUrl } from "../utils/buildUrl.js";
 
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
+
+import { getAdminId } from "../helpers/getAdminId.js";
 function Bookings() {
+	const [event, setEvent] = useState([]);
+	const [selectedEvent, setSelectedEvent] = useState(null);
+
+	const adminID = getAdminId();
+
+	const getEventOfAdmin = async () => {
+		try {
+			await fetch(buildUrl(`/event/events/${adminID}`), {
+				method: "GET",
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("token")}`,
+					"Content-Type": "application/json",
+				},
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					const eventsArr = data?.events?.map((item) => {
+						return { value: item._id, label: item.eventName };
+					});
+					if (eventsArr) {
+						setEvent(eventsArr);
+
+						return;
+					}
+				});
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	useEffect(() => {
+		// (async () => {
+		// 	await fetch(
+		// 		buildUrl(`/event/get-bookers/64cf3a169099a0f34b9deef8`, {
+		// 			method: "GET",
+		// 			header: {
+		// 				"Content-Type": "application/json",
+		// 			},
+		// 		})
+		// 	).then(async (res) => {
+		// 		const data = await res.json();
+		// 		console.log(data);
+		// 	});
+		// })();
+
+		getEventOfAdmin();
+	}, []);
+
 	return (
 		<>
 			<div className='w-full flex flex-col'>
@@ -32,6 +85,20 @@ function Bookings() {
 						events. You can select a specific event to view the backpackers who booked
 						it.
 					</p>
+				</div>
+				<div className='mx-24 mt-4 flex justify-between items-center'>
+					<h1 className='font-bold text-2xl'>Filter by Event</h1>
+					<div className='flex gap-4 items-center'>
+						<Dropdown
+							className='focus:outline-none'
+							options={event}
+							onChange={(event) => setSelectedEvent(event.value)}
+							placeholder='Select Event'
+						/>
+						<button className='bg-primary px-4 py-2 rounded-md font-bold text-white hover:bg-[#0032a8] duration-150'>
+							Get Bookers
+						</button>
+					</div>
 				</div>
 			</div>
 		</>

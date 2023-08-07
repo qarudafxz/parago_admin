@@ -13,6 +13,7 @@ import {
 	checkEventIfDone,
 	getUpcomingEvent,
 	getTopEvent,
+	getBookers,
 } from "../controllers/event.js";
 
 const router = express.Router();
@@ -46,6 +47,7 @@ router.get("/what-event/:id", isAuthenticated, getEventById);
 router.get("/get-accomms/:id", getAllAvailableAccommodations);
 router.get("/upcoming-event/:id", getUpcomingEvent);
 router.get("/top-event/:id", getTopEvent);
+router.get("/get-bookers/:id", getBookers);
 
 router.delete("/delete-event/:id", isAuthenticated, deleteEvent);
 

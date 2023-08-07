@@ -8,6 +8,7 @@ const AdminSchema = new mongoose.Schema(
 		lastName: { type: String },
 		email: { type: String, unique: true },
 		password: { type: String, required: true },
+		phoneNumber: { type: String },
 		role: { type: String, default: "admin" },
 		isVerified: { type: Boolean },
 		isSubscribed: { type: Boolean, default: false },
@@ -16,12 +17,6 @@ const AdminSchema = new mongoose.Schema(
 		eventsCreated: { type: Number, default: 0 },
 		totalEarnings: { type: Number, default: 0 },
 		totalBookings: { type: Number, default: 0 },
-		bookings: [
-			{
-				currentDate: { type: Date },
-				bookingValue: { type: Number, default: 0 },
-			},
-		],
 	},
 	{ timestamps: true }
 );
