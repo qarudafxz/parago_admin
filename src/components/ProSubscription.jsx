@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { AiOutlineCheck, AiOutlineCloseCircle } from "react-icons/ai";
 
 import { free, subscribed } from "../data/benefits.js";
-import Subscribe from "./Subscribe.jsx";
 
 function ProSubscription({ ...props }) {
-	const [isClick, setIsClick] = useState(false);
 	return (
 		<AnimatePresence>
 			{props.isOpen && (
