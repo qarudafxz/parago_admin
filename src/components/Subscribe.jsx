@@ -10,6 +10,8 @@ import { subscribed } from "../data/benefits.js";
 import { MdOutlinePayment } from "react-icons/md";
 
 import { AiOutlineCheck } from "react-icons/ai";
+import { ImPaypal } from "react-icons/im";
+import { BsCreditCard2FrontFill } from "react-icons/bs";
 
 import Logo from "../assets/logo.png";
 import Gradient from "../assets/grd.png";
@@ -21,6 +23,17 @@ function Subscribe() {
 	const email = useRef();
 	const [active, setIsActive] = useState(0);
 	const [isClicked, setIsClicked] = useState(false);
+
+	const paymentOptions = [
+		{
+			item: "Paypal",
+			icon: <ImPaypal size={20} />,
+		},
+		{
+			item: "Credit Card",
+			icon: <BsCreditCard2FrontFill size={20} />,
+		},
+	];
 
 	const makePayment = async () => {
 		const URL = import.meta.env.DEV
@@ -123,8 +136,8 @@ function Subscribe() {
 						/>
 						<div className='flex justify-between items-center'>
 							<h1 className='text-lg font-semibold'>Payment</h1>
-							<div className='flex gap-4 bg-zinc-200 py-2 px-4 rounded-md'>
-								{["Paypal", "Credit Card"].map((item, idx) => {
+							<div className='flex bg-zinc-200 py-2 px-2 rounded-full shadow-inner'>
+								{paymentOptions.map((payment, idx) => {
 									return (
 										<button
 											type='button'
@@ -132,10 +145,11 @@ function Subscribe() {
 											onClick={() => setIsActive(idx)}
 											className={`${
 												active === idx
-													? "bg-white text-black p-2 rounded-md shadow-md"
+													? "text-primary p-2 rounded-full shadow-md active"
 													: "bg-zinc-200 text-zinc-500"
-											} py-2 px-4 rounded-md`}>
-											{item}
+											} py-2 px-4 flex gap-4 items-center`}>
+											{payment.icon}
+											{payment.item}
 										</button>
 									);
 								})}
@@ -191,9 +205,8 @@ function Subscribe() {
 				</div>
 				{/* Benefits */}
 				<div className='flex flex-col'>
-					{/* 1 */}
 					<div
-						className={`grid place-content-center bg-zinc-900 w-full p-20 rounded-t-2xl `}
+						className={`grid place-content-center bg-zinc-900 w-full p-20 rounded-t-2xl shadow-xl`}
 						style={{
 							backgroundImage: `url(${Gradient})`,
 							backgroundSize: "cover",
@@ -207,12 +220,11 @@ function Subscribe() {
 						/>
 						<h1 className='font-bold text-white text-center md:text-2xl xl:text-3xl'>
 							Subscribe and start using <span className='text-primary'>ParaGO</span>{" "}
-							<span>Pro</span>+ features right now.
+							<span className='text-secondary'>Pro</span>+ features right now.
 						</h1>
 					</div>
 
-					{/* 3 */}
-					<div className='bg-zinc-200 rounded-b-2xl flex flex-col gap-6 p-10'>
+					<div className='bg-zinc-200 rounded-b-2xl flex flex-col gap-6 p-10 shadow-xl'>
 						{subscribed.map((text, idx) => {
 							return (
 								<h1
