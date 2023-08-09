@@ -192,7 +192,7 @@ export const createAccommodation = async (req, res) => {
 		}
 
 		const newAccommodation = new Accom({
-			creatorID: id,
+			creatorID: admin?._id,
 			name,
 			gender,
 			contactNumber,
@@ -204,7 +204,7 @@ export const createAccommodation = async (req, res) => {
 		await newAccommodation.save();
 		return res
 			.status(200)
-			.json({ newAccommodation, message: "New accommodation created!" });
+			.json({ newAccommodation, message: "New transportation created!" });
 	} catch (err) {}
 };
 
@@ -341,7 +341,7 @@ export const getBookers = async (req, res) => {
 			.toArray();
 
 		if (!bookings || bookings.length <= 0) {
-			return res.status(404).json({ message: "Bookers not found!" });
+			return res.status(404).json({ bookings, message: "Bookers not found!" });
 		}
 
 		return res.status(200).json({ bookings, message: "Bookers found" });

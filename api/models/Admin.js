@@ -10,7 +10,7 @@ const AdminSchema = new mongoose.Schema(
 		password: { type: String, required: true },
 		phoneNumber: { type: String },
 		role: { type: String, default: "admin" },
-		isVerified: { type: Boolean },
+		isVerified: { type: Boolean, default: false },
 		isSubscribed: { type: Boolean, default: false },
 		profile: { type: String, default: "" },
 		municipality: { type: String },

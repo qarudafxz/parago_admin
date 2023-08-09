@@ -35,7 +35,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post("/create-accom/:id", createAccommodation);
+router.post("/create-accoms/:id", createAccommodation);
+
 router.post(
 	"/create-event",
 	isAuthenticated,
