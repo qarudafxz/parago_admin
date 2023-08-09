@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { buildUrl } from "../utils/buildUrl.js";
-
 import Dropdown from "react-dropdown";
+import { ToastContainer, toast } from "react-toastify";
 import "react-dropdown/style.css";
 
 import { getAdminId } from "../helpers/getAdminId.js";
@@ -27,35 +27,56 @@ function Bookings() {
 					});
 					if (eventsArr) {
 						setEvent(eventsArr);
-
 						return;
 					}
 				});
 		} catch (err) {
 			console.log(err);
+			throw err;
+		}
+	};
+
+	const getBookers = async () => {
+		console.log("Selected event: ", selectedEvent);
+		if (!selectedEvent) {
+			toast.error("Please select an event to view bookers", {
+				position: "top-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				rtl: false,
+				pauseOnFocusLoss: true,
+				draggable: true,
+				pauseOnHover: true,
+				theme: "light",
+			});
+			return;
+		}
+		try {
+			await fetch(
+				buildUrl(`/event/get-bookers/${selectedEvent}`, {
+					method: "GET",
+					header: {
+						"Content-Type": "application/json",
+					},
+				})
+			).then(async (res) => {
+				const data = await res.json();
+				console.log(data);
+			});
+		} catch (err) {
+			console.log(err);
+			throw err;
 		}
 	};
 
 	useEffect(() => {
-		// (async () => {
-		// 	await fetch(
-		// 		buildUrl(`/event/get-bookers/64cf3a169099a0f34b9deef8`, {
-		// 			method: "GET",
-		// 			header: {
-		// 				"Content-Type": "application/json",
-		// 			},
-		// 		})
-		// 	).then(async (res) => {
-		// 		const data = await res.json();
-		// 		console.log(data);
-		// 	});
-		// })();
-
 		getEventOfAdmin();
 	}, []);
 
 	return (
 		<>
+			<ToastContainer />
 			<div className='w-full flex flex-col'>
 				{/* <ToastContainer
 					position='top-right'
@@ -95,7 +116,9 @@ function Bookings() {
 							onChange={(event) => setSelectedEvent(event.value)}
 							placeholder='Select Event'
 						/>
-						<button className='bg-primary px-4 py-2 rounded-md font-bold text-white hover:bg-[#0032a8] duration-150'>
+						<button
+							onClick={getBookers}
+							className='bg-primary px-4 py-2 rounded-md font-bold text-white hover:bg-[#0032a8] duration-150'>
 							Get Bookers
 						</button>
 					</div>
