@@ -333,18 +333,39 @@ export const getBookers = async (req, res) => {
 	try {
 		const client = await initMongoClient();
 		const db = client.db("paraGO");
-		const bookersCollection = db.collection("userbookings");
 
-		// access a specific property inside a collection
-		const bookings = await bookersCollection
-			.find({ "eventDetails.eventId": req.params.id })
-			.toArray();
+		const bookers = db
+			.collection("userbookings")
+			.find(
+				{ "eventDetails.eventId": req.params.id, $exist: true },
+				{ projection: { _id: 0 } }
+			);
 
+		console.log(bookers);
+
+		// check if the userbookings is properly connected
+		// const bookers = await bookersCollection.find({});
+
+		//check if there are amy ids from eventDetails.eventId
+
+		// const bookersByEvent = bookers.filter(
+		// 	(booker) => booker.eventDetails.eventId === req.params.id
+		// );
+
+		console.log(bookersByEvent);
+
+		// find all bookers by using req.params.id as the event id
+		// and compare it to the key eventDetails.eventId
+		const bookersByEvent = bookers.filter(
+			(booker) => booker.eventDetails.eventId === req.params.id
+		);
+
+		console.log(bookersByEvent);
 		if (!bookings || bookings.length <= 0) {
 			return res.status(404).json({ bookings, message: "Bookers not found!" });
 		}
 
-		return res.status(200).json({ bookings, message: "Bookers found" });
+		return res.status(200).json({ bookersByEvent, message: "Bookers found" });
 	} catch (err) {
 		console.error(err);
 	}

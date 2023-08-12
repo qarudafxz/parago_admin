@@ -137,7 +137,7 @@ function AddTranspo({ ...props }) {
 							<div className='flex justify-end items-center gap-4'>
 								<h1 className='font-thin text-[#808080]'>Press Esc to close</h1>
 								<button
-									type='button 	'
+									type='button'
 									onClick={() => props.setIsAdd(!props.isAdd)}
 									className='text-primary'>
 									<AiOutlineCloseCircle size={40} />
