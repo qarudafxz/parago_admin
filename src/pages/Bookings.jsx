@@ -52,6 +52,7 @@ function Bookings() {
 			});
 			return;
 		}
+
 		try {
 			await fetch(
 				buildUrl(`/event/get-bookers/${selectedEvent}`, {
