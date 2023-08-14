@@ -360,9 +360,12 @@ export const getBookers = async (req, res) => {
 			(booker) => booker.eventDetails.eventId === req.params.id
 		);
 
-		console.log(bookersByEvent);
+		console.log(bookersByEvent.toArray());
+
 		if (!bookings || bookings.length <= 0) {
-			return res.status(404).json({ bookings, message: "Bookers not found!" });
+			return res
+				.status(404)
+				.json({ bookersByEvent, message: "Bookers not found!" });
 		}
 
 		return res.status(200).json({ bookersByEvent, message: "Bookers found" });

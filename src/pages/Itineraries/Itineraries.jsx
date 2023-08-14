@@ -17,6 +17,10 @@ import { BsSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { AiOutlineExclamationCircle, AiOutlineArrowLeft } from "react-icons/ai";
 
 function Itineraries() {
+	const [transpo, setTranspo] = useState("");
+	const [hotel, setHotel] = useState("");
+	const [food, setFood] = useState("");
+
 	const locType = [
 		{ key: 1, value: "beach", label: "Beach" },
 		{ key: 2, value: "mountain", label: "Mountain" },
@@ -37,6 +41,8 @@ function Itineraries() {
 		{ key: 17, value: "cathedral", label: "Cathedral" },
 		{ key: 18, value: "castle", label: "Castle" },
 	];
+
+	const choices = ["Transportation", "Hotel", "Food"];
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -246,7 +252,7 @@ function Itineraries() {
 						must be in sequence
 					</p>
 					<div style={{ maxHeight: "600px", overflow: "auto" }}>
-						<div className='w-full grid grid-rows-12 gap-2'>
+						<div className='w-full grid grid-rows-12 gap-2 scroll'>
 							{destinations.map((_location, index) => {
 								return (
 									<div
@@ -312,10 +318,8 @@ function Itineraries() {
 										</div>
 										<Dropdown
 											className='pl-2 py-2 rounded-md text-primary focus:outline-none'
-											options={locType}
-											onChange={(locType) =>
-												handleSetLocation(index, "type", locType?.value)
-											}
+											options={choices}
+											onChange={(choices) => handleAccommodation(choices?.value)}
 											placeholder='Select Accommodation'
 										/>
 										<button

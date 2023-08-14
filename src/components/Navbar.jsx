@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { TbKayak } from "react-icons/tb";
 
 import { AiOutlineSetting } from "react-icons/ai";
-import { HiViewGrid } from "react-icons/hi";
+import { BsGrid1X2Fill } from "react-icons/bs";
 import { RiCalendarEventFill, RiLogoutBoxRLine } from "react-icons/ri";
 import { GiIsland } from "react-icons/gi";
 import { IoPeopleCircleSharp } from "react-icons/io5";
@@ -23,7 +23,7 @@ function Navbar() {
 	const menu = [
 		{
 			title: "Overview",
-			icon: <HiViewGrid />,
+			icon: <BsGrid1X2Fill />,
 			link: "/dashboard",
 		},
 		{
