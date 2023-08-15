@@ -252,6 +252,12 @@ export const checkEventIfDone = async (req, res) => {
 };
 
 //needs to improve logic
+
+/*
+	* Get the upcoming event of the admin
+
+	@params event id
+*/
 export const getUpcomingEvent = async (req, res) => {
 	const { id } = req.params;
 	try {
@@ -321,6 +327,11 @@ export const getTopEvent = async (req, res) => {
 };
 
 /// query on another db
+/*
+	* api to retrieve the bookers in a specific event
+	@param id of the event selected
+	@returns a promise with a status of 200 that the bookers have finally fetched from the other collection
+*/
 export const getBookers = async (req, res) => {
 	const initMongoClient = async () => {
 		const client = await MongoClient.connect(process.env.ANOTHER_MONGO_URI, {
