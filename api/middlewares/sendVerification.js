@@ -42,7 +42,7 @@ export const sendVerification = async (name, email, userID, token) => {
 													<tr>
 															<td align="center" style="padding: 40px 0;">
 																	<img src="https://i.ibb.co/GdHL0Wt/PNGG.png" alt="Parago Logo" width="200" height="50">
-															</td>
+															</td>n
 													</tr>
 													<tr>
 															<td align="center" style="padding: 20px 40px; font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 24px;">
