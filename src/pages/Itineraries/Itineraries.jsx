@@ -17,9 +17,9 @@ import { BsSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { AiOutlineExclamationCircle, AiOutlineArrowLeft } from "react-icons/ai";
 
 function Itineraries() {
-	const [transpo, setTranspo] = useState("");
-	const [hotel, setHotel] = useState("");
-	const [food, setFood] = useState("");
+	// const [transpo, setTranspo] = useState("");
+	// const [hotel, setHotel] = useState("");
+	// const [food, setFood] = useState("");
 
 	const locType = [
 		{ key: 1, value: "beach", label: "Beach" },

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
@@ -32,8 +33,11 @@ import Security from "./pages/Settings/Security";
 import Municipalities from "./pages/Settings/Municipalities";
 import Billing from "./pages/Settings/Billing";
 
+import Pam from "../src/assets/pam.webp";
+
 function App() {
 	const [loading, setLoading] = useState(true);
+	const [showGreetings, setShowGreetings] = useState(false); // Add this line
 
 	useEffect(() => {
 		demoAsyncCall().then(() => setLoading(false));
@@ -75,6 +79,50 @@ function App() {
 					path='/*'
 					element={
 						<div className='font-primary flex flex-row'>
+							<AnimatePresence>
+								{showGreetings && (
+									<motion.div
+										initial={{ opacity: 0, scale: 0.5 }}
+										animate={{ opacity: 1, scale: 1 }}
+										transition={{
+											duration: 1.2,
+											delay: 0.1,
+											type: "spring",
+											stiffness: 260,
+											damping: 20,
+										}}
+										exit={{ opacity: 0, scale: 0.5 }}
+										className='absolute z-10 bottom-24 right-32 bg-white text-xs p-4 rounded-md shadow-2xl w-56 '>
+										<h1 className='text-center'>
+											Hi! I'm <span className='italic font-bold text-primary'>Pam.</span>{" "}
+											Introduce your hidden gems to everyone!
+										</h1>
+									</motion.div>
+								)}
+							</AnimatePresence>
+							<motion.div
+								animate={{ y: [0, 10, 0] }}
+								transition={{ duration: 1, repeat: Infinity }}
+								className='w-24 h-24 absolute bottom-6 right-10 '>
+								<motion.img
+									initial={{ opacity: 0, scale: 0.5 }}
+									animate={{ opacity: 1, scale: 1 }}
+									transition={{
+										duration: 0.8,
+										delay: 0.4,
+										ease: [0, 0.71, 0.2, 1.01],
+									}}
+									onMouseEnter={() => {
+										setShowGreetings(true);
+									}}
+									onMouseLeave={() => {
+										setShowGreetings(false);
+									}}
+									src={Pam}
+									alt='Pam the pint-sized voyager'
+									className='hover:cursor-zoom-in'
+								/>
+							</motion.div>
 							<Navbar />
 							<Routes>
 								<Route
