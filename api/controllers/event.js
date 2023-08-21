@@ -205,7 +205,10 @@ export const createAccommodation = async (req, res) => {
 		return res
 			.status(200)
 			.json({ newAccommodation, message: "New transportation created!" });
-	} catch (err) {}
+	} catch (err) {
+		console.error(err);
+		return res.status(500).json({ message: "Internal server error" });
+	}
 };
 
 //getting all accommodations
@@ -334,7 +337,7 @@ export const getTopEvent = async (req, res) => {
 */
 export const getBookers = async (req, res) => {
 	const initMongoClient = async () => {
-		const client = await MongoClient.connect(process.env.ANOTHER_MONGO_URI, {
+		const client = await MongoClient.connect(import.meta.env.ANOTHER_MONGO_URI, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 		});
@@ -373,7 +376,7 @@ export const getBookers = async (req, res) => {
 
 		console.log(bookersByEvent.toArray());
 
-		if (!bookings || bookings.length <= 0) {
+		if (!bookers || bookers.length <= 0) {
 			return res
 				.status(404)
 				.json({ bookersByEvent, message: "Bookers not found!" });
@@ -384,3 +387,52 @@ export const getBookers = async (req, res) => {
 		console.error(err);
 	}
 };
+
+/*
+
+
+ documentation for identifying distinct/unique dates from created itineraries
+
+	tho, itineraries are written in a same order in fashion, what we want to achieve is 
+	to determine the unique dates listed on each itineraries
+
+	for example:
+
+	we have here 5 itineraries with different and same dates
+
+	const itineraries = [
+		{
+			date: "1-1-2001"
+		},
+		{
+			date: "1-1-2001"
+		},
+{
+			date: "1-2-2001"
+		},
+		{
+			date: "1-3-2001"
+		}
+	]
+
+	Now we want to separate each dates based on its uniqueness
+
+	const distinctDates = ["1-1-2001", "1-2-2001", "1-3-2001"]
+
+	to make a list out of it, categorized itineraries by its dates
+
+	const categorizedItineraries = [
+		{
+			date: "1-1-2001",
+			itineraries: [
+				{
+					date: "1-1-2001"
+				},
+				{
+					date: "1-1-2001"
+				}
+			]
+		},
+
+		
+ */
