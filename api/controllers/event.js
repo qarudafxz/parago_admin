@@ -391,7 +391,7 @@ export const getBookers = async (req, res) => {
 /*
 
 
- documentation for identifying distinct/unique dates from created itineraries
+ documentation for identifying distinct/unique neighbours of dates from created itineraries
 
 	tho, itineraries are written in a same order in fashion, what we want to achieve is 
 	to determine the unique dates listed on each itineraries
@@ -434,5 +434,5 @@ export const getBookers = async (req, res) => {
 			]
 		},
 
-		
+
  */
