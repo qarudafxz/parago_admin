@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -8,13 +9,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-
 import { motion } from "framer-motion";
-
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BsSunFill, BsFillMoonStarsFill } from "react-icons/bs";
-
 import { AiOutlineExclamationCircle, AiOutlineArrowLeft } from "react-icons/ai";
+import { Tooltip } from "@mui/material";
 
 function Itineraries() {
 	// const [transpo, setTranspo] = useState("");
@@ -230,6 +229,14 @@ function Itineraries() {
 						<BsFillMoonStarsFill />
 						<p>{eventData.nights}</p>
 					</div>
+					<Tooltip
+						title='Try to create itineraries powered by a Generative AI (This feature is currently unaviailable)'
+						placement='top'
+						arrow>
+						<button className='bg-primary opacity-80 text-white shadow-md rounded-md text-sm text-center px-4 py-2'>
+							✨ Generate Itineraries
+						</button>
+					</Tooltip>
 				</div>
 			</div>
 			<div className='mt-10'>
@@ -319,7 +326,7 @@ function Itineraries() {
 										<Dropdown
 											className='pl-2 py-2 rounded-md text-primary focus:outline-none'
 											options={choices}
-											onChange={(choices) => handleAccommodation(choices?.value)}
+											// onChange={(choices) => handleAccommodation(choices?.value)}
 											placeholder='Select Accommodation'
 										/>
 										<button
