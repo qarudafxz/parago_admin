@@ -187,7 +187,6 @@ function Itineraries() {
 				buildUrl("/event/generate"),
 				{
 					eventName: eventData.eventName,
-					eventDesc: eventData.eventDesc,
 					price: eventData.price,
 					capacity: eventData.capacity,
 				},
