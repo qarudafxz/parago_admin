@@ -1,6 +1,6 @@
 {
   "name": "parago_admin",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.13.0",
     "async-redis": "^2.0.0",
+    "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "chart.js": "^4.3.0",
     "cookie-parser": "^1.4.6",
@@ -33,6 +34,7 @@
     "multer-gridfs-storage": "^5.0.2",
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.22",
+    "openai": "^4.2.0",
     "react": "^18.2.0",
     "react-big-calendar": "^1.8.1",
     "react-dom": "^18.2.0",
