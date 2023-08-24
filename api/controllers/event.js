@@ -465,7 +465,7 @@ const openai = new OpenAI({
 export const generateItineraries = async (req, res) => {
 	const { eventName, price, capacity } = req.body;
 
-	console.log("Prompting to ChatGPT...");
+	console.log("\n\nPrompting to ChatGPT, please wait...");
 
 	try {
 		const message = `Can you create me a 1 SHORT and DIRECT itinerary for ${eventName}?
