@@ -273,17 +273,17 @@ function Itineraries() {
 						<button
 							onClick={generateItinerary}
 							className={`bg-primary text-white shadow-md rounded-md text-sm text-center px-4 py-2 ${
-								!isAiLoad && "disabled"
+								!aiLoad && "disabled opacity-95 cursor-not-allowed"
 							}`}>
 							{aiLoad ? (
-								"✨ Generate Itineraries"
+								"✨ Generate Itinerary"
 							) : (
 								<span className='flex gap-4 items-center text-white'>
 									<motion.div
 										animate={{
 											rotate: 360,
 										}}
-										transition={{ repeat: Infinity }}>
+										transition={{ repeat: Infinity, duration: 0.4, ease: "linear" }}>
 										<AiOutlineLoading3Quarters size={15} />
 									</motion.div>
 									<p>Generating Itinerary</p>

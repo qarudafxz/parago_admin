@@ -468,17 +468,9 @@ export const generateItineraries = async (req, res) => {
 	console.log("Prompting to ChatGPT...");
 
 	try {
-		const message = `Can you create me a 1 itinerary for ${eventName}?
+		const message = `Can you create me a 1 SHORT itinerary for ${eventName}?
 			with supporting details of ${eventDesc} and its capacity: ${capacity}. 
 			Can you make it the best itineraries for this price: ${price}.
-
-		Your response would be just like for example:
-
-		Meet up in Butuan City
-		/n
-		Eat breakfast in Jollibee
-		/n
-		Purchase equipments for the event
 		`;
 
 		const response = await openai.chat.completions.create({
