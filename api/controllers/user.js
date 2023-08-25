@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
@@ -137,12 +138,15 @@ export const googleLogin = async (req, res) => {
 		}
 
 		//if user already existed
-		const TOKEN = createToken(payload);
+		// const TOKEN = createToken(payload);
 
 		return res
 			.status(200)
 			.json(token, admin, { message: "Admin successfully logged in" });
-	} catch (err) {}
+	} catch (err) {
+		console.log(err);
+		throw new Error(err);
+	}
 };
 
 export const login = async (req, res) => {
