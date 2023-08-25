@@ -38,10 +38,6 @@ function Events() {
 	};
 
 	useEffect(() => {
-		fetchEvents();
-	}, [window.location.isLoaded]);
-
-	useEffect(() => {
 		if (!localStorage.getItem("token")) {
 			navigate("/");
 		}

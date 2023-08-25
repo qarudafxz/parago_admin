@@ -470,7 +470,7 @@ export const generateItineraries = async (req, res) => {
 	try {
 		const message = `Can you create me a 1 SHORT and DIRECT itinerary for ${eventName}?
 			with supporting details, capacity: ${capacity}. 
-			Can you make it the best itineraries for this price: ${price}.
+			Can you make it the best itineraries for this price: ${price}. Limit the list having 3-5 words only.
 		`;
 
 		const response = await openai.chat.completions.create({
