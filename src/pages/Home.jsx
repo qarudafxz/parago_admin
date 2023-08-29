@@ -252,7 +252,7 @@ function Home() {
 					Sign in
 				</button>
 				<p className='font-thin text-center'>
-					Don't have an account yet?{" "}
+					Don&apos;t have an account yet?{" "}
 					<Link
 						to='/signup'
 						className='font-bold italic hover:text-primary duration-150'>

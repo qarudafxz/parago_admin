@@ -1,57 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import TopLoadingBar from "react-top-loading-bar";
 import { motion } from "framer-motion";
-
-import { TbKayak } from "react-icons/tb";
-
-import { AiOutlineSetting } from "react-icons/ai";
-import { BsGrid1X2Fill } from "react-icons/bs";
-import { RiCalendarEventFill, RiLogoutBoxRLine } from "react-icons/ri";
-import { GiIsland } from "react-icons/gi";
-import { IoPeopleCircleSharp } from "react-icons/io5";
-import { TbBrandBooking } from "react-icons/tb";
-
 import Pro from "../components/Pro.jsx";
 import Logo from "../assets/parago_admin.png";
+import { navbar_menu } from "../data/navbar_menu.jsx";
+import { AiOutlineSetting } from "react-icons/ai";
+import { RiLogoutBoxRLine } from "react-icons/ri";
 
 function Navbar() {
 	const navigate = useNavigate();
 	const [progress, setProgress] = useState(0);
 	const adminIsSub = localStorage.getItem("isSub");
-
-	const menu = [
-		{
-			title: "Overview",
-			icon: <BsGrid1X2Fill />,
-			link: "/dashboard",
-		},
-		{
-			title: "Calendar",
-			icon: <RiCalendarEventFill />,
-			link: "/calendar",
-		},
-		{
-			title: "Events",
-			icon: <TbKayak />,
-			link: "/events",
-		},
-		{
-			title: "Bookings",
-			icon: <TbBrandBooking />,
-			link: "/bookings",
-		},
-		{
-			title: "Places",
-			icon: <GiIsland />,
-			link: "/places",
-		},
-		{
-			title: "Locals",
-			icon: <IoPeopleCircleSharp />,
-			link: "/locals",
-		},
-	];
 
 	const handleLogout = () => {
 		setProgress(50);
@@ -91,7 +51,7 @@ function Navbar() {
 				alt='Logo'
 			/>
 			<ul className='flex flex-col md:gap-2 mb-10 xl:gap-3 xl:mb-1'>
-				{menu.map((item) => (
+				{navbar_menu.map((item) => (
 					<li key={item.id}>
 						<NavLink
 							to={item.link}

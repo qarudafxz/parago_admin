@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -43,9 +44,11 @@ function ProSubscription({ ...props }) {
 								The perfect opportunity for you to get started on organizing events.
 							</p>
 							<div className='flex flex-col gap-4 mt-6'>
-								{free.map((item) => {
+								{free.map((item, idx) => {
 									return (
-										<div className='flex gap-8'>
+										<div
+											key={idx}
+											className='flex gap-8'>
 											<AiOutlineCheck
 												className='text-primary'
 												size={20}
@@ -81,9 +84,11 @@ function ProSubscription({ ...props }) {
 								Unlock additional but promising features of ParaGO Admin.
 							</p>
 							<div className='flex flex-col gap-4 mt-6'>
-								{subscribed.map((item) => {
+								{subscribed.map((item, idx) => {
 									return (
-										<div className='flex gap-8'>
+										<div
+											key={idx}
+											className='flex gap-8'>
 											<AiOutlineCheck
 												className='text-secondary'
 												size={20}

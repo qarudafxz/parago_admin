@@ -4,6 +4,13 @@ import React from "react";
 import Skeleton from "@mui/material/Skeleton";
 
 function Itinerary({ itineraries, isLoaded }) {
+	const tableHeader = [
+		"Date",
+		"Destination",
+		"Activity",
+		"Time Start",
+		"Time End",
+	];
 	return (
 		<div>
 			<h1 className='text-5xl font-bold mb-4'>Itineraries</h1>
@@ -11,21 +18,15 @@ function Itinerary({ itineraries, isLoaded }) {
 				<table className='table'>
 					<thead className='bg-primary'>
 						<tr>
-							<th className='border border-black px-4 py-2 text-xl text-white'>
-								Date
-							</th>
-							<th className='border border-black px-12 py-2 text-xl text-white'>
-								Destination
-							</th>
-							<th className='border border-black px-12 py-2 text-xl text-white'>
-								Activity
-							</th>
-							<th className='border border-black px-4 py-2 text-md text-white'>
-								Time Start
-							</th>
-							<th className='border border-black px-4 py-2 text-md text-white'>
-								Time End
-							</th>
+							{tableHeader.map((header, idx) => {
+								return (
+									<th
+										key={idx}
+										className='border border-black px-4 py-2 text-md text-white'>
+										{header}
+									</th>
+								);
+							})}
 						</tr>
 					</thead>
 					<tbody>

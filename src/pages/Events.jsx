@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CreateEvent from "../components/CreateEvent";
 import EventCards from "../components/EventCards";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import { AiFillPlusCircle } from "react-icons/ai";
 
@@ -48,18 +46,6 @@ function Events() {
 	return (
 		<>
 			<div className='w-full flex flex-col'>
-				<ToastContainer
-					position='top-right'
-					autoClose={5000}
-					hideProgressBar={false}
-					newestOnTop={false}
-					closeOnClick
-					rtl={false}
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-					theme='light'
-				/>
 				<div className="bg-primary w-full h-72 p-24 flex flex-col gap-2 shadow-2xl inset-0 bg-[url('https://upload.wikimedia.org/wikipedia/commons/4/43/Woman_kayaking_on_a_turquoise_lake_%2851125937521%29.jpg')]">
 					<h1 className='text-[#92B0F5]'>
 						Dashboard/<span className='text-white font-semibold'>Events</span>

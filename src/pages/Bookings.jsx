@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { buildUrl } from "../utils/buildUrl.js";
 import Dropdown from "react-dropdown";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-dropdown/style.css";
+import { toaster } from "../helpers/toaster.js";
 
 import { getAdminId } from "../helpers/getAdminId.js";
 function Bookings() {
@@ -37,19 +38,8 @@ function Bookings() {
 	};
 
 	const getBookers = async () => {
-		console.log("Selected event: ", selectedEvent);
 		if (!selectedEvent) {
-			toast.error("Please select an event to view bookers", {
-				position: "top-right",
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				rtl: false,
-				pauseOnFocusLoss: true,
-				draggable: true,
-				pauseOnHover: true,
-				theme: "light",
-			});
+			toaster("error", "Please select an event to view bookers");
 			return;
 		}
 

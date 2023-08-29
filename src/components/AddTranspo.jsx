@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,8 +8,6 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { getAdminId } from "../helpers/getAdminId.js";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-
-import { buildUrl } from "../utils/buildUrl.js";
 
 function AddTranspo({ ...props }) {
 	const [progress, setProgress] = useState(0);

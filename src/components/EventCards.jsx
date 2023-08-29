@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { getAdminId } from "../helpers/getAdminId.js";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-
 import { FaUsers, FaSearchLocation } from "react-icons/fa";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BsTrashFill, BsMoonStarsFill } from "react-icons/bs";
 import { TbTrash } from "react-icons/tb";
 import { HiSun } from "react-icons/hi";
-
 import { Skeleton } from "@mui/material";
 import TopLoadingBar from "react-top-loading-bar";
+import { toaster } from "../helpers/toaster.js";
 
 function EventCards({ fetchData, isLoaded, setData, fetchEvents }) {
 	const [isClicked, setIsClicked] = useState(false);
@@ -40,16 +38,7 @@ function EventCards({ fetchData, isLoaded, setData, fetchEvents }) {
 			}).then((res) => {
 				if (res.ok) {
 					setData((prevEvents) => prevEvents.filter((event) => event._id !== id));
-					toast.success("Event successfully deleted", {
-						position: "top-right",
-						autoClose: 2000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: false,
-						draggable: false,
-						progress: undefined,
-						theme: "light",
-					});
+					toaster("success", "Event successfully deleted");
 					setProgress(100);
 				}
 				setIsClicked(false);
@@ -120,16 +109,7 @@ function EventCards({ fetchData, isLoaded, setData, fetchEvents }) {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					toast.success(data.message, {
-						position: "top-right",
-						autoClose: 2000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: false,
-						draggable: false,
-						progress: undefined,
-						theme: "light",
-					});
+					toaster("success", data.message);
 					setTimeout(() => {
 						fetchEvents();
 					}, 4000);

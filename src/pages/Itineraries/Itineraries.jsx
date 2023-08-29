@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { buildUrl } from "../../utils/buildUrl";
 import { getAdminId } from "../../helpers/getAdminId";
 import TopLoadingBar from "react-top-loading-bar";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
@@ -19,33 +19,14 @@ import {
 } from "react-icons/ai";
 import { Tooltip } from "@mui/material";
 import axios from "axios";
+import { toaster } from "../../helpers/toaster";
+import { locType } from "../../data/loctype";
 
 function Itineraries() {
 	// const [transpo, setTranspo] = useState("");
 	// const [hotel, setHotel] = useState("");
 	// const [food, setFood] = useState("");
 	const [aiLoad, isAiLoad] = useState(true);
-
-	const locType = [
-		{ key: 1, value: "beach", label: "Beach" },
-		{ key: 2, value: "mountain", label: "Mountain" },
-		{ key: 3, value: "forest", label: "Forest" },
-		{ key: 4, value: "lake", label: "Lake" },
-		{ key: 5, value: "river", label: "River" },
-		{ key: 6, value: "waterfall", label: "Waterfall" },
-		{ key: 7, value: "cave", label: "Cave" },
-		{ key: 8, value: "island", label: "Island" },
-		{ key: 9, value: "museum", label: "Museum" },
-		{ key: 10, value: "park", label: "Park" },
-		{ key: 11, value: "zoo", label: "Zoo" },
-		{ key: 12, value: "theme park", label: "Theme Park" },
-		{ key: 13, value: "garden", label: "Garden" },
-		{ key: 14, value: "church", label: "Church" },
-		{ key: 15, value: "temple", label: "Temple" },
-		{ key: 16, value: "mosque", label: "Mosque" },
-		{ key: 17, value: "cathedral", label: "Cathedral" },
-		{ key: 18, value: "castle", label: "Castle" },
-	];
 
 	const choices = ["Transportation", "Hotel", "Food"];
 
@@ -55,6 +36,24 @@ function Itineraries() {
 	const [progress, setProgress] = useState(0);
 	const [destinations, setDestinations] = useState([]);
 	const adminID = getAdminId();
+
+	const menu = [
+		{
+			title: "Event Name",
+			description: eventData.eventName,
+			icon: null,
+		},
+		{
+			title: "Event Description",
+			description: eventData.eventDesc,
+			icon: null,
+		},
+		{
+			title: "",
+			description: eventData.eventAddr,
+			icon: <HiOutlineLocationMarker />,
+		},
+	];
 
 	const createEvent = async (e) => {
 		e.preventDefault();
@@ -68,16 +67,8 @@ function Itineraries() {
 			}) ||
 			destinations.length === 0
 		) {
-			toast.error("Please provide itineraries!", {
-				position: "top-right",
-				autoClose: 3000,
-				hideProgressBar: false,
-				closeOnClick: false,
-				pauseOnHover: false,
-				draggable: true,
-				progress: undefined,
-				theme: "light",
-			});
+			toaster("error", "Please provide itineraries!");
+
 			setProgress(100);
 			return;
 		}
@@ -119,17 +110,7 @@ function Itineraries() {
 			if (!res.ok || res.status >= 401) {
 				(async function () {
 					const data = await res.json();
-
-					toast.error(data.message, {
-						position: "top-right",
-						autoClose: 3000,
-						hideProgressBar: false,
-						closeOnClick: false,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-						theme: "light",
-					});
+					toaster("error", data.message);
 				})();
 				setProgress(100);
 			}
@@ -217,9 +198,11 @@ function Itineraries() {
 					})
 				);
 				isAiLoad(true);
+				toaster("success", "Itinerary generated successfully!");
 			}
 		} catch (error) {
 			console.error(error);
+			toaster("error", "Server error, please try again later.");
 		}
 	};
 
@@ -259,18 +242,18 @@ function Itineraries() {
 				<h1 className='text-3xl font-extrabold'>Event Details</h1>
 			</div>
 			<div className='grid grid-cols-2 gap-2'>
-				<div className='flex flex-row gap-4 items-center border border-gray rounded-md py-2 pl-4 shadow-md'>
-					<h1 className='text-xl font-semibold'>Event Name</h1>
-					<p>{eventData.eventName}</p>
-				</div>
-				<div className='flex flex-row gap-4 items-center border border-gray rounded-md py-2 pl-4 shadow-md'>
-					<h1 className='text-xl font-semibold'>Event Description</h1>
-					<p>{eventData.eventDesc}</p>
-				</div>
-				<div className='flex flex-row gap-4 items-center  border border-gray rounded-md py-2 pl-4 shadow-md'>
-					<HiOutlineLocationMarker />
-					<p>{eventData.eventAddr}</p>
-				</div>
+				{menu.map((item, idx) => {
+					return (
+						<div
+							key={idx}
+							className='flex flex-row gap-4 items-center border border-gray rounded-md py-2 pl-4 shadow-md'>
+							<h1 className='text-xl font-semibold'>{item?.title}</h1>
+							{item?.icon}
+							<p>{item?.description}</p>
+						</div>
+					);
+				})}
+
 				<div className='flex flex-row gap-4'>
 					<div className='flex flex-row gap-4 items-center border border-secondary px-6 py-2 rounded-md text-secondary '>
 						<BsSunFill />
