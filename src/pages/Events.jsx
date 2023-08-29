@@ -41,6 +41,8 @@ function Events() {
 		if (!localStorage.getItem("token")) {
 			navigate("/");
 		}
+
+		fetchEvents();
 	}, []);
 
 	return (
