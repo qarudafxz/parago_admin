@@ -197,12 +197,13 @@ function Itineraries() {
 						};
 					})
 				);
-				isAiLoad(true);
 				toaster("success", "Itinerary generated successfully!");
 			}
 		} catch (error) {
 			console.error(error);
 			toaster("error", "Server error, please try again later.");
+		} finally {
+			isAiLoad(true);
 		}
 	};
 
