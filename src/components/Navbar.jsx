@@ -117,7 +117,7 @@ function Navbar() {
 				} flex flex-col md:mt-4 md:gap-2 xl:mt-4`}>
 				<li>
 					<NavLink
-						to={"/settings/my-profile"}
+						to={"/settings"}
 						className={({ isActive }) =>
 							"flex items-center gap-10 text-lg' " +
 							(isActive

@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Outlet,
+	Navigate,
+} from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Home from "./pages/Home";
@@ -94,8 +100,9 @@ function App() {
 										exit={{ opacity: 0, scale: 0.5 }}
 										className='absolute z-10 bottom-24 right-32 bg-white text-xs p-4 rounded-md shadow-2xl w-56 '>
 										<h1 className='text-center'>
-											Hi! I'm <span className='italic font-bold text-primary'>Pam.</span>{" "}
-											Introduce your hidden gems to everyone!
+											Hi! I&apos;m{" "}
+											<span className='italic font-bold text-primary'>Pam.</span> Introduce
+											your hidden gems to everyone!
 										</h1>
 									</motion.div>
 								)}
@@ -173,35 +180,36 @@ function App() {
 									path='local-stores'
 									element={<Msme />}
 								/>
-								<Route path='settings'>
-									<Route
-										path='/settings/*'
-										element={
-											<div className='p-10 bg-zinc-100 w-full'>
-												<h1 className='font-bold text-3xl mb-4'>Account Settings</h1>
-												<div className='font-primary flex flex-row gap-4 bg-white p-4 rounded-2xl shadow-2xl'>
-													<SettingsNavbar />
-													<Routes>
-														<Route
-															path='my-profile'
-															element={<MyProfile />}
-														/>
-														<Route
-															path='security'
-															element={<Security />}
-														/>
-														<Route
-															path='municipalities'
-															element={<Municipalities />}
-														/>
-														<Route
-															path='billing'
-															element={<Billing />}
-														/>
-													</Routes>
-												</div>
+								<Route
+									path='/settings'
+									element={
+										<div className='p-10 bg-zinc-100 w-full'>
+											<h1 className='font-bold text-3xl mb-4'>Account Settings</h1>
+											<div className='font-primary flex flex-row gap-4 bg-white p-4 rounded-2xl shadow-2xl'>
+												<SettingsNavbar />
+												<Outlet />
 											</div>
-										}
+										</div>
+									}>
+									<Route
+										path=''
+										element={<Navigate to='my-profile' />}
+									/>
+									<Route
+										path='my-profile'
+										element={<MyProfile />}
+									/>
+									<Route
+										path='security'
+										element={<Security />}
+									/>
+									<Route
+										path='municipalities'
+										element={<Municipalities />}
+									/>
+									<Route
+										path='billing'
+										element={<Billing />}
 									/>
 								</Route>
 							</Routes>
