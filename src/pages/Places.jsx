@@ -41,7 +41,7 @@ function Places() {
 	return (
 		<div className='flex flex-col w-full font-primary'>
 			<div className="w-full h-72 p-24 flex flex-col gap-2 shadow-2xl inset-0 bg-[url('https://i0.wp.com/touristspotsfinder.com/wp-content/uploads/2018/04/Top-10-Tourist-Spots-in-Agusan-del-Sur.jpg?fit=1200%2C629&ssl=1')]">
-				<div className='backdrop-blur-sm p-4 w-8/12'>
+				<div className='p-4 w-8/12'>
 					<h1 className='text-primary'>
 						Dashboard/<span className='text-white font-semibold'>Places</span>
 					</h1>

@@ -54,7 +54,6 @@ function Itineraries() {
 	const { eventData } = location.state;
 	const [progress, setProgress] = useState(0);
 	const [destinations, setDestinations] = useState([]);
-	const [counter, setCounter] = useState(0);
 	const adminID = getAdminId();
 
 	const createEvent = async (e) => {
@@ -152,7 +151,6 @@ function Itineraries() {
 				eventEnd: "",
 			},
 		]);
-		setCounter(counter + 1);
 	};
 
 	const handleSetLocation = (index, field, value) => {
@@ -169,7 +167,6 @@ function Itineraries() {
 		const newDestinations = [...destinations];
 		newDestinations.splice(index, 1);
 		setDestinations(newDestinations);
-		setCounter(counter - 1);
 	};
 
 	const createItineraryOnPress = (e) => {
@@ -200,7 +197,25 @@ function Itineraries() {
 
 			if (response.status === 200) {
 				const data = response.data;
-				console.log(data);
+				const splitItinerary = data?.itineraries?.content.split("\n");
+				const formatItinerary = splitItinerary
+					.filter((line) => line.trim().length > 0)
+					.map((line) => line.replace(/^\d\.\s?/, ""));
+
+				setDestinations(
+					...destinations,
+					formatItinerary.map((itinerary) => {
+						return {
+							locName: "",
+							locDesc: "",
+							type: "",
+							desc: itinerary,
+							date: "",
+							eventStart: "",
+							eventEnd: "",
+						};
+					})
+				);
 				isAiLoad(true);
 			}
 		} catch (error) {
@@ -306,7 +321,7 @@ function Itineraries() {
 							</button>
 						</div>
 					</div>
-					<h1>Intineraries: {counter}</h1>
+					<h1>Intineraries: {destinations?.length}</h1>
 					<p className='flex items-center gap-4 mb-2 text-gray'>
 						<AiOutlineExclamationCircle /> Note that the dates of your itineraries
 						must be in sequence
@@ -343,6 +358,8 @@ function Itineraries() {
 											type='text'
 											placeholder='Itinerary'
 											name='desc'
+											value={_location.desc}
+											className='text-lg border border-zinc-300 p-2'
 											onChange={(e) => handleSetLocation(index, "desc", e.target.value)}
 										/>
 										<div>

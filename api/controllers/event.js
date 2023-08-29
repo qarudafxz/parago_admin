@@ -468,10 +468,10 @@ export const generateItineraries = async (req, res) => {
 	console.log("\n\nPrompting to ChatGPT, please wait...");
 
 	try {
-		const message = `Can you create me a 1 SHORT and DIRECT itinerary for ${eventName}?
-			with supporting details, capacity: ${capacity}. 
-			Can you make it the best itineraries for this price: ${price}. Limit the list having 3-5 words only.
-		`;
+		const message =
+			`Create a 1 SHORT and DIRECT itinerary for ${eventName}.` +
+			`Provide details, capacity: ${capacity}.` +
+			`Optimize for this price: ${price}. Limit to 3-5 words each step.`;
 
 		const response = await openai.chat.completions.create({
 			model: "gpt-3.5-turbo",
