@@ -4,6 +4,7 @@ import { Admin } from "../models/Admin.js";
 import { Accom } from "../models/Entities.js";
 import { OpenAI } from "openai";
 import dotenv from "dotenv";
+import { MongoClient, ObjectId } from "mongodb";
 
 dotenv.config();
 
@@ -342,7 +343,7 @@ export const getTopEvent = async (req, res) => {
 */
 export const getBookers = async (req, res) => {
 	const initMongoClient = async () => {
-		const client = await MongoClient.connect(import.meta.env.ANOTHER_MONGO_URI, {
+		const client = await MongoClient.connect(process.env.VITE_ANOTHER_MONGO_URI, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 		});
@@ -352,42 +353,36 @@ export const getBookers = async (req, res) => {
 	try {
 		const client = await initMongoClient();
 		const db = client.db("paraGO");
+		const eventID = new ObjectId(req.params.id);
+		const bookers = await db.collection("userbookings").find().toArray();
 
-		const bookers = db
-			.collection("userbookings")
-			.find(
-				{ "eventDetails.eventId": req.params.id, $exist: true },
-				{ projection: { _id: 0 } }
-			);
+		const filterBookings = [];
 
-		console.log(bookers);
-
-		// check if the userbookings is properly connected
-		// const bookers = await bookersCollection.find({});
-
-		//check if there are amy ids from eventDetails.eventId
-
-		// const bookersByEvent = bookers.filter(
-		// 	(booker) => booker.eventDetails.eventId === req.params.id
-		// );
-
-		console.log(bookersByEvent);
-
-		// find all bookers by using req.params.id as the event id
-		// and compare it to the key eventDetails.eventId
-		const bookersByEvent = bookers.filter(
-			(booker) => booker.eventDetails.eventId === req.params.id
-		);
-
-		console.log(bookersByEvent.toArray());
-
-		if (!bookers || bookers.length <= 0) {
-			return res
-				.status(404)
-				.json({ bookersByEvent, message: "Bookers not found!" });
+		for (const booker of bookers) {
+			if (booker.eventDetails.eventId.toString() === eventID.toString()) {
+				filterBookings.push(booker);
+			}
 		}
 
-		return res.status(200).json({ bookersByEvent, message: "Bookers found" });
+		if (!filterBookings) {
+			return res.status(400).json({ message: "No bookings found in this event" });
+		}
+
+		const formatBooking = filterBookings.map((booking) => {
+			return {
+				userID: booking.userID,
+				name: booking.firstName + " " + booking.lastName,
+				phone: booking.phone,
+				totalPayment: booking.totalPrice,
+				accNum: booking.accNum,
+				email: booking.email,
+				totalBookings: booking.totalCount,
+			};
+		});
+
+		return res
+			.status(200)
+			.json({ message: "Bookers successfully fetched", formatBooking });
 	} catch (err) {
 		console.error(err);
 	}

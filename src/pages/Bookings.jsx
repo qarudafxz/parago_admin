@@ -4,12 +4,13 @@ import Dropdown from "react-dropdown";
 import { ToastContainer } from "react-toastify";
 import "react-dropdown/style.css";
 import { toaster } from "../helpers/toaster.js";
-
 import { getAdminId } from "../helpers/getAdminId.js";
+import { RiUserSmileLine } from "react-icons/ri";
+
 function Bookings() {
 	const [event, setEvent] = useState([]);
 	const [selectedEvent, setSelectedEvent] = useState(null);
-
+	const [bookers, setBookers] = useState([]);
 	const adminID = getAdminId();
 
 	const getEventOfAdmin = async () => {
@@ -52,12 +53,15 @@ function Bookings() {
 					},
 				})
 			).then(async (res) => {
-				const data = await res.json();
-				console.log(data);
+				if (res.ok || res.status === 200) {
+					const data = await res.json();
+					console.log(data);
+					setBookers(data.formatBooking);
+					toaster("success", data.message);
+				}
 			});
 		} catch (err) {
-			console.log(err);
-			throw err;
+			throw new Error("Something went wrong");
 		}
 	};
 
@@ -69,18 +73,6 @@ function Bookings() {
 		<>
 			<ToastContainer />
 			<div className='w-full flex flex-col'>
-				{/* <ToastContainer
-					position='top-right'
-					autoClose={5000}
-					hideProgressBar={false}
-					newestOnTop={false}
-					closeOnClick
-					rtl={false}
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-					theme='light'
-				/> */}
 				<div
 					className="bg-primary w-full h-72 p-24 flex flex-col gap-2 shadow-2xl inset-0 bg-[url('https://www.wearetravellers.nl/wp-content/uploads/Hier-houden-backpackers-van.jpg')]"
 					style={{
@@ -114,6 +106,47 @@ function Bookings() {
 						</button>
 					</div>
 				</div>
+				<table className='mx-24 mt-10'>
+					<thead>
+						<tr className='flex items-center justify-between border-b border-zinc-400 pb-4'>
+							{["Name", "Phone", "Total Bookings", "Total Payment"].map(
+								(label, idx) => {
+									return <th key={idx}>{label}</th>;
+								}
+							)}
+						</tr>
+					</thead>
+					<tbody className='flex flex-col gap-6 mt-6'>
+						{bookers.length > 0 ? (
+							bookers.map((book, idx) => {
+								return (
+									<tr
+										key={idx}
+										className='flex items-center justify-between'>
+										<td className='flex items-center gap-6'>
+											<RiUserSmileLine
+												size={40}
+												className='text-primary'
+											/>{" "}
+											<div className='font-bold text-lg flex flex-col'>
+												<h1>{book.name}</h1>
+												<h1 className='font-thin text-sm'>{book.email}</h1>
+											</div>
+										</td>
+
+										<td>{book.phone}</td>
+										<td>{book.totalBookings}</td>
+										<td>{book.totalPayment}</td>
+									</tr>
+								);
+							})
+						) : (
+							<h1 className='text-center font-bold text-5xl text-primary relative top-48'>
+								No bookers found
+							</h1>
+						)}
+					</tbody>
+				</table>
 			</div>
 		</>
 	);

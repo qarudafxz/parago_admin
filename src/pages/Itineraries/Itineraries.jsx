@@ -21,12 +21,14 @@ import { Tooltip } from "@mui/material";
 import axios from "axios";
 import { toaster } from "../../helpers/toaster";
 import { locType } from "../../data/loctype";
+import { Caution } from "../../components/Caution";
 
 function Itineraries() {
 	// const [transpo, setTranspo] = useState("");
 	// const [hotel, setHotel] = useState("");
 	// const [food, setFood] = useState("");
 	const [aiLoad, isAiLoad] = useState(true);
+	const [back, setBack] = useState(false);
 
 	const choices = ["Transportation", "Hotel", "Food"];
 
@@ -239,11 +241,11 @@ function Itineraries() {
 						initial: { x: 0 },
 						x: -9.5,
 					}}>
-					<Link
-						to='/events'
+					<button
+						onClick={() => setBack(true)}
 						className='cursor-pointer'>
 						<AiOutlineArrowLeft size={25} />
-					</Link>
+					</button>
 				</motion.div>
 				<h1 className='text-3xl font-extrabold'>Event Details</h1>
 			</div>
@@ -406,6 +408,10 @@ function Itineraries() {
 					className='absolute bottom-0 mb-4 bg-primary px-4 rounded-md py-2 text-white font-bold'>
 					Create Event
 				</button>
+				<Caution
+					back={back}
+					setBack={setBack}
+				/>
 			</div>
 		</div>
 	);
