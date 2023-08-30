@@ -109,7 +109,7 @@ function Bookings() {
 				<table className='mx-24 mt-10'>
 					<thead>
 						<tr className='flex items-center justify-between border-b border-zinc-400 pb-4'>
-							{["Name", "Phone", "Total Bookings", "Total Payment"].map(
+							{["Name", "Phone", "Number of Bookings", "Total Payment"].map(
 								(label, idx) => {
 									return <th key={idx}>{label}</th>;
 								}
