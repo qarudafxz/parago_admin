@@ -46,7 +46,10 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 	};
 
 	const createEventOnPress = (event) => {
-		if (event.key === "c" && event.code === "KeyC" && event.ctrlKey) {
+		if (
+			event.key === "c" ||
+			(event.key === "C" && event.code === "KeyC" && event.ctrlKey)
+		) {
 			setIsCreateEvent(true);
 		}
 	};
