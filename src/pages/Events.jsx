@@ -60,12 +60,14 @@ function Events() {
 					<div className='flex justify-between items-center mt-16'>
 						<h1 className='font-extrabold text-5xl'>Events Created</h1>
 						<div className='flex gap-4 items-center'>
-							<h1 className='text-[#808080] font-thin'>Press E to create an event</h1>
 							<button
 								onClick={() => setIsCreateEvent(!isCreateEvent)}
 								className='flex flex-row gap-4 items-center text-xl font-semibold place-self-end mr-10 bg-primary px-4 py-2 rounded-md text-white hover:bg-[#0032a8] duration-150'>
 								<AiFillPlusCircle size={30} />
 								Create Event
+								<span className='text-[10px] font-thin bg-[#0a3496] px-[9px] rounded-md text-[#9fbcff] border border-[#455eff]'>
+									CTRL C
+								</span>
 							</button>
 						</div>
 					</div>

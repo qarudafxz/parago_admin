@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,6 +13,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import DescCounter from "./DescCounter.jsx";
 
 function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
+	const inputRef = useRef(null);
 	const adminID = getAdminId();
 	const [eventName, setEventName] = useState("");
 	const [eventDesc, setEventDesc] = useState("");
@@ -45,7 +46,9 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 	};
 
 	const createEventOnPress = (event) => {
-		if (event.key === "e") setIsCreateEvent(true);
+		if (event.key === "c" && event.code === "KeyC" && event.ctrlKey) {
+			setIsCreateEvent(true);
+		}
 	};
 
 	const handleFormCancellationPress = (event) => {
@@ -129,6 +132,10 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 
 	useEffect(() => {
 		fetchProfile();
+
+		if (isCreateEvent) {
+			inputRef.current.focus();
+		}
 	}, [isCreateEvent]);
 
 	return (
@@ -146,8 +153,8 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 							exit={{ opacity: 0, scale: 0.5 }}
 							transition={{
 								duration: 0.8,
-								delay: 0.5,
-								ease: [0, 0.71, 0.2, 1.01],
+								type: "spring",
+								ease: [0, 0.71, 0.2, 0],
 							}}
 							className='flex flex-col gap-4 p-10 w-5/12 bg-white absolute z-10 left-62 top-42 bg-blend-overlay shadow-2xl'>
 							<div className='flex justify-end items-center gap-4'>
@@ -174,21 +181,22 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 							<input
 								type='text'
 								placeholder='Event Name'
+								ref={inputRef}
 								onChange={(e) => setEventName(e.target.value)}
-								className='py-2 pl-4 outline outline-slate-400 focus: outline-none rounded-sm'
+								className='py-2 pl-4 outline outline-slate-400 focus:outline-none rounded-sm focus:border-[2px] border-primary'
 							/>
 							<textarea
 								type='text'
 								placeholder='Event Description (Maximum of 255 Characters only)'
 								onChange={(e) => setEventDesc(e.target.value)}
-								className='py-2 pl-4 outline outline-slate-400 h-48 focus: outline-none rounded-sm resize-none'
+								className='py-2 pl-4 outline outline-slate-400 h-48 resize-none focus:outline-none rounded-sm focus:border-[2px] border-primary'
 							/>
 							<DescCounter desc={eventDesc} />
 							<input
 								type='text'
 								placeholder='Event Address'
 								onChange={(e) => setEventAddr(e.target.value)}
-								className='py-2 pl-4 outline outline-slate-400 focus: outline-none rounded-sm'
+								className='py-2 pl-4 outline outline-slate-400 focus:outline-none rounded-sm focus:border-[2px] border-primary'
 							/>
 
 							<div className='grid grid-cols-2 gap-4'>
@@ -196,25 +204,25 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 									type='number'
 									placeholder='Number of Nights'
 									onChange={(e) => setNights(e.target.value)}
-									className='py-2 pl-4 outline outline-slate-400 focus: outline-none rounded-sm'
+									className='py-2 pl-4 outline outline-slate-400 focus:outline-none rounded-sm focus:border-[2px] border-primary'
 								/>
 								<input
 									type='number'
 									placeholder='Number of Days'
 									onChange={(e) => setDays(e.target.value)}
-									className='py-2 pl-4 outline outline-slate-400 focus: outline-none rounded-sm'
+									className='py-2 pl-4 outline outline-slate-400 focus:outline-none rounded-sm focus:border-[2px] border-primary'
 								/>
 								<input
 									type='number'
 									placeholder='Price'
 									onChange={(e) => setPrice(e.target.value)}
-									className='py-2 pl-4 outline outline-slate-400 focus: outline-none rounded-sm'
+									className='py-2 pl-4 outline outline-slate-400 focus:outline-none rounded-sm focus:border-[2px] border-primary'
 								/>
 								<input
 									type='number'
 									placeholder='Pax Available'
 									onChange={(e) => setCapacity(e.target.value)}
-									className='py-2 pl-4 outline outline-slate-400 focus: outline-none rounded-sm'
+									className='py-2 pl-4 outline outline-slate-400 focus:outline-none rounded-sm focus:border-[2px] border-primary'
 								/>
 							</div>
 							<div></div>

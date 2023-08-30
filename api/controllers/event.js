@@ -136,7 +136,9 @@ export const deleteEvent = async (req, res) => {
 			return res.status(404).json({ message: "Event not found!" });
 		}
 
-		admin.eventsCreated -= 1;
+		if (!event.isFinished) {
+			admin.eventsCreated -= 1;
+		}
 
 		await admin.save();
 		return res.status(200).json({ message: "Event deleted successfully" });

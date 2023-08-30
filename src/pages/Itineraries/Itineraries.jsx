@@ -151,7 +151,12 @@ function Itineraries() {
 	};
 
 	const createItineraryOnPress = (e) => {
-		if (e.key === "`") {
+		if (
+			e.key === "x" &&
+			e.code === "KeyX" &&
+			e.ctrlKey &&
+			e.target.nodeName !== "INPUT"
+		) {
 			handleAddLocation();
 		}
 	};
@@ -296,12 +301,14 @@ function Itineraries() {
 					<div className='flex flex-row justify-between items-center'>
 						<h1 className='text-4xl font-semibold'>Itineraries</h1>
 						<div className='flex flex-row gap-8 items-center'>
-							<p className='font-thin text-[#808080]'>Press ` to create Destination</p>
 							<button
 								onClick={handleAddLocation}
 								type='button'
-								className='bg-secondary text-white py-2 px-4 rounded-md'>
+								className='flex gap-2 items-center bg-secondary text-white py-2 px-4 rounded-md'>
 								Add Destination
+								<span className='text-[10px] font-thin bg-[#d76500] px-[9px] py-1 rounded-md text-[#fdb474] border border-[#fdb474]'>
+									CTRL X
+								</span>
 							</button>
 						</div>
 					</div>
