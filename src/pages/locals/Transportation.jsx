@@ -13,7 +13,7 @@ function Transportation() {
 		<>
 			<div className='w-full'>
 				<div className="w-full h-72 p-10 flex flex-col gap-2 shadow-2xl inset-0 bg-[url('https://sataxi.co.za/wp-content/uploads/2022/09/SA-Taxi-Role-Of-Transportation.jpg')] bg-no-repeat">
-					<div className='p-4 w-8/12 backdrop-blur-sm'>
+					<div className='p-4 w-8/12'>
 						<h1 className='text-primary'>
 							Dashboard/
 							<span className='text-white font-semibold'>Transportations</span>
