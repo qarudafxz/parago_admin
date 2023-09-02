@@ -217,17 +217,18 @@ function Home() {
 					Password
 				</label>
 				<div className='relative'>
-					{isVisible ? (
-						<AiFillEyeInvisible
-							onClick={() => setIsVisible(false)}
-							className='absolute right-3 top-2 text-xl cursor-pointer text-[#b9b9b9] sm:top-3 hover:bg-[#656565] rounded-full duration-200'
-						/>
-					) : (
-						<AiFillEye
-							onClick={() => setIsVisible(true)}
-							className='absolute right-3 top-2 text-xl cursor-pointer text-[#b9b9b9] sm:top-3 hover:bg-[#656565] rounded-full duration-200'
-						/>
-					)}
+					{password.length > 0 &&
+						(isVisible ? (
+							<AiFillEyeInvisible
+								onClick={() => setIsVisible(false)}
+								className='absolute right-3 top-2 text-xl cursor-pointer text-[#b9b9b9] sm:top-3 hover:bg-[#656565] rounded-full duration-200'
+							/>
+						) : (
+							<AiFillEye
+								onClick={() => setIsVisible(true)}
+								className='absolute right-3 top-2 text-xl cursor-pointer text-[#b9b9b9] sm:top-3 hover:bg-[#656565] rounded-full duration-200'
+							/>
+						))}
 					<input
 						type={isVisible ? "text" : "password"}
 						className={`border ${

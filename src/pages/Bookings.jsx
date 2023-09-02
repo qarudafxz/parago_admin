@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import TopLoadingBar from "react-top-loading-bar";
 import { buildUrl } from "../utils/buildUrl.js";
 import Dropdown from "react-dropdown";
 import { ToastContainer } from "react-toastify";
@@ -11,6 +12,7 @@ function Bookings() {
 	const [event, setEvent] = useState([]);
 	const [selectedEvent, setSelectedEvent] = useState(null);
 	const [bookers, setBookers] = useState([]);
+	const [progress, setProgress] = useState(0);
 	const adminID = getAdminId();
 
 	const getEventOfAdmin = async () => {
@@ -45,6 +47,7 @@ function Bookings() {
 		}
 
 		try {
+			setProgress(30);
 			await fetch(
 				buildUrl(`/event/get-bookers/${selectedEvent}`, {
 					method: "GET",
@@ -58,6 +61,7 @@ function Bookings() {
 					console.log(data);
 					setBookers(data.formatBooking);
 					toaster("success", data.message);
+					setProgress(100);
 				}
 			});
 		} catch (err) {
@@ -72,6 +76,12 @@ function Bookings() {
 	return (
 		<>
 			<ToastContainer />
+			<TopLoadingBar
+				color='#0043DC'
+				progress={progress}
+				height={10}
+				onLoaderFinished={() => setProgress(0)}
+			/>
 			<div className='w-full flex flex-col'>
 				<div
 					className="bg-primary w-full h-72 p-24 flex flex-col gap-2 shadow-2xl inset-0 bg-[url('https://www.wearetravellers.nl/wp-content/uploads/Hier-houden-backpackers-van.jpg')]"
@@ -109,7 +119,7 @@ function Bookings() {
 				<table className='mx-24 mt-10'>
 					<thead>
 						<tr className='flex items-center justify-between border-b border-zinc-400 pb-4'>
-							{["Name", "Phone", "Number of Bookings", "Total Payment"].map(
+							{["Name", "Phone", "Number of Bookings", "Total Payment", "Action"].map(
 								(label, idx) => {
 									return <th key={idx}>{label}</th>;
 								}
@@ -133,15 +143,19 @@ function Bookings() {
 												<h1 className='font-thin text-sm'>{book.email}</h1>
 											</div>
 										</td>
-
 										<td>{book.phone}</td>
 										<td>{book.totalBookings}</td>
 										<td>{book.totalPayment}</td>
+										<td>
+											<button className='bg-[#e61e1e] font-bold text-white py-2 rounded-full px-2'>
+												Cancel Booking
+											</button>
+										</td>
 									</tr>
 								);
 							})
 						) : (
-							<h1 className='text-center font-bold text-5xl text-primary relative top-48'>
+							<h1 className='text-center font-bold text-5xl text-primary'>
 								No bookers found
 							</h1>
 						)}
