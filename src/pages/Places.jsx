@@ -2,15 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { buildUrl } from "../utils/buildUrl";
 import { getAdminId } from "../helpers/getAdminId.js";
-
 import { LOCATION_TYPE } from "../data/Icons";
 import { Skeleton } from "@mui/material";
+import { toaster } from "../helpers/toaster.js";
+import { AiFillPlusCircle } from "react-icons/ai";
+import { AddPlace } from "../components/AddPlace";
+import axios from "axios";
 
 function Places() {
 	const navigate = useNavigate();
 	const adminID = getAdminId();
 	const [places, setPlaces] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const [addPlace, setAddPlace] = useState(false);
+	const [name, setName] = useState("");
+	const [desc, setDesc] = useState("");
+	const [address, setAddress] = useState("");
+	const [placeType, setPlaceType] = useState("");
 
 	const fetchPlaces = async () => {
 		try {
@@ -32,12 +40,75 @@ function Places() {
 		}
 	};
 
+	const addNewPlace = async () => {
+		try {
+			const res = await axios.post(
+				buildUrl(
+					"/event/add-place",
+					{
+						creatorID: adminID,
+						name,
+						desc,
+						address,
+						placeType,
+					},
+					{
+						headers: {
+							Authorization: `Bearer ${localStorage.getItem("token")}`,
+							"Content-Type": "application/json",
+						},
+					}
+				)
+			);
+
+			const data = await res.data;
+			if (res.ok || res.status === 200) {
+				toaster("success", data.message);
+				console.log("Success!");
+			} else {
+				toaster("error", data.message);
+			}
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const createPlace = (event) => {
+		if (
+			event.key === "z" ||
+			(event.key === "Z" && event.code === "KeyZ" && event.ctrlKey)
+		) {
+			setAddPlace(true);
+		}
+	};
+
+	const handleFormCancellationPress = (event) => {
+		if (event.key === "Escape") setAddPlace(false);
+	};
+
 	useEffect(() => {
 		fetchPlaces();
+		const handleCancelCreateEvent = (event) => {
+			handleFormCancellationPress(event);
+		};
+
+		const handleCreateEvent = (event) => {
+			createPlace(event);
+		};
+
+		window.addEventListener("keydown", handleCancelCreateEvent);
+		window.addEventListener("keydown", handleCreateEvent);
+
 		if (!localStorage.getItem("token")) {
 			navigate("/");
 		}
+
+		return () => {
+			window.removeEventListener("keydown", handleCancelCreateEvent);
+			window.removeEventListener("keydown", handleCreateEvent);
+		};
 	}, []);
+
 	return (
 		<div className='flex flex-col w-full font-primary'>
 			<div className="w-full h-72 p-24 flex flex-col gap-2 shadow-2xl inset-0 bg-[url('https://i0.wp.com/touristspotsfinder.com/wp-content/uploads/2018/04/Top-10-Tourist-Spots-in-Agusan-del-Sur.jpg?fit=1200%2C629&ssl=1')]">
@@ -56,47 +127,31 @@ function Places() {
 				<div></div>
 			</div>
 			<div className='p-10'>
-				<h1 className='font-bold text-5xl'>Hidden Gems</h1>
-				<div className='grid grid-cols-4 my-10 gap-10 lg:max-h-[450px] overflow-y-auto'>
-					{places?.events?.map((place) => {
-						return place.locations.map((location) => {
-							const { icon } = LOCATION_TYPE.find(
-								(type) => type.value === location.type
-							);
-							return (
-								<div
-									className='shadow-xl rounded-md p-6 flex flex-col gap-4'
-									key={location._id}>
-									{loading ? (
-										<Skeleton
-											variant='rectangular'
-											width={`${
-												window.innerWidth >= 1020 && window.innerWidth < 1620 ? 230 : 300
-											}`}
-											height={50}
-										/>
-									) : (
-										<h1 className='text-4xl font-bold flex items-center gap-6 text-primary'>
-											{icon}
-											{location.locName}
-										</h1>
-									)}
-									{loading ? (
-										<Skeleton
-											variant='rectangular'
-											width={`${
-												window.innerWidth >= 1020 && window.innerWidth < 1620 ? 230 : 300
-											}`}
-											height={20}
-										/>
-									) : (
-										<p className='font-thin'>{location.locDesc}</p>
-									)}
-								</div>
-							);
-						});
-					})}
+				<div className='flex justify-between items-center'>
+					<h1 className='font-bold text-5xl'>Hidden Gems</h1>
+					<button
+						onClick={() => setAddPlace(true)}
+						className='flex flex-row gap-4 items-center text-xl font-semibold place-self-end mr-10 bg-primary px-4 py-2 rounded-md text-white hover:bg-[#0032a8] duration-150'>
+						<AiFillPlusCircle size={30} />
+						Add Place
+						<span className='text-[10px] font-thin bg-[#0a3496] px-[9px] rounded-md text-[#9fbcff] border border-[#455eff]'>
+							CTRL V
+						</span>
+					</button>
 				</div>
+				<AddPlace
+					addPlace={addPlace}
+					setAddPlace={setAddPlace}
+					name={name}
+					setName={setName}
+					address={address}
+					setAddress={setAddress}
+					placeType={placeType}
+					setPlaceType={setPlaceType}
+					desc={desc}
+					setDesc={setDesc}
+					addNewPlace={addNewPlace}
+				/>
 			</div>
 		</div>
 	);

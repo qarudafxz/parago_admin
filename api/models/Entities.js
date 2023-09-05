@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const eventCollectionName = "events";
 const tourismCollectionName = "tourism";
 const accomCollectionName = "accom";
+const placesCollectionName = "places";
 
 const EventSchema = new mongoose.Schema(
 	{
@@ -59,3 +60,13 @@ const AccomSchema = new mongoose.Schema({
 });
 
 export const Accom = mongoose.model(accomCollectionName, AccomSchema);
+
+const PlacesSchema = new mongoose.Schema({
+	creatorID: { type: mongoose.Schema.Types.ObjectId, refs: "admins" },
+	name: { type: String, required: true },
+	desc: { type: String, required: true },
+	address: { type: String, required: true },
+	placeType: { type: String, required: true },
+});
+
+export const Places = mongoose.model(placesCollectionName, PlacesSchema);

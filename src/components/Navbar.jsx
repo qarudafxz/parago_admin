@@ -55,6 +55,7 @@ function Navbar() {
 					<li key={item.id}>
 						<NavLink
 							to={item.link}
+							key={item.id}
 							className={({ isActive }) =>
 								"flex flex-col px-4 py-2 " +
 								(isActive

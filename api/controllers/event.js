@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { Event } from "../models/Entities.js";
 import { Admin } from "../models/Admin.js";
-import { Accom } from "../models/Entities.js";
+import { Accom, Places } from "../models/Entities.js";
 import { OpenAI } from "openai";
 import dotenv from "dotenv";
 import { MongoClient, ObjectId } from "mongodb";
@@ -482,5 +482,32 @@ export const generateItineraries = async (req, res) => {
 		return res.status(200).json({ itineraries: response.choices[0].message });
 	} catch (err) {
 		console.log(err);
+	}
+};
+
+//Create place
+export const createPlace = async (req, res) => {
+	const { creatorID, name, desc, address, placeType } = req.body;
+
+	console.log(creatorID, name, desc, address, placeType);
+	try {
+		const place = await Places.findOne({ name });
+
+		if (place) {
+			return res.status(400).json({ message: "Place already added" });
+		}
+		const newPlace = new Places({
+			creatorID,
+			name,
+			desc,
+			address,
+			placeType,
+		});
+
+		await newPlace.save();
+
+		res.status(200).json({ newPlace, message: "New place saved successfully" });
+	} catch (err) {
+		console.error(err);
 	}
 };
