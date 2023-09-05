@@ -15,10 +15,6 @@ function Places() {
 	const [places, setPlaces] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [addPlace, setAddPlace] = useState(false);
-	const [name, setName] = useState("");
-	const [desc, setDesc] = useState("");
-	const [address, setAddress] = useState("");
-	const [placeType, setPlaceType] = useState("");
 
 	const fetchPlaces = async () => {
 		try {
@@ -40,7 +36,7 @@ function Places() {
 		}
 	};
 
-	const addNewPlace = async () => {
+	const addNewPlace = async (name, desc, address, placeType) => {
 		try {
 			const res = await axios.post(
 				buildUrl(
@@ -135,21 +131,13 @@ function Places() {
 						<AiFillPlusCircle size={30} />
 						Add Place
 						<span className='text-[10px] font-thin bg-[#0a3496] px-[9px] rounded-md text-[#9fbcff] border border-[#455eff]'>
-							CTRL V
+							CTRL Z
 						</span>
 					</button>
 				</div>
 				<AddPlace
 					addPlace={addPlace}
 					setAddPlace={setAddPlace}
-					name={name}
-					setName={setName}
-					address={address}
-					setAddress={setAddress}
-					placeType={placeType}
-					setPlaceType={setPlaceType}
-					desc={desc}
-					setDesc={setDesc}
 					addNewPlace={addNewPlace}
 				/>
 			</div>

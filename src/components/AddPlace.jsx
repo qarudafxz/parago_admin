@@ -1,10 +1,16 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Dropdown from "react-dropdown";
 import { locType } from "../data/loctype.js";
 
 export const AddPlace = ({ ...props }) => {
+	const [name, setName] = useState("");
+	const [desc, setDesc] = useState("");
+	const [address, setAddress] = useState("");
+	const [placeType, setPlaceType] = useState("");
+
 	return (
 		<>
 			<>
@@ -48,28 +54,28 @@ export const AddPlace = ({ ...props }) => {
 								<input
 									type='text'
 									placeholder='Place Name'
-									onChange={(e) => props.setName(e.target.value)}
+									onChange={(e) => setName(e.target.value)}
 									className='py-2 pl-4 outline outline-slate-400 focus:outline-none rounded-sm focus:border-[2px] border-primary'
 								/>
 								<input
 									type='text'
-									onChange={(e) => props.setAddress(e.target.value)}
+									onChange={(e) => setAddress(e.target.value)}
 									placeholder='Place Address'
 									className='py-2 pl-4 outline outline-slate-400 focus:outline-none rounded-sm focus:border-[2px] border-primary'
 								/>
 								<Dropdown
 									options={locType}
 									placeholder='Select Place Type'
-									onChange={(locType) => props.setPlaceType(locType?.value)}
+									onChange={(locType) => setPlaceType(locType?.value)}
 								/>
 								<textarea
 									type='text'
-									onChange={(e) => props.setDesc(e.target.value)}
+									onChange={(e) => setDesc(e.target.value)}
 									placeholder='Place Description (Maximum of 255 Characters only)'
 									className='py-2 pl-4 outline outline-slate-400 h-48 resize-none focus:outline-none rounded-sm focus:border-[2px] border-primary'
 								/>
 								<button
-									onClick={props.addNewPlace}
+									onClick={() => props.addNewPlace(name, address, placeType, desc)}
 									type='button'
 									className='bg-primary text-white py-2 px-4 rounded-md flex justify-center'>
 									Save Event
