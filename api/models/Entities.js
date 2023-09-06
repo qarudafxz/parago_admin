@@ -22,12 +22,12 @@ const EventSchema = new mongoose.Schema(
 		dateEnd: { type: String },
 		isFinished: { type: Boolean, default: false },
 		filePath: { type: String },
-		locations: [
+		itineraries: [
 			{
 				locName: { type: String },
 				locDesc: { type: String },
 				type: { type: String },
-				desc: { type: String },
+				itinerary: { type: String },
 				date: { type: String },
 				eventStart: { type: String },
 				eventEnd: { type: String },
@@ -67,6 +67,21 @@ const PlacesSchema = new mongoose.Schema({
 	desc: { type: String, required: true },
 	address: { type: String, required: true },
 	placeType: { type: String, required: true },
+	todo: [
+		{
+			list: { type: String },
+		},
+	],
+	culture: [
+		{
+			list: { type: String },
+		},
+	],
+	info: [
+		{
+			list: { type: String },
+		},
+	],
 });
 
 export const Places = mongoose.model(placesCollectionName, PlacesSchema);

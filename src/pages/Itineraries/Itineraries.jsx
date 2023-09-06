@@ -97,7 +97,7 @@ function Itineraries() {
 					dateEnd: destinations[destinations.length - 1].date,
 					nights: eventData.nights,
 					days: eventData.days,
-					locations: [...destinations],
+					itineraries: [...destinations],
 				}),
 			});
 
@@ -127,7 +127,7 @@ function Itineraries() {
 				locName: "",
 				locDesc: "",
 				type: "",
-				desc: "",
+				itinerary: "",
 				date: "",
 				eventStart: "",
 				eventEnd: "",

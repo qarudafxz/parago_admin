@@ -49,7 +49,7 @@ router.get("/events/:id", isAuthenticated, getEvents);
 router.get("/what-event/:id", isAuthenticated, getEventById);
 router.get("/get-accomms/:id", isAuthenticated, getAllAvailableAccommodations);
 router.get("/upcoming-event/:id", getUpcomingEvent);
-router.get("/top-event/:id", isAuthenticated, getTopEvent);
+router.get("/top-event/:id", getTopEvent);
 router.get("/get-bookers/:id", getBookers);
 router.get("/get-places/:id", getPlaces);
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { getAdminId } from "../helpers/getAdminId.js";
@@ -11,6 +12,7 @@ import { HiSun } from "react-icons/hi";
 import { Skeleton } from "@mui/material";
 import TopLoadingBar from "react-top-loading-bar";
 import { toaster } from "../helpers/toaster.js";
+import { Tooltip } from "@mui/material";
 
 function EventCards({ fetchData, isLoaded, setData, fetchEvents }) {
 	const [isClicked, setIsClicked] = useState(false);
@@ -241,15 +243,20 @@ function EventCards({ fetchData, isLoaded, setData, fetchEvents }) {
 							<hr></hr>
 							<div className='flex items-center gap-8 my-4'>
 								{isLoaded ? (
-									<p
-										className={`flex flex-row gap-4 items-center px-4 py-2 rounded-md ${
-											!event.isFinished
-												? "text-primary border border-primary"
-												: "text-zinc-500 border border-zinc-500"
-										} md:text-xs xl:text-lg`}>
-										<p>₱</p>
-										{event.price.toFixed(2)}
-									</p>
+									<Tooltip
+										title='Price per head'
+										placement='bottom'
+										arrow>
+										<p
+											className={`flex flex-row gap-4 items-center px-4 py-2 rounded-md ${
+												!event.isFinished
+													? "text-primary border border-primary"
+													: "text-zinc-500 border border-zinc-500"
+											} md:text-xs xl:text-lg`}>
+											<p>₱</p>
+											{event.price.toFixed(2)}
+										</p>
+									</Tooltip>
 								) : (
 									<Skeleton
 										variant='text'
@@ -258,15 +265,20 @@ function EventCards({ fetchData, isLoaded, setData, fetchEvents }) {
 									/>
 								)}
 								{isLoaded ? (
-									<p
-										className={`flex flex-row gap-4 items-center px-4 py-2 rounded-md ${
-											!event.isFinished
-												? "text-primary border border-primary"
-												: "text-zinc-500 border border-zinc-500"
-										} md:text-xs xl:text-lg`}>
-										<FaUsers />
-										{event.capacity}
-									</p>
+									<Tooltip
+										title='Capacity of the event'
+										placement='bottom'
+										arrow>
+										<p
+											className={`flex flex-row gap-4 items-center px-4 py-2 rounded-md ${
+												!event.isFinished
+													? "text-primary border border-primary"
+													: "text-zinc-500 border border-zinc-500"
+											} md:text-xs xl:text-lg`}>
+											<FaUsers />
+											{event.capacity}
+										</p>
+									</Tooltip>
 								) : (
 									<Skeleton
 										variant='text'
@@ -275,15 +287,20 @@ function EventCards({ fetchData, isLoaded, setData, fetchEvents }) {
 									/>
 								)}
 								{isLoaded ? (
-									<p
-										className={`flex flex-row gap-4 items-center px-4 py-2 rounded-md ${
-											!event.isFinished
-												? "text-primary border border-primary"
-												: "text-zinc-500 border border-zinc-500"
-										} md:text-xs xl:text-lg`}>
-										<FaSearchLocation />
-										{event?.locations?.length}
-									</p>
+									<Tooltip
+										title='Number of locations'
+										placement='bottom'
+										arrow>
+										<p
+											className={`flex flex-row gap-4 items-center px-4 py-2 rounded-md ${
+												!event.isFinished
+													? "text-primary border border-primary"
+													: "text-zinc-500 border border-zinc-500"
+											} md:text-xs xl:text-lg`}>
+											<FaSearchLocation />
+											{event?.locations?.length}
+										</p>
+									</Tooltip>
 								) : (
 									<Skeleton
 										variant='text'

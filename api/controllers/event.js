@@ -21,7 +21,7 @@ export const createEvent = async (req, res) => {
 		dateEnd,
 		nights,
 		days,
-		locations,
+		itineraries,
 	} = req.body;
 
 	try {
@@ -56,7 +56,7 @@ export const createEvent = async (req, res) => {
 			dateEnd,
 			nights,
 			days,
-			locations,
+			itineraries,
 		});
 
 		admin.eventsCreated += 1;

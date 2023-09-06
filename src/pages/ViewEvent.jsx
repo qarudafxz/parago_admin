@@ -123,7 +123,7 @@ function ViewEvent() {
 							{isLoaded ? (
 								<p className='flex flex-row gap-4 items-center border border-primary px-4 py-2 rounded-md text-primary'>
 									<FaSearchLocation />
-									{event?.locations?.length} destinations
+									{event?.itineraries?.length} destinations
 								</p>
 							) : (
 								<Skeleton
