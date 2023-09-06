@@ -16,6 +16,7 @@ import {
 	getBookers,
 	generateItineraries,
 	createPlace,
+	getPlaces,
 } from "../controllers/event.js";
 
 const router = express.Router();
@@ -41,15 +42,16 @@ router.post("/upload", upload.single("file"), (req, res) => {
 //needs to be fixed
 router.post("/create-accoms/:id", createAccommodation);
 router.post("/create-event", isAuthenticated, createEvent);
-router.post("/generate", generateItineraries);
-router.post("/add-place", createPlace);
+router.post("/generate", isAuthenticated, generateItineraries);
+router.post("/add-place", isAuthenticated, createPlace);
 
 router.get("/events/:id", isAuthenticated, getEvents);
 router.get("/what-event/:id", isAuthenticated, getEventById);
-router.get("/get-accomms/:id", getAllAvailableAccommodations);
+router.get("/get-accomms/:id", isAuthenticated, getAllAvailableAccommodations);
 router.get("/upcoming-event/:id", getUpcomingEvent);
-router.get("/top-event/:id", getTopEvent);
+router.get("/top-event/:id", isAuthenticated, getTopEvent);
 router.get("/get-bookers/:id", getBookers);
+router.get("/get-places/:id", getPlaces);
 
 router.delete("/delete-event/:id", isAuthenticated, deleteEvent);
 

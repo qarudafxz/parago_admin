@@ -75,7 +75,7 @@ export const AddPlace = ({ ...props }) => {
 									className='py-2 pl-4 outline outline-slate-400 h-48 resize-none focus:outline-none rounded-sm focus:border-[2px] border-primary'
 								/>
 								<button
-									onClick={() => props.addNewPlace(name, address, placeType, desc)}
+									onClick={() => props.addNewPlace(name, desc, address, placeType)}
 									type='button'
 									className='bg-primary text-white py-2 px-4 rounded-md flex justify-center'>
 									Save Event

@@ -511,3 +511,21 @@ export const createPlace = async (req, res) => {
 		console.error(err);
 	}
 };
+
+//get all places
+export const getPlaces = async (req, res) => {
+	console.log(req.params.id);
+	try {
+		const places = await Places.find({ creatorID: req.params.id });
+
+		if (!places) {
+			return res.status(400).json({ message: "No places found" });
+		}
+
+		return res
+			.status(200)
+			.json({ places, message: "Places fetched successfully" });
+	} catch (err) {
+		console.error(err);
+	}
+};

@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { buildUrl } from "../utils/buildUrl";
 import { getAdminId } from "../helpers/getAdminId.js";
-import { LOCATION_TYPE } from "../data/Icons";
-import { Skeleton } from "@mui/material";
 import { toaster } from "../helpers/toaster.js";
+import { ToastContainer } from "react-toastify";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { AddPlace } from "../components/AddPlace";
-import axios from "axios";
+import { PlacesCard } from "../components/PlacesCard";
 
 function Places() {
 	const navigate = useNavigate();
@@ -19,7 +18,7 @@ function Places() {
 	const fetchPlaces = async () => {
 		try {
 			setLoading(true);
-			const res = await fetch(buildUrl(`/event/events/${adminID}`), {
+			const res = await fetch(buildUrl(`/event/get-places/${adminID}`), {
 				method: "GET",
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -37,32 +36,44 @@ function Places() {
 	};
 
 	const addNewPlace = async (name, desc, address, placeType) => {
-		try {
-			const res = await axios.post(
-				buildUrl(
-					"/event/add-place",
-					{
-						creatorID: adminID,
-						name,
-						desc,
-						address,
-						placeType,
-					},
-					{
-						headers: {
-							Authorization: `Bearer ${localStorage.getItem("token")}`,
-							"Content-Type": "application/json",
-						},
-					}
-				)
-			);
+		if (
+			typeof name === "undefined" ||
+			typeof desc === "undefined" ||
+			typeof address === "undefined" ||
+			typeof placeType === "undefined"
+		) {
+			toaster("error", "Please fill out all the fields!");
+			return;
+		}
 
-			const data = await res.data;
-			if (res.ok || res.status === 200) {
-				toaster("success", data.message);
-				console.log("Success!");
-			} else {
+		const URL = import.meta.env.DEV
+			? "http://localhost:3001/api/event/add-place"
+			: "/api/event/add-place";
+
+		try {
+			const res = await fetch(URL, {
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("token")}`,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					creatorID: adminID,
+					name,
+					desc,
+					address,
+					placeType,
+				}),
+			});
+
+			if (!res.ok) {
+				const data = await res.json();
 				toaster("error", data.message);
+			} else {
+				const data = await res.json();
+				toaster("success", data.message);
+				setAddPlace(false);
+				fetchPlaces();
 			}
 		} catch (err) {
 			console.error(err);
@@ -84,6 +95,7 @@ function Places() {
 
 	useEffect(() => {
 		fetchPlaces();
+
 		const handleCancelCreateEvent = (event) => {
 			handleFormCancellationPress(event);
 		};
@@ -107,13 +119,14 @@ function Places() {
 
 	return (
 		<div className='flex flex-col w-full font-primary'>
+			<ToastContainer />
 			<div className="w-full h-72 p-24 flex flex-col gap-2 shadow-2xl inset-0 bg-[url('https://i0.wp.com/touristspotsfinder.com/wp-content/uploads/2018/04/Top-10-Tourist-Spots-in-Agusan-del-Sur.jpg?fit=1200%2C629&ssl=1')]">
 				<div className='p-4 w-8/12'>
 					<h1 className='text-primary'>
 						Dashboard/<span className='text-white font-semibold'>Places</span>
 					</h1>
 					<h1 className='text-4xl text-white font-bold'>
-						View the places you created!
+						Add the precious hidden gems!
 					</h1>
 					<p className='text-white font-thin w-7/12 mt-4'>
 						These are the hidden gems you wish for the tourists to explore. You can
@@ -135,6 +148,13 @@ function Places() {
 						</span>
 					</button>
 				</div>
+				{/* places */}
+
+				<PlacesCard
+					places={places}
+					loading={loading}
+				/>
+
 				<AddPlace
 					addPlace={addPlace}
 					setAddPlace={setAddPlace}
