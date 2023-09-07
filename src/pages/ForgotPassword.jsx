@@ -48,6 +48,7 @@ function ForgotPassword() {
 	};
 
 	useEffect(() => {
+		document.title = "Forgot Password | Parago Admin";
 		if (err) {
 			setTimeout(() => {
 				setErr("");

@@ -28,14 +28,13 @@ function Itineraries() {
 	// const [food, setFood] = useState("");
 	const [aiLoad, isAiLoad] = useState(true);
 	const [back, setBack] = useState(false);
-
 	const choices = ["Transportation", "Hotel", "Food"];
-
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { eventData } = location.state;
 	const [progress, setProgress] = useState(0);
 	const [destinations, setDestinations] = useState([]);
+	const [places, setPlaces] = useState([]);
 	const adminID = getAdminId();
 
 	const menu = [
@@ -213,6 +212,42 @@ function Itineraries() {
 		}
 	};
 
+	const getPlaces = async () => {
+		await fetch(
+			buildUrl(`/event/get-places/${adminID}`, {
+				method: "GET",
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("token")}`,
+					"Content-Type": "application/json",
+				},
+			})
+		)
+			.then(async (res) => {
+				if (res.status === 200) {
+					const data = await res.json();
+					setPlaces([
+						...places,
+						...data.places.map((place) => {
+							return {
+								value: place.name,
+								label: place.name,
+							};
+						}),
+					]);
+					console.log(data);
+				}
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	};
+
+	console.log(places);
+
+	useEffect(() => {
+		getPlaces();
+	}, []);
+
 	useEffect(() => {
 		const handleCreateItinerary = (e) => {
 			createItineraryOnPress(e);
@@ -325,12 +360,11 @@ function Itineraries() {
 									<div
 										key={index}
 										className='flex flex-row justify-evenly items-center border-2 border-b-[#c5c5c5]'>
-										<input
-											type='text'
-											placeholder='Location'
-											name='locName'
-											onChange={(e) => handleSetLocation(index, "locName", e.target.value)}
-											className='py-2 pl-4'
+										<Dropdown
+											options={places}
+											onChange={(place) =>
+												handleSetLocation(index, "locName", place?.value)
+											}
 										/>
 										<textarea
 											type='text'

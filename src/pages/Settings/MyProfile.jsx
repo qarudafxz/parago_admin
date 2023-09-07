@@ -48,6 +48,8 @@ function MyProfile() {
 		if (!localStorage.getItem("token")) {
 			navigate("/");
 		}
+
+		document.title = "Profile | Parago Admin";
 	}, []);
 	return (
 		<div className='w-full'>

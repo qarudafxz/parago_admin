@@ -8,6 +8,8 @@ function Security() {
 		if (!localStorage.getItem("token")) {
 			navigate("/");
 		}
+
+		document.title = "Security | Parago Admin";
 	}, []);
 	return <div>Security</div>;
 }

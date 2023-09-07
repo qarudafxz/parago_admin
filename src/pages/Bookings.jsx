@@ -71,6 +71,8 @@ function Bookings() {
 
 	useEffect(() => {
 		getEventOfAdmin();
+
+		document.title = "Bookings | Parago Admin";
 	}, []);
 
 	return (

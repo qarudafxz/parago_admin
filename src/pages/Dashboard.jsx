@@ -45,6 +45,8 @@ function Dashboard() {
 		if (!localStorage.getItem("token")) {
 			navigate("/");
 		}
+
+		document.title = "Admin | Parago Admin";
 		fetchData();
 	}, []);
 

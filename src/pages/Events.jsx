@@ -40,6 +40,7 @@ function Events() {
 			navigate("/");
 		}
 
+		document.title = "Events | Parago Admin";
 		fetchEvents();
 	}, []);
 

@@ -8,6 +8,8 @@ function Municipalities() {
 		if (!localStorage.getItem("token")) {
 			navigate("/");
 		}
+
+		document.title = "Municipalities | Parago Admin";
 	}, []);
 	return <div>Municipalities</div>;
 }

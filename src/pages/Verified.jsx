@@ -75,9 +75,7 @@ function Verified() {
 								alt='Parago Logo'
 								className='w-7/12'
 							/>
-							<h1 className='font-bold text-primary text-4xl'>
-								EMAIL VALIDATION
-							</h1>
+							<h1 className='font-bold text-primary text-4xl'>EMAIL VALIDATION</h1>
 							<p className='text-xl'>
 								Please confirm the validity of your email address
 							</p>
@@ -88,8 +86,8 @@ function Verified() {
 								className='text-[#A9A9A9]'
 							/>
 							<p className='text-[#A9A9A9] text-sm'>
-								We are needing of your verification to avoid duplication of
-								accounts and for security measures.
+								We are needing of your verification to avoid duplication of accounts and
+								for security measures.
 							</p>
 						</div>
 					</div>
@@ -104,15 +102,13 @@ function Verified() {
 							{email}
 						</p>
 						<p className='text-[#777777]'>
-							Didn’t receive the email? Please check your spam folder or try to
-							resend the email
+							Didn’t receive the email? Please check your spam folder or try to resend
+							the email
 						</p>
 						<div className='flex flex-row gap-4 items-center mt-10'>
 							<button
 								className={`bg-primary py-2 px-4 rounded-md text-white hover:bg-[#0032a8] duration-200 ${
-									isClicked &&
-									timer != 0 &&
-									"disabled:cursor-not-allowed bg-[#6b90e5]"
+									isClicked && timer != 0 && "disabled:cursor-not-allowed bg-[#6b90e5]"
 								}`}
 								disabled={isClicked}
 								onClick={resendVerification}>

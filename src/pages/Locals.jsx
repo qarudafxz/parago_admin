@@ -44,6 +44,8 @@ function Locals() {
 		if (!localStorage.getItem("token")) {
 			navigate("/");
 		}
+
+		document.title = "Locals | Parago Admin";
 	}, []);
 
 	return (

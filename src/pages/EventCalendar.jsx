@@ -42,6 +42,8 @@ function EventCalendar() {
 
 	useEffect(() => {
 		fetchEvents();
+
+		document.title = "Calendar | Parago Admin";
 	}, []);
 
 	return (

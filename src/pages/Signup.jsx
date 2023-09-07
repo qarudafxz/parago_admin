@@ -94,6 +94,7 @@ function Home() {
 	};
 
 	useEffect(() => {
+		document.title = "Sign up | Parago Admin";
 		if (message) {
 			setTimeout(() => {
 				setMessage("");

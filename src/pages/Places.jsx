@@ -111,6 +111,8 @@ function Places() {
 			navigate("/");
 		}
 
+		document.title = "Places | Parago Admin";
+
 		return () => {
 			window.removeEventListener("keydown", handleCancelCreateEvent);
 			window.removeEventListener("keydown", handleCreateEvent);

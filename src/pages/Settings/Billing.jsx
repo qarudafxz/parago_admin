@@ -8,6 +8,8 @@ function Billing() {
 		if (!localStorage.getItem("token")) {
 			navigate("/");
 		}
+
+		document.title = "Billing | Parago Admin";
 	}, []);
 	return <div>Billing</div>;
 }

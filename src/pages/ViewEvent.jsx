@@ -42,6 +42,12 @@ function ViewEvent() {
 		}
 	}, []);
 
+	useEffect(() => {
+		if (event) {
+			document.title = `${event?.eventName} | Parago Admin`;
+		}
+	}, [event]);
+
 	return (
 		<>
 			<div

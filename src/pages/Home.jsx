@@ -103,25 +103,9 @@ function Home() {
 	}, [isEmailValid, isPasswordValid]);
 
 	useEffect(() => {
-		// if (window.google) {
-		// 	google.accounts.id.initialize({
-		// 		client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-		// 		callback: handleGoogleLogin,
-		// 	});
-
-		// 	google.accounts.id.renderButton(document.getElementById("googleLoginBtn"), {
-		// 		theme: "outline",
-		// 		size: "large",
-		// 		text: "continue_width",
-		// 		shape: "rectangular",
-		// 		width: "1000px",
-		// 		height: "50",
-		// 		longtitle: "true",
-		// 	});
-		// }
+		document.title = "Parago Admin";
 
 		if (
-			typeof localStorage.getItem("token") != null &&
 			localStorage.getItem("token") != null &&
 			localStorage.getItem("isAuthenticated")
 		) {
