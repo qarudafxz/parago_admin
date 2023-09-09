@@ -269,7 +269,7 @@ function ViewEvent() {
 					</div>
 					<div>
 						<Itinerary
-							itineraries={event.locations}
+							itineraries={event.itineraries}
 							isLoaded={isLoaded}
 						/>
 					</div>
