@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams, Link } from "react-router-dom";
 import { buildUrl } from "../utils/buildUrl";
-
 import { HiOutlineLocationMarker, HiSun } from "react-icons/hi";
 import { FaUsers, FaSearchLocation } from "react-icons/fa";
 import { BsMoonStarsFill } from "react-icons/bs";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { motion } from "framer-motion";
 
 import { Skeleton } from "@mui/material";
 
@@ -71,11 +72,20 @@ function ViewEvent() {
 					)}
 					<div className='absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-primary'></div>
 				</div>
-				<Link
-					to='/events'
-					className='pl-16 pt-16'>
-					← Events
-				</Link>
+				<div className='flex items-center px-16 py-4'>
+					<motion.div
+						whileHover={{
+							initial: { x: 0 },
+							x: -9.5,
+						}}>
+						<Link
+							to='/events'
+							className='cursor-pointer'>
+							<AiOutlineArrowLeft size={25} />
+						</Link>
+					</motion.div>
+					<h1 className='font-semibold text-xl'>Events</h1>
+				</div>
 				<div className='flex flex-row p-16 gap-6'>
 					<div className='flex flex-col w-6/12 gap-7'>
 						{isLoaded ? (
