@@ -4,13 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion, AnimatePresence } from "framer-motion";
-
 import { buildUrl } from "../utils/buildUrl.js";
 import { getAdminId } from "../helpers/getAdminId.js";
-
 import { AiOutlineCloseCircle } from "react-icons/ai";
-
 import DescCounter from "./DescCounter.jsx";
+import { ImCloudUpload } from "react-icons/im";
+import { BsFillImageFill } from "react-icons/bs";
 
 function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 	const inputRef = useRef(null);
@@ -23,6 +22,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 	const [nights, setNights] = useState(0);
 	const [days, setDays] = useState(0);
 	const [myProfile, setMyProfile] = useState({});
+	const [image, setImage] = useState(null);
 	const navigate = useNavigate();
 
 	const fetchProfile = async () => {
@@ -110,6 +110,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 			capacity,
 			nights,
 			days,
+			image,
 		};
 
 		navigate("/itineraries", { state: { eventData } });
@@ -169,18 +170,42 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 									<AiOutlineCloseCircle size={40} />
 								</button>
 							</div>
-							<div className='flex flex-row justify-between gap-6'>
-								<label
-									htmlFor='image'
-									className='text-2xl font-bold'>
-									Event Cover Image
-								</label>
-								<input
-									type='file'
-									name='image'
-									id='image'
-								/>
+							<div className='p-4 grid place-items-center justify-center border border-zinc-300 rounded-md shadow-lg'>
+								<div className='flex flex-col items-center'>
+									{image ? (
+										<div className=''>
+											<BsFillImageFill
+												size={40}
+												className='mx-auto text-primary'
+											/>
+											<h1 className='font-semibold mt-2'>{image.name}</h1>
+										</div>
+									) : (
+										<label
+											htmlFor='image'
+											className='cursor-pointer'>
+											<ImCloudUpload
+												size={40}
+												className='text-primary mx-auto'
+											/>
+											<p className='text-sm text-zinc-600 mt-2 text-center'>
+												Click to Upload an Image
+											</p>
+											<p className='text-xs text-zinc-400 text-center'>
+												Image must be less than 10mb and in .jpg or .png format
+											</p>
+										</label>
+									)}
+									<input
+										type='file'
+										name='image'
+										id='image'
+										className='hidden'
+										onChange={(e) => setImage(e.target.files[0])}
+									/>
+								</div>
 							</div>
+
 							<input
 								type='text'
 								placeholder='Event Name'
@@ -192,7 +217,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 								type='text'
 								placeholder='Event Description (Maximum of 255 Characters only)'
 								onChange={(e) => setEventDesc(e.target.value)}
-								className='py-2 pl-4 outline outline-slate-400 h-48 resize-none focus:outline-none rounded-sm focus:border-[2px] border-primary'
+								className='py-2 pl-4 outline outline-slate-400 h-36 resize-none focus:outline-none rounded-sm focus:border-[2px] border-primary'
 							/>
 							<DescCounter desc={eventDesc} />
 							<input

@@ -77,46 +77,70 @@ function Itineraries() {
 			.getItem("muni")
 			.replace("Municipality of ", "");
 
-		try {
-			const res = await fetch(buildUrl("/event/create-event"), {
-				method: "POST",
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem("token")}`,
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					creatorID: adminID,
-					eventName: eventData.eventName,
-					eventDesc: eventData.eventDesc,
-					eventAddr: eventData.eventAddr,
-					municipality,
-					price: eventData.price,
-					capacity: eventData.capacity,
-					dateStart: destinations[0].date,
-					dateEnd: destinations[destinations.length - 1].date,
-					nights: eventData.nights,
-					days: eventData.days,
-					itineraries: [...destinations],
-				}),
-			});
+		//upload image first to cloudinary and grab the url
+		//but check the image first if the size is greater than 10mb
 
-			if (res.ok) {
-				setProgress(100);
-				setTimeout(() => {
-					navigate("/events");
-				}, 1000);
-			}
-
-			if (!res.ok || res.status >= 401) {
-				(async function () {
-					const data = await res.json();
-					toaster("error", data.message);
-				})();
-				setProgress(100);
-			}
-		} catch (err) {
-			console.error(err);
+		if (eventData.image.size > 10000000) {
+			toaster("error", "Image size is too large!");
+			return;
 		}
+
+		//upload image first
+		const formData = new FormData();
+		formData.append("file", eventData.image);
+		formData.append("upload_preset", "h9l8qww3");
+		formData.append("cloud_name", "dtx6mxhty");
+
+		fetch("https://api.cloudinary.com/v1_1/dtx6mxhty/image/upload", {
+			method: "POST",
+			body: formData,
+		}).then(async (res) => {
+			const data = await res.json();
+			if (res.ok || res.status === 200) {
+				const imageUrl = data.url;
+				try {
+					const res = await fetch(buildUrl("/event/create-event"), {
+						method: "POST",
+						headers: {
+							Authorization: `Bearer ${localStorage.getItem("token")}`,
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							creatorID: adminID,
+							eventName: eventData.eventName,
+							eventDesc: eventData.eventDesc,
+							eventAddr: eventData.eventAddr,
+							municipality,
+							price: eventData.price,
+							capacity: eventData.capacity,
+							dateStart: destinations[0].date,
+							dateEnd: destinations[destinations.length - 1].date,
+							nights: eventData.nights,
+							days: eventData.days,
+							itineraries: [...destinations],
+							imageUrl,
+						}),
+					});
+
+					if (res.ok) {
+						setProgress(100);
+						setTimeout(() => {
+							navigate("/events");
+						}, 1000);
+					}
+
+					if (!res.ok || res.status >= 401) {
+						(async function () {
+							const data = await res.json();
+							toaster("error", data.message);
+						})();
+						setProgress(100);
+					}
+				} catch (err) {
+					console.error(err);
+				}
+			}
+		});
 	};
 
 	const handleAddLocation = () => {
@@ -195,7 +219,7 @@ function Itineraries() {
 							locName: "",
 							locDesc: "",
 							type: "",
-							desc: itinerary,
+							itinerary: itinerary,
 							date: "",
 							eventStart: "",
 							eventEnd: "",
@@ -234,15 +258,12 @@ function Itineraries() {
 							};
 						}),
 					]);
-					console.log(data);
 				}
 			})
 			.catch((err) => {
 				console.error(err);
 			});
 	};
-
-	console.log(places);
 
 	useEffect(() => {
 		getPlaces();
@@ -384,9 +405,11 @@ function Itineraries() {
 											type='text'
 											placeholder='Itinerary'
 											name='desc'
-											value={_location.desc}
+											value={_location.itinerary}
 											className='text-lg border border-zinc-300 p-2'
-											onChange={(e) => handleSetLocation(index, "desc", e.target.value)}
+											onChange={(e) => {
+												handleSetLocation(index, "itinerary", e.target.value);
+											}}
 										/>
 										<div>
 											<p>Date: </p>

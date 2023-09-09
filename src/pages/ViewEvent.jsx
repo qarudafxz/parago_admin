@@ -53,10 +53,23 @@ function ViewEvent() {
 			<div
 				className='w-full flex flex-col pb-10 customScroll'
 				style={{ height: "100vh", overflow: "auto" }}>
-				<div className='w-full bg-secondary h-80'>
-					<h1 className='text-center m-auto text-white font-bold text-7xl mt-20'>
-						Event Cover Here
-					</h1>
+				{/* Clip the image in the parent div with size 46 */}
+
+				<div className='relative h-96 w-full'>
+					{isLoaded ? (
+						<img
+							src={event?.imageUrl}
+							alt='event'
+							className='object-cover h-full w-full'
+						/>
+					) : (
+						<Skeleton
+							variant='rectangular'
+							width={"100%"}
+							height={360}
+						/>
+					)}
+					<div className='absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-primary'></div>
 				</div>
 				<Link
 					to='/events'

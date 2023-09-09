@@ -5,6 +5,7 @@ import { Accom, Places } from "../models/Entities.js";
 import { OpenAI } from "openai";
 import dotenv from "dotenv";
 import { MongoClient, ObjectId } from "mongodb";
+// import { v2 as cloudinary } from "cloudinary";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ export const createEvent = async (req, res) => {
 		nights,
 		days,
 		itineraries,
+		imageUrl,
 	} = req.body;
 
 	try {
@@ -57,6 +59,7 @@ export const createEvent = async (req, res) => {
 			nights,
 			days,
 			itineraries,
+			imageUrl,
 		});
 
 		admin.eventsCreated += 1;
