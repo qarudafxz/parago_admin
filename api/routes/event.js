@@ -1,6 +1,4 @@
 import express from "express";
-import multer from "multer";
-import path from "path";
 
 import isAuthenticated from "../middlewares/isAuthenticated.js";
 import {
@@ -14,6 +12,7 @@ import {
 	getUpcomingEvent,
 	getTopEvent,
 	getBookers,
+	cancelBooking,
 	generateItineraries,
 	createPlace,
 	getPlaces,
@@ -21,24 +20,6 @@ import {
 
 const router = express.Router();
 
-//storage for images
-const storage = multer.diskStorage({
-	destination: (req, file, cb) => {
-		//store our file
-		cb(null, "../public/images");
-	},
-	filename: (req, file, cb) => {
-		cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
-	},
-});
-
-//assign storage to upload
-const upload = multer({ storage: storage });
-
-//test route for upload
-router.post("/upload", upload.single("file"), (req, res) => {
-	console.log(req.file);
-});
 //needs to be fixed
 router.post("/create-accoms/:id", createAccommodation);
 router.post("/create-event", isAuthenticated, createEvent);
@@ -54,6 +35,7 @@ router.get("/get-bookers/:id", getBookers);
 router.get("/get-places/:id", getPlaces);
 
 router.delete("/delete-event/:id", isAuthenticated, deleteEvent);
+router.delete("/cancel-booking/:id", isAuthenticated, cancelBooking);
 
 router.put("/check-event/:id", isAuthenticated, checkEventIfDone);
 

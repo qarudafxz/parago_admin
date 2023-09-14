@@ -7,10 +7,13 @@ import "react-dropdown/style.css";
 import { toaster } from "../helpers/toaster.js";
 import { getAdminId } from "../helpers/getAdminId.js";
 import { RiUserSmileLine } from "react-icons/ri";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { motion } from "framer-motion";
 
 function Bookings() {
 	const [event, setEvent] = useState([]);
 	const [selectedEvent, setSelectedEvent] = useState(null);
+	const [cancelSuccess, setCancelSuccess] = useState(true);
 	const [bookers, setBookers] = useState([]);
 	const [progress, setProgress] = useState(0);
 	const adminID = getAdminId();
@@ -40,6 +43,27 @@ function Bookings() {
 		}
 	};
 
+	const cancelBooking = async (bookerID) => {
+		setCancelSuccess(false);
+		await fetch(buildUrl(`/event/cancel-booking/${bookerID}`), {
+			method: "DELETE",
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+				"Content-Type": "application/json",
+			},
+		}).then(async (res) => {
+			if (res.ok || res.status === 200) {
+				const data = await res.json();
+				setProgress(100);
+				setCancelSuccess(true);
+				toaster("success", data.message);
+				setTimeout(() => {
+					getBookers();
+				}, 500);
+			}
+		});
+	};
+
 	const getBookers = async () => {
 		if (!selectedEvent) {
 			toaster("error", "Please select an event to view bookers");
@@ -58,7 +82,6 @@ function Bookings() {
 			).then(async (res) => {
 				if (res.ok || res.status === 200) {
 					const data = await res.json();
-					console.log(data);
 					setBookers(data.formatBooking);
 					toaster("success", data.message);
 					setProgress(100);
@@ -149,8 +172,25 @@ function Bookings() {
 										<td>{book.totalBookings}</td>
 										<td>{book.totalPayment}</td>
 										<td>
-											<button className='bg-[#e61e1e] font-bold text-white py-2 rounded-full px-2'>
-												Cancel Booking
+											<button
+												onClick={() => cancelBooking(book.id)}
+												className={`bg-red-500 text-white shadow-md rounded-full text-sm text-center px-4 py-2 ${
+													!cancelSuccess && "disabled opacity-95 cursor-not-allowed"
+												}`}>
+												{cancelSuccess ? (
+													"Cancel Booking"
+												) : (
+													<span className='flex gap-4 items-center text-white'>
+														<motion.div
+															animate={{
+																rotate: 360,
+															}}
+															transition={{ repeat: Infinity, duration: 0.4, ease: "linear" }}>
+															<AiOutlineLoading3Quarters size={15} />
+														</motion.div>
+														<p>Cancelling...</p>
+													</span>
+												)}
 											</button>
 										</td>
 									</tr>

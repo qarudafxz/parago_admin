@@ -9,6 +9,14 @@ import { MongoClient, ObjectId } from "mongodb";
 
 dotenv.config();
 
+const initMongoClient = async () => {
+	const client = await MongoClient.connect(process.env.VITE_ANOTHER_MONGO_URI, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	});
+	return client;
+};
+
 export const createEvent = async (req, res) => {
 	const {
 		creatorID,
@@ -345,14 +353,6 @@ export const getTopEvent = async (req, res) => {
 	@returns a promise with a status of 200 that the bookers have finally fetched from the other collection
 */
 export const getBookers = async (req, res) => {
-	const initMongoClient = async () => {
-		const client = await MongoClient.connect(process.env.VITE_ANOTHER_MONGO_URI, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-		});
-		return client;
-	};
-
 	try {
 		const client = await initMongoClient();
 		const db = client.db("paraGO");
@@ -373,6 +373,7 @@ export const getBookers = async (req, res) => {
 
 		const formatBooking = filterBookings.map((booking) => {
 			return {
+				id: booking._id,
 				userID: booking.userID,
 				name: booking.firstName + " " + booking.lastName,
 				phone: booking.phone,
@@ -391,6 +392,28 @@ export const getBookers = async (req, res) => {
 	}
 };
 
+export const cancelBooking = async (req, res) => {
+	console.log(req.params.id);
+	try {
+		const client = await initMongoClient();
+		const db = client.db("paraGO");
+		const bookingID = new ObjectId(req.params.id);
+		const booker = await db
+			.collection("userbookings")
+			.findOneAndDelete({ _id: bookingID });
+
+		if (!booker) {
+			return res.status(400).json({ message: "No bookings found in this event" });
+		}
+
+		return res
+			.status(200)
+			.json({ message: "Booking successfully cancelled", booker });
+	} catch (err) {
+		console.error(err);
+		return res.status(500).json({ message: "Server error" });
+	}
+};
 /*
 
 
