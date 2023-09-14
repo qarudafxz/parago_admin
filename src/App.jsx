@@ -43,7 +43,8 @@ import Pam from "../src/assets/pam.webp";
 
 function App() {
 	const [loading, setLoading] = useState(true);
-	const [showGreetings, setShowGreetings] = useState(false); // Add this line
+	const [showGreetings, setShowGreetings] = useState(false);
+	const [isAnimating, setIsAnimating] = useState(true);
 
 	useEffect(() => {
 		demoAsyncCall().then(() => setLoading(false));
@@ -108,22 +109,26 @@ function App() {
 								)}
 							</AnimatePresence>
 							<motion.div
-								animate={{ y: [0, 10, 0] }}
-								transition={{ duration: 1, repeat: Infinity }}
+								animate={isAnimating ? { y: [0, 10, 0] } : {}}
+								transition={isAnimating ? { duration: 1, repeat: Infinity } : {}}
 								className='w-24 h-24 absolute bottom-6 right-10 '>
 								<motion.img
 									initial={{ opacity: 0, scale: 0.5 }}
 									animate={{ opacity: 1, scale: 1 }}
-									transition={{
-										duration: 0.8,
-										delay: 0.4,
-										ease: [0, 0.71, 0.2, 1.01],
-									}}
+									transition={
+										isAnimating && {
+											duration: 0.8,
+											delay: 0.4,
+											ease: [0, 0.71, 0.2, 1.01],
+										}
+									}
 									onMouseEnter={() => {
 										setShowGreetings(true);
+										setIsAnimating(false);
 									}}
 									onMouseLeave={() => {
 										setShowGreetings(false);
+										setIsAnimating(true);
 									}}
 									src={Pam}
 									alt='Pam the pint-sized voyager'
