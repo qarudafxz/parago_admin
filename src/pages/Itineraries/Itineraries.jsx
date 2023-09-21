@@ -78,9 +78,9 @@ function Itineraries() {
 			.replace("Municipality of ", "");
 
 		//upload image first to cloudinary and grab the url
-		//but check the image first if the size is greater than 10mb
+		//but check the image first if the size is greater than 3mb
 
-		if (eventData.image.size > 10000000) {
+		if (eventData.image.size > 3000000) {
 			toaster("error", "Image size is too large!");
 			return;
 		}

@@ -10,6 +10,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import DescCounter from "./DescCounter.jsx";
 import { ImCloudUpload } from "react-icons/im";
 import { BsFillImageFill } from "react-icons/bs";
+import { toaster } from "../helpers/toaster.js";
 
 function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 	const inputRef = useRef(null);
@@ -99,6 +100,11 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 				progress: undefined,
 				theme: "light",
 			});
+			return;
+		}
+
+		if (image.size > 3000000) {
+			toaster("error", "Image size is too large!");
 			return;
 		}
 
@@ -192,7 +198,7 @@ function CreateEvent({ isCreateEvent, setIsCreateEvent }) {
 												Click to Upload an Image
 											</p>
 											<p className='text-xs text-zinc-400 text-center'>
-												Image must be less than 10mb and in .jpg or .png format
+												Image must be less than or equal to 3mb and in .jpg or .png format
 											</p>
 										</label>
 									)}
