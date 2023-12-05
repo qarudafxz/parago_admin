@@ -204,6 +204,14 @@ export const verifyEmail = async (req, res) => {
 
 		if (!admin) return res.status(404).json({ message: "Email does not exist" });
 
+		//find first if there is an existing token
+
+		const admin_verification_token = await Token.findOne({ userId: admin._id });
+
+		if (admin_verification_token) {
+			await admin_verification_token.deleteOne();
+		}
+
 		const TOKEN = new Token({
 			userId: admin._id,
 			token: uuidv4(),
