@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Security() {
@@ -11,7 +11,15 @@ function Security() {
 
 		document.title = "Security | Parago Admin";
 	}, []);
-	return <div>Security</div>;
+
+	return (
+		<div className='w-full'>
+			<h1>Security</h1>
+			<div className='flex flex-col gap-2'>
+				<p>Hello</p>
+			</div>
+		</div>
+	);
 }
 
 export default Security;

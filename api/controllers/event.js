@@ -513,9 +513,8 @@ export const generateItineraries = async (req, res) => {
 
 //Create place
 export const createPlace = async (req, res) => {
-	const { creatorID, name, desc, address, placeType } = req.body;
+	const { creatorID, image, name, desc, address, placeType } = req.body;
 
-	console.log(creatorID, name, desc, address, placeType);
 	try {
 		const place = await Places.findOne({ name });
 
@@ -524,6 +523,7 @@ export const createPlace = async (req, res) => {
 		}
 		const newPlace = new Places({
 			creatorID,
+			image,
 			name,
 			desc,
 			address,

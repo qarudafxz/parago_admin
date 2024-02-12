@@ -4,14 +4,12 @@ import React from "react";
 import { LOCATION_TYPE } from "../data/Icons";
 import { SlLocationPin } from "react-icons/sl";
 import { Skeleton } from "@mui/material";
-import places from "../data/places.json";
 
 export const PlacesCard = ({ ...props }) => {
 	return (
 		<div className='mt-6 grid grid-cols-4 gap-2 overflow-y-auto md:max-h-42 xl:max-h-xlEvents pb-32'>
 			{props.places?.places?.length > 0 &&
 				props.places?.places?.map((place) => {
-					const randomPlaceImg = places[Math.floor(Math.random() * places.length)];
 					return (
 						<div
 							key={place._id}
@@ -24,7 +22,7 @@ export const PlacesCard = ({ ...props }) => {
 								/>
 							) : (
 								<img
-									src={randomPlaceImg.img}
+									src={place.image}
 									alt={place.name}
 									className='w-full h-24 object-cover rounded-md'
 								/>

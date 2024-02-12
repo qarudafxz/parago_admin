@@ -64,6 +64,7 @@ export const Accom = mongoose.model(accomCollectionName, AccomSchema);
 
 const PlacesSchema = new mongoose.Schema({
 	creatorID: { type: mongoose.Schema.Types.ObjectId, refs: "admins" },
+	image: { type: String, required: true },
 	name: { type: String, required: true },
 	desc: { type: String, required: true },
 	address: { type: String, required: true },

@@ -35,22 +35,42 @@ function Places() {
 		}
 	};
 
-	const addNewPlace = async (name, desc, address, placeType) => {
-		if (
-			typeof name === "undefined" ||
-			typeof desc === "undefined" ||
-			typeof address === "undefined" ||
-			typeof placeType === "undefined"
-		) {
-			toaster("error", "Please fill out all the fields!");
-			return;
-		}
-
-		const URL = import.meta.env.DEV
-			? "http://localhost:3001/api/event/add-place"
-			: "/api/event/add-place";
-
+	const addNewPlace = async (image, name, desc, address, placeType) => {
 		try {
+			// Check if any required field is undefined
+			if (
+				[image, name, desc, address, placeType].some(
+					(field) => typeof field === "undefined"
+				)
+			) {
+				toaster("error", "Please fill out all the fields!");
+				return;
+			}
+
+			// Upload image to Cloudinary
+			const cloudinaryFormData = new FormData();
+			cloudinaryFormData.append("file", image);
+			cloudinaryFormData.append("upload_preset", "h9l8qww3");
+			cloudinaryFormData.append("cloud_name", "dtx6mxhty");
+			const cloudinaryRes = await fetch(
+				"https://api.cloudinary.com/v1_1/dtx6mxhty/image/upload",
+				{
+					method: "POST",
+					body: cloudinaryFormData,
+				}
+			);
+			if (!cloudinaryRes.ok) {
+				const cloudinaryData = await cloudinaryRes.json();
+				toaster("error", cloudinaryData.message);
+				return;
+			}
+			const cloudinaryData = await cloudinaryRes.json();
+			const imageUrl = cloudinaryData?.url;
+
+			// Add place to the database
+			const URL = import.meta.env.DEV
+				? "http://localhost:3001/api/event/add-place"
+				: "/api/event/add-place";
 			const res = await fetch(URL, {
 				method: "POST",
 				headers: {
@@ -59,24 +79,25 @@ function Places() {
 				},
 				body: JSON.stringify({
 					creatorID: adminID,
+					image: imageUrl,
 					name,
 					desc,
 					address,
 					placeType,
 				}),
 			});
-
 			if (!res.ok) {
 				const data = await res.json();
 				toaster("error", data.message);
-			} else {
-				const data = await res.json();
-				toaster("success", data.message);
-				setAddPlace(false);
-				fetchPlaces();
+				return;
 			}
+			const data = await res.json();
+			toaster("success", data.message);
+			setAddPlace(false);
+			fetchPlaces();
 		} catch (err) {
 			console.error(err);
+			toaster("error", "An error occurred while adding the place.");
 		}
 	};
 

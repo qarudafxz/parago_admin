@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { buildUrl } from "../utils/buildUrl";
-// import { handleGoogleLogin } from "../helpers/handleGoogleLogin";
 
 import pic from "../assets/enchanted.jpg";
 import logo from "../assets/logo.png";
